@@ -1,0 +1,246 @@
+{
+  "projectType": "cli-tool",
+  "projectName": "Antigravity Kit",
+  "projectDescription": "AI agent templates with skills, agents, and workflows for enhanced coding assistance in AI-powered editors",
+  "theme": "aspen",
+  "primaryColor": "#458be3",
+  "lightColor": "#b1688d",
+  "darkColor": null,
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Documentation",
+        "groups": [
+          {
+            "group": "Get Started",
+            "pages": [
+              "introduction",
+              "installation",
+              "quickstart"
+            ]
+          },
+          {
+            "group": "CLI Commands",
+            "pages": [
+              "cli/init",
+              "cli/update",
+              "cli/status"
+            ]
+          },
+          {
+            "group": "Core Concepts",
+            "pages": [
+              "concepts/agents",
+              "concepts/skills",
+              "concepts/workflows",
+              "concepts/architecture"
+            ]
+          },
+          {
+            "group": "Usage Guide",
+            "pages": [
+              "guide/using-agents",
+              "guide/slash-commands",
+              "guide/best-practices"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Agents",
+        "groups": [
+          {
+            "group": "Coordination",
+            "pages": [
+              "agents/orchestrator",
+              "agents/project-planner",
+              "agents/product-manager",
+              "agents/product-owner"
+            ]
+          },
+          {
+            "group": "Development",
+            "pages": [
+              "agents/frontend-specialist",
+              "agents/backend-specialist",
+              "agents/mobile-developer",
+              "agents/game-developer",
+              "agents/database-architect"
+            ]
+          },
+          {
+            "group": "Quality Assurance",
+            "pages": [
+              "agents/test-engineer",
+              "agents/qa-automation-engineer",
+              "agents/debugger",
+              "agents/performance-optimizer",
+              "agents/code-archaeologist"
+            ]
+          },
+          {
+            "group": "Security & Operations",
+            "pages": [
+              "agents/security-auditor",
+              "agents/penetration-tester",
+              "agents/devops-engineer"
+            ]
+          },
+          {
+            "group": "Content & Discovery",
+            "pages": [
+              "agents/documentation-writer",
+              "agents/seo-specialist",
+              "agents/explorer-agent"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Skills",
+        "groups": [
+          {
+            "group": "Frontend",
+            "pages": [
+              "skills/nextjs-react-expert",
+              "skills/frontend-design",
+              "skills/tailwind-patterns",
+              "skills/web-design-guidelines"
+            ]
+          },
+          {
+            "group": "Backend",
+            "pages": [
+              "skills/api-patterns",
+              "skills/nodejs-best-practices",
+              "skills/python-patterns",
+              "skills/rust-pro"
+            ]
+          },
+          {
+            "group": "Database",
+            "pages": [
+              "skills/database-design"
+            ]
+          },
+          {
+            "group": "Testing & Quality",
+            "pages": [
+              "skills/testing-patterns",
+              "skills/tdd-workflow",
+              "skills/webapp-testing",
+              "skills/code-review-checklist",
+              "skills/clean-code",
+              "skills/lint-and-validate"
+            ]
+          },
+          {
+            "group": "DevOps & Deployment",
+            "pages": [
+              "skills/deployment-procedures",
+              "skills/server-management"
+            ]
+          },
+          {
+            "group": "Security",
+            "pages": [
+              "skills/vulnerability-scanner",
+              "skills/red-team-tactics"
+            ]
+          },
+          {
+            "group": "Optimization",
+            "pages": [
+              "skills/performance-profiling",
+              "skills/seo-fundamentals",
+              "skills/geo-fundamentals"
+            ]
+          },
+          {
+            "group": "Platform & Tools",
+            "pages": [
+              "skills/bash-linux",
+              "skills/powershell-windows",
+              "skills/mobile-design",
+              "skills/game-development",
+              "skills/i18n-localization",
+              "skills/mcp-builder"
+            ]
+          },
+          {
+            "group": "Planning & Architecture",
+            "pages": [
+              "skills/brainstorming",
+              "skills/plan-writing",
+              "skills/architecture",
+              "skills/app-builder",
+              "skills/systematic-debugging",
+              "skills/documentation-templates"
+            ]
+          },
+          {
+            "group": "Advanced",
+            "pages": [
+              "skills/parallel-agents",
+              "skills/behavioral-modes",
+              "skills/intelligent-routing"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Workflows",
+        "groups": [
+          {
+            "group": "Slash Commands",
+            "pages": [
+              "workflows/brainstorm",
+              "workflows/create",
+              "workflows/debug",
+              "workflows/enhance",
+              "workflows/plan",
+              "workflows/test",
+              "workflows/deploy",
+              "workflows/preview",
+              "workflows/status",
+              "workflows/orchestrate",
+              "workflows/ui-ux-pro-max"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "keyFeatures": [
+    "20 specialist AI agent personas for different development domains",
+    "37 domain-specific skills that load on-demand based on task context",
+    "11 slash command workflows for complex multi-step tasks",
+    "Automatic agent selection based on request analysis",
+    "CLI tool for easy installation and updates",
+    "Validation scripts for security, quality, and performance",
+    "Multi-agent orchestration for full-stack features",
+    "Integration with AI-powered editors like Cursor and Windsurf"
+  ],
+  "publicApiSurface": [
+    "ag-kit init - Install .agent folder into your project",
+    "ag-kit update - Update to the latest version",
+    "ag-kit status - Check installation status",
+    "/brainstorm - Explore options before implementation",
+    "/create - Create new features or apps",
+    "/debug - Systematic debugging workflow",
+    "/deploy - Deploy application",
+    "/enhance - Improve existing code",
+    "/orchestrate - Multi-agent coordination",
+    "/plan - Create task breakdown",
+    "/preview - Preview changes locally",
+    "/status - Check project status",
+    "/test - Generate and run tests",
+    "/ui-ux-pro-max - Design with 50 styles",
+    "@orchestrator - Multi-agent coordination agent",
+    "@frontend-specialist - Web UI/UX specialist",
+    "@backend-specialist - API and business logic expert",
+    "@security-auditor - Security compliance specialist",
+    "@test-engineer - Testing strategies expert",
+    "@debugger - Root cause analysis specialist"
+  ]
+}
