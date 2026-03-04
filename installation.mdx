@@ -1,0 +1,174 @@
+---
+title: "Installation"
+description: "How to install Antigravity Kit in your project"
+---
+
+# Installation
+
+Antigravity Kit can be installed using npm or npx. The installation process adds the `.agent` folder containing all templates to your project.
+
+## Installation Methods
+
+<Tabs>
+  <Tab title="NPX (Recommended)">
+    Use npx to install without adding a global package:
+
+    <CodeGroup>
+    ```bash Terminal
+    npx @vudovn/ag-kit init
+    ```
+    </CodeGroup>
+
+    This command downloads and installs the `.agent` folder into your current directory.
+  </Tab>
+
+  <Tab title="Global Installation">
+    Install globally for repeated use across multiple projects:
+
+    <CodeGroup>
+    ```bash Install
+    npm install -g @vudovn/ag-kit
+    ```
+
+    ```bash Use
+    ag-kit init
+    ```
+    </CodeGroup>
+
+    After global installation, you can use the `ag-kit` command in any project directory.
+  </Tab>
+</Tabs>
+
+## What Gets Installed
+
+The installation creates a `.agent` folder in your project with the following structure:
+
+```plaintext
+.agent/
+├── ARCHITECTURE.md          # System documentation
+├── agents/                  # 20 Specialist Agents
+│   ├── frontend-specialist.md
+│   ├── backend-specialist.md
+│   ├── database-architect.md
+│   ├── security-auditor.md
+│   ├── debugger.md
+│   └── ... (15 more)
+├── skills/                  # 37 Skills
+│   ├── react-best-practices/
+│   ├── api-patterns/
+│   ├── database-design/
+│   ├── testing-patterns/
+│   └── ... (33 more)
+├── workflows/               # 11 Slash Commands
+│   ├── brainstorm.md
+│   ├── create.md
+│   ├── debug.md
+│   ├── deploy.md
+│   └── ... (7 more)
+├── rules/                   # Global Rules
+└── scripts/                 # Master Validation Scripts
+    ├── checklist.py
+    └── verify_all.py
+```
+
+## Installation Options
+
+The `ag-kit init` command supports several options:
+
+<CodeGroup>
+```bash Force overwrite
+ag-kit init --force
+```
+
+```bash Custom directory
+ag-kit init --path ./myapp
+```
+
+```bash Specific branch
+ag-kit init --branch dev
+```
+
+```bash Quiet mode (for CI/CD)
+ag-kit init --quiet
+```
+
+```bash Dry run (preview only)
+ag-kit init --dry-run
+```
+</CodeGroup>
+
+## Important: `.gitignore` Configuration
+
+<Warning>
+  If you are using AI-powered editors like **Cursor** or **Windsurf**, adding the `.agent/` folder to your `.gitignore` may prevent the IDE from indexing the workflows. This results in slash commands (like `/plan`, `/debug`) not appearing in the chat suggestion dropdown.
+</Warning>
+
+### Recommended Solution
+
+To keep the `.agent/` folder local (not tracked by Git) while maintaining AI functionality:
+
+<Steps>
+  <Step title="Remove from .gitignore">
+    Ensure `.agent/` is **NOT** in your project's `.gitignore` file.
+  </Step>
+  
+  <Step title="Add to local exclude">
+    Instead, add it to your local exclude file:
+    
+    ```bash
+    echo ".agent/" >> .git/info/exclude
+    ```
+    
+    This keeps the folder local without affecting other team members or requiring changes to the shared `.gitignore`.
+  </Step>
+</Steps>
+
+<Note>
+  The `.git/info/exclude` file works like `.gitignore` but is local to your repository clone and not shared with others.
+</Note>
+
+## Updating Antigravity Kit
+
+To update to the latest version:
+
+<CodeGroup>
+```bash Update command
+ag-kit update
+```
+
+```bash Check status
+ag-kit status
+```
+</CodeGroup>
+
+The `update` command pulls the latest templates from the repository and overwrites your `.agent` folder.
+
+## CLI Commands Reference
+
+| Command | Description |
+| --- | --- |
+| `ag-kit init` | Install `.agent` folder into your project |
+| `ag-kit update` | Update to the latest version |
+| `ag-kit status` | Check installation status |
+
+## Verification
+
+After installation, verify that the `.agent` folder exists:
+
+```bash
+ls -la .agent
+```
+
+You should see:
+- `agents/` directory with 20 agent files
+- `skills/` directory with 37 skill modules
+- `workflows/` directory with 11 workflow files
+- `scripts/` directory with validation scripts
+
+## Next Steps
+
+Now that you've installed Antigravity Kit, you're ready to start using it!
+
+<Card title="Quick Start Guide" icon="rocket" href="/quickstart">
+  Learn how to use agents, skills, and workflows in your development workflow
+</Card>

@@ -1,97 +1,206 @@
 ---
-title: "Introduction"
-description: "Welcome to the new home for your documentation"
+title: Antigravity Kit
+mode: custom
 ---
 
-## Setting up
+<div className="relative overflow-hidden dark:bg-[#000000] bg-white py-20">
+  <div className="absolute inset-0 bg-gradient-to-br from-[#458be3]/10 via-transparent to-[#b1688d]/10 dark:from-[#458be3]/20 dark:to-[#b1688d]/20"></div>
+  
+  <div className="relative max-w-6xl mx-auto px-6 lg:px-8">
+    <div className="grid lg:grid-cols-2 gap-12 items-center">
+      <div>
+        <h1 className="text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6">
+          AI Agent Templates for Enhanced Coding
+        </h1>
+        <p className="text-xl text-gray-600 dark:text-gray-400 mb-8 max-w-2xl">
+          Supercharge your AI-powered editor with 20 specialist agents, 37 domain-specific skills, and 11 powerful workflows. Install in seconds, code with expert assistance.
+        </p>
+        <div className="flex flex-wrap gap-4">
+          <a 
+            href="/quickstart" 
+            className="inline-flex items-center px-6 py-3 rounded-full bg-[#458be3] text-white font-semibold hover:bg-[#3a7ac9] transition-colors"
+          >
+            Get Started
+          </a>
+          <a 
+            href="/introduction" 
+            className="inline-flex items-center px-6 py-3 rounded-full border border-gray-300 dark:border-white/30 bg-white/10 dark:bg-white/10 text-gray-900 dark:text-white font-semibold hover:bg-gray-100 dark:hover:bg-white/20 transition-colors"
+          >
+            Learn More
+          </a>
+        </div>
+      </div>
+      
+      <div className="hidden lg:block">
+        <div className="rounded-2xl dark:bg-[#1a1d27] bg-gray-50 p-8 border dark:border-[#27272a] border-gray-200">
+          <pre className="text-sm text-gray-800 dark:text-gray-200">
+            <code>{`npx @vudovn/ag-kit init
 
-Get your documentation site up and running in minutes.
+✓ Installing .agent folder
+✓ 20 AI agents loaded
+✓ 37 skills configured
+✓ 11 workflows ready
 
-<Card
-  title="Start here"
-  icon="rocket"
-  href="/quickstart"
-  horizontal
->
-  Follow our three step quickstart guide.
-</Card>
+Ready to code with AI assistance!`}</code>
+          </pre>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
-## Make it yours
+<div className="mt-16 mb-16 max-w-5xl mx-auto px-6">
+  <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">Quick start</h2>
+  <p className="text-gray-600 dark:text-gray-400 mb-8">Get up and running with Antigravity Kit in minutes</p>
+  
+  <Steps>
+    <Step title="Install the CLI">
+      Install Antigravity Kit globally or run it directly with npx:
+      
+      ```bash npm
+      npm install -g @vudovn/ag-kit
+      ```
+      
+      ```bash npx
+      npx @vudovn/ag-kit init
+      ```
+      
+      This installs the `.agent` folder containing all templates into your project.
+    </Step>
+    
+    <Step title="Configure your editor">
+      Antigravity Kit works with AI-powered editors like **Cursor** and **Windsurf**.
+      
+      <Note>
+        To ensure slash commands appear in the chat suggestion dropdown, add `.agent/` to your local exclude file (`.git/info/exclude`) instead of `.gitignore`.
+      </Note>
+    </Step>
+    
+    <Step title="Start coding with AI agents">
+      Just describe what you need—agents are automatically selected based on your request:
+      
+      ```
+      You: "Add JWT authentication"
+      AI: 🤖 Applying @security-auditor + @backend-specialist...
+      ```
+      
+      Or use slash commands for complex workflows:
+      
+      ```
+      /create landing page with hero section
+      /debug why login fails
+      /test authentication flow
+      ```
+    </Step>
+  </Steps>
+</div>
 
-Design a docs site that looks great and empowers your users.
+<div className="mt-16 mb-16 max-w-5xl mx-auto px-6">
+  <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">Explore by topic</h2>
+  <p className="text-gray-600 dark:text-gray-400 mb-8">Discover the powerful features that make Antigravity Kit essential for AI-assisted development</p>
+  
+  <CardGroup cols={2}>
+    <Card title="AI Agents" icon="robot" href="/concepts/agents">
+      20 specialist AI personas for different development domains—from frontend and backend to security and testing.
+    </Card>
+    <Card title="Skills" icon="graduation-cap" href="/concepts/skills">
+      37 domain-specific knowledge modules that load on-demand based on task context.
+    </Card>
+    <Card title="Workflows" icon="diagram-project" href="/concepts/workflows">
+      11 slash command workflows for complex multi-step tasks like brainstorming, debugging, and deployment.
+    </Card>
+    <Card title="CLI Commands" icon="terminal" href="/cli/init">
+      Simple command-line interface for installation, updates, and status checks.
+    </Card>
+  </CardGroup>
+</div>
 
-<Columns cols={2}>
-  <Card
-    title="Edit locally"
-    icon="pen-to-square"
-    href="/development"
-  >
-    Edit your docs locally and preview them in real time.
-  </Card>
-  <Card
-    title="Customize your site"
-    icon="palette"
-    href="/essentials/settings"
-  >
-    Customize the design and colors of your site to match your brand.
-  </Card>
-    <Card
-    title="Set up navigation"
-    icon="map"
-    href="/essentials/navigation"
-  >
-    Organize your docs to help users find what they need and succeed with your product.
-  </Card>
-  <Card
-    title="API documentation"
-    icon="terminal"
-    href="/api-reference/introduction"
-  >
-    Auto-generate API documentation from OpenAPI specifications.
-  </Card>
-</Columns>
+<div className="mt-16 mb-16 max-w-5xl mx-auto px-6">
+  <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">Popular workflows</h2>
+  <p className="text-gray-600 dark:text-gray-400 mb-8">Master these powerful slash commands to streamline your development process</p>
+  
+  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <a href="/workflows/brainstorm" className="group block rounded-2xl border dark:border-[#27272a] border-gray-200 overflow-hidden no-underline dark:hover:border-[#458be3] hover:border-[#458be3] transition-colors dark:bg-[#1a1d27] bg-gray-50">
+      <div className="p-6">
+        <h3 className="text-base font-semibold text-gray-900 dark:text-white mb-2">/brainstorm</h3>
+        <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">Explore options before implementation with structured discovery</p>
+        <div className="flex items-center text-sm text-gray-500 dark:text-gray-500 group-hover:text-[#458be3] transition-colors">
+          Learn more
+          <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+          </svg>
+        </div>
+      </div>
+    </a>
+    
+    <a href="/workflows/create" className="group block rounded-2xl border dark:border-[#27272a] border-gray-200 overflow-hidden no-underline dark:hover:border-[#458be3] hover:border-[#458be3] transition-colors dark:bg-[#1a1d27] bg-gray-50">
+      <div className="p-6">
+        <h3 className="text-base font-semibold text-gray-900 dark:text-white mb-2">/create</h3>
+        <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">Create new features or apps with automated scaffolding</p>
+        <div className="flex items-center text-sm text-gray-500 dark:text-gray-500 group-hover:text-[#458be3] transition-colors">
+          Learn more
+          <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+          </svg>
+        </div>
+      </div>
+    </a>
+    
+    <a href="/workflows/debug" className="group block rounded-2xl border dark:border-[#27272a] border-gray-200 overflow-hidden no-underline dark:hover:border-[#458be3] hover:border-[#458be3] transition-colors dark:bg-[#1a1d27] bg-gray-50">
+      <div className="p-6">
+        <h3 className="text-base font-semibold text-gray-900 dark:text-white mb-2">/debug</h3>
+        <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">Systematic debugging with root cause analysis</p>
+        <div className="flex items-center text-sm text-gray-500 dark:text-gray-500 group-hover:text-[#458be3] transition-colors">
+          Learn more
+          <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+          </svg>
+        </div>
+      </div>
+    </a>
+    
+    <a href="/workflows/orchestrate" className="group block rounded-2xl border dark:border-[#27272a] border-gray-200 overflow-hidden no-underline dark:hover:border-[#458be3] hover:border-[#458be3] transition-colors dark:bg-[#1a1d27] bg-gray-50">
+      <div className="p-6">
+        <h3 className="text-base font-semibold text-gray-900 dark:text-white mb-2">/orchestrate</h3>
+        <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">Multi-agent coordination for complex full-stack features</p>
+        <div className="flex items-center text-sm text-gray-500 dark:text-gray-500 group-hover:text-[#458be3] transition-colors">
+          Learn more
+          <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+          </svg>
+        </div>
+      </div>
+    </a>
+  </div>
+</div>
 
-## Create beautiful pages
+<div className="mt-16 mb-16 max-w-5xl mx-auto px-6">
+  <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">Community</h2>
+  <p className="text-gray-600 dark:text-gray-400 mb-8">Get support and connect with other developers</p>
+  
+  <CardGroup cols={2}>
+    <Card title="GitHub" icon="github" href="https://github.com/vudovn/antigravity-kit">
+      Star the project, report issues, or contribute to the codebase.
+    </Card>
+    <Card title="Buy me coffee" icon="coffee" href="https://buymeacoffee.com/vudovn">
+      Support the project development and get new features faster.
+    </Card>
+  </CardGroup>
+</div>
 
-Everything you need to create world-class documentation.
-
-<Columns cols={2}>
-  <Card
-    title="Write with MDX"
-    icon="pen-fancy"
-    href="/essentials/markdown"
-  >
-    Use MDX to style your docs pages.
-  </Card>
-  <Card
-    title="Code samples"
-    icon="code"
-    href="/essentials/code"
-  >
-    Add sample code to demonstrate how to use your product.
-  </Card>
-  <Card
-    title="Images"
-    icon="image"
-    href="/essentials/images"
-  >
-    Display images and other media.
-  </Card>
-  <Card
-    title="Reusable snippets"
-    icon="recycle"
-    href="/essentials/reusable-snippets"
-  >
-    Write once and reuse across your docs.
-  </Card>
-</Columns>
-
-## Need inspiration?
-
-<Card
-  title="See complete examples"
-  icon="stars"
-  href="https://mintlify.com/customers"
->
-  Browse our showcase of exceptional documentation sites.
-</Card>
+<div className="mt-20 mb-16 max-w-5xl mx-auto px-6">
+  <div className="rounded-2xl dark:bg-[#1a1d27] bg-gray-50 p-8 md:p-12 border dark:border-[#27272a] border-gray-200">
+    <div className="max-w-3xl">
+      <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">Ready to get started?</h2>
+      <p className="text-lg text-gray-600 dark:text-gray-400 mb-6">
+        Install Antigravity Kit and transform your coding workflow with AI-powered agents.
+      </p>
+      <a 
+        href="/quickstart" 
+        className="inline-flex items-center px-6 py-3 rounded-full bg-[#458be3] text-white font-semibold hover:bg-[#3a7ac9] transition-colors"
+      >
+        Get Started Now
+      </a>
+    </div>
+  </div>
+</div>

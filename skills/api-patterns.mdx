@@ -1,0 +1,285 @@
+---
+title: API Patterns
+description: API design principles and decision-making for REST, GraphQL, and tRPC
+---
+
+<Note>
+This skill teaches API design principles and decision-making for 2025. Learn to THINK about API architecture, not copy fixed patterns.
+</Note>
+
+## What This Skill Provides
+
+The API Patterns skill provides comprehensive API design principles covering REST, GraphQL, and tRPC. It emphasizes context-driven decision-making over copying templates.
+
+### Core Knowledge Areas
+
+<CardGroup cols={2}>
+<Card title="API Style Selection" icon="route">
+Decision trees for choosing REST vs GraphQL vs tRPC based on use case and constraints
+</Card>
+
+<Card title="REST Design" icon="server">
+Resource naming, HTTP methods, status codes, and RESTful principles
+</Card>
+
+<Card title="Response Patterns" icon="file-code">
+Envelope patterns, error formats, pagination strategies, and consistency
+</Card>
+
+<Card title="Versioning" icon="code-branch">
+URI, header, and query parameter versioning strategies
+</Card>
+
+<Card title="Authentication" icon="lock">
+JWT, OAuth, Passkey, and API key patterns
+</Card>
+
+<Card title="Security" icon="shield">
+OWASP API Top 10, rate limiting, auth/authz testing
+</Card>
+</CardGroup>
+
+## When This Skill Is Loaded
+
+Agents load this skill when:
+
+- Designing API architectures
+- Choosing between REST, GraphQL, or tRPC
+- Defining API response formats
+- Planning API versioning strategies
+- Implementing authentication patterns
+- Setting up rate limiting
+- Documenting APIs (OpenAPI/Swagger)
+- Conducting security audits
+
+<Tip>
+The skill uses selective reading - agents only load files relevant to the specific API design question at hand.
+</Tip>
+
+## Use Cases
+
+### API Style Selection
+
+Decision framework for choosing the right API pattern:
+
+<CardGroup cols={3}>
+<Card title="REST" icon="server">
+**Use when:**
+- Public API
+- Broad compatibility needed
+- Simple CRUD operations
+- Caching is important
+- Standard HTTP semantics
+</Card>
+
+<Card title="GraphQL" icon="diagram">
+**Use when:**
+- Complex queries needed
+- Multiple client types
+- Flexible data fetching
+- Avoiding over/under-fetching
+- Real-time subscriptions
+</Card>
+
+<Card title="tRPC" icon="typescript">
+**Use when:**
+- TypeScript monorepo
+- Internal APIs
+- End-to-end type safety
+- Rapid development
+- Shared types across stack
+</Card>
+</CardGroup>
+
+### Response Format Design
+
+Consistent response structures:
+
+- **Success responses** - Standard data envelope
+- **Error responses** - Error codes, messages, details
+- **Pagination** - Offset, cursor, or page-based
+- **Metadata** - Request IDs, timestamps, versioning
+
+### Versioning Strategies
+
+| Method | Example | Use When |
+|--------|---------|----------|
+| **URI** | `/v1/users` | Breaking changes, clear separation |
+| **Header** | `Accept: application/vnd.api.v2+json` | Gradual migration |
+| **Query** | `/users?version=2` | Optional feature flags |
+
+### Authentication Patterns
+
+<CardGroup cols={2}>
+<Card title="JWT" icon="key">
+Stateless, scalable, good for microservices
+</Card>
+
+<Card title="OAuth 2.0" icon="users">
+Third-party authorization, social login
+</Card>
+
+<Card title="Passkey/WebAuthn" icon="fingerprint">
+Modern, passwordless, phishing-resistant
+</Card>
+
+<Card title="API Keys" icon="code">
+Simple, service-to-service authentication
+</Card>
+</CardGroup>
+
+## Key Principles
+
+### Decision Checklist
+
+<Note>
+Before designing an API:
+
+- [ ] **Asked user about API consumers?**
+- [ ] **Chosen API style for THIS context?** (REST/GraphQL/tRPC)
+- [ ] **Defined consistent response format?**
+- [ ] **Planned versioning strategy?**
+- [ ] **Considered authentication needs?**
+- [ ] **Planned rate limiting?**
+- [ ] **Documentation approach defined?**
+</Note>
+
+### REST Principles
+
+- **Resources, not actions** - Use nouns (`/users`), not verbs (`/getUsers`)
+- **HTTP methods semantics** - GET (read), POST (create), PUT/PATCH (update), DELETE (remove)
+- **Proper status codes** - 200 (OK), 201 (Created), 400 (Bad Request), 404 (Not Found), 500 (Server Error)
+- **Stateless** - Each request contains all necessary information
+- **Cacheable** - Use appropriate cache headers
+
+### GraphQL Principles
+
+- **Schema-first design** - Define types before implementation
+- **Resolver organization** - Separate data fetching logic
+- **N+1 prevention** - Use DataLoader for batching
+- **Authorization** - Check permissions in resolvers
+- **Depth limiting** - Prevent overly complex queries
+
+### tRPC Principles
+
+- **Type safety** - End-to-end TypeScript types
+- **Procedure organization** - Group related operations
+- **Middleware** - Authentication, logging, validation
+- **Context** - Share request data across procedures
+
+## Related Skills
+
+<CardGroup cols={2}>
+<Card title="Node.js Best Practices" href="/skills/nodejs-best-practices">
+Framework selection and async patterns
+</Card>
+
+<Card title="Python Patterns" href="/skills/python-patterns">
+FastAPI and Django API implementation
+</Card>
+
+<Card title="Rust Pro" href="/skills/rust-pro">
+High-performance API services with axum
+</Card>
+</CardGroup>
+
+## Which Agents Use This Skill
+
+<Card title="Backend Specialist" href="/agents/backend-specialist" icon="server">
+The Backend Specialist loads this skill for all API design and implementation work. It's used alongside runtime-specific skills (Node.js, Python, Rust) for implementation details.
+</Card>
+
+<Tip>
+The Backend Specialist combines this skill with `nodejs-best-practices`, `python-patterns`, or `rust-pro` depending on the chosen runtime and framework.
+</Tip>
+
+## Anti-Patterns to Avoid
+
+<Warning>
+**Don't:**
+- Default to REST for everything without considering alternatives
+- Use verbs in REST endpoints (`/getUsers`, `/createUser`)
+- Return inconsistent response formats
+- Expose internal errors to clients
+- Skip rate limiting
+- Forget to document APIs
+- Use GET requests for mutations
+- Return HTML errors for JSON APIs
+
+**Do:**
+- Choose API style based on context and requirements
+- Ask about client requirements before deciding
+- Document thoroughly (OpenAPI, GraphQL schema)
+- Use appropriate HTTP status codes
+- Validate all inputs at API boundary
+- Implement proper error handling
+- Plan for versioning from the start
+</Warning>
+
+## Content Organization
+
+The skill contains detailed reference files:
+
+1. **api-style.md** - REST vs GraphQL vs tRPC decision tree
+2. **rest.md** - Resource naming, HTTP methods, status codes
+3. **response.md** - Envelope pattern, error format, pagination
+4. **graphql.md** - Schema design, when to use, security
+5. **trpc.md** - TypeScript monorepo, type safety patterns
+6. **versioning.md** - URI/Header/Query versioning strategies
+7. **auth.md** - JWT, OAuth, Passkey, API Keys
+8. **rate-limiting.md** - Token bucket, sliding window algorithms
+9. **documentation.md** - OpenAPI/Swagger best practices
+10. **security-testing.md** - OWASP API Top 10, testing strategies
+
+<Tip>
+Agents load only the relevant files based on the specific API design question or task.
+</Tip>
+
+## Validation Script
+
+<Card title="API Validator" icon="check">
+The skill includes an API endpoint validation script:
+
+```bash
+python scripts/api_validator.py <project_path>
+```
+
+Automatically checks API implementations for common issues and best practice violations.
+</Card>
+
+## Security Considerations
+
+### OWASP API Security Top 10
+
+- Broken object level authorization
+- Broken authentication
+- Broken object property level authorization
+- Unrestricted resource consumption
+- Broken function level authorization
+- Unrestricted access to sensitive flows
+- Server-side request forgery
+- Security misconfiguration
+- Improper inventory management
+- Unsafe consumption of APIs
+
+<Note>
+All API designs should consider these security risks from the start, not as an afterthought.
+</Note>
+
+## Rate Limiting Patterns
+
+<CardGroup cols={2}>
+<Card title="Token Bucket" icon="bucket">
+Allows bursts, smooth traffic over time. Good for APIs with variable load.
+</Card>
+
+<Card title="Sliding Window" icon="window">
+Precise rate limiting, no burst allowance. Good for strict rate control.
+</Card>
+</CardGroup>
+
+---
+
+<Tip>
+**Remember:** API patterns are about decision-making for YOUR specific context. Every API deserves consideration of its unique requirements, clients, and constraints.
+</Tip>

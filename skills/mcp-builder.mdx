@@ -1,0 +1,179 @@
+---
+title: MCP Builder
+description: Building MCP (Model Context Protocol) servers with tool design and resource patterns
+---
+
+## Overview
+
+The MCP Builder skill teaches principles for building MCP (Model Context Protocol) servers. MCP is a standard for connecting AI systems with external tools and data sources, enabling structured interaction between language models and external capabilities.
+
+## What This Skill Provides
+
+- **MCP core concepts**: Tools, resources, and prompts
+- **Server architecture**: Project structure and transport types (stdio, SSE, WebSocket)
+- **Tool design principles**: Clear naming, single purpose, validated input, structured output
+- **Input schema design**: Proper schema structure with types and descriptions
+- **Resource patterns**: Static, dynamic, and template resources with URI patterns
+- **Error handling**: Validation errors, not found responses, server errors
+- **Multimodal support**: Text, images, and file handling with Base64 encoding
+- **Security principles**: Input validation, API key management, permissions
+- **Configuration**: Claude Desktop config setup
+- **Testing strategies**: Unit, integration, and contract testing
+
+## Use Cases
+
+- Building custom MCP servers for AI tool integration
+- Exposing APIs and data sources to language models
+- Creating reusable tools for AI assistants
+- Implementing resource providers for AI context
+- Designing secure, validated tool interfaces
+- Testing and deploying MCP servers
+
+## Related Skills
+
+- [API Patterns](/skills/api-patterns) - API design principles
+- [Architecture](/skills/architecture) - Server architecture patterns
+- [Testing Patterns](/skills/testing-patterns) - Testing strategies
+
+## Which Agents Use This Skill
+
+This skill is commonly used by:
+
+- **AI tool developers** building MCP integrations
+- **Backend developers** exposing services to AI systems
+- **Platform engineers** creating reusable AI capabilities
+- **Developer tooling teams** building AI-powered development tools
+
+## Key Principles
+
+### MCP Core Concepts
+
+| Concept | Purpose |
+|---------|----------|
+| **Tools** | Functions AI can call |
+| **Resources** | Data AI can read |
+| **Prompts** | Pre-defined prompt templates |
+
+### Transport Types
+
+| Type | Use |
+|------|-----|
+| **Stdio** | Local, CLI-based |
+| **SSE** | Web-based, streaming |
+| **WebSocket** | Real-time, bidirectional |
+
+## Tool Design Principles
+
+### Good Tool Design
+
+| Principle | Description |
+|-----------|-------------|
+| Clear name | Action-oriented (get_weather, create_user) |
+| Single purpose | One thing well |
+| Validated input | Schema with types and descriptions |
+| Structured output | Predictable response format |
+
+### Input Schema Requirements
+
+- **Type**: Required - always "object"
+- **Properties**: Define each parameter with type and description
+- **Required**: List mandatory parameters
+- **Description**: Human-readable explanation for AI
+
+## Resource Patterns
+
+### Resource Types
+
+| Type | Use |
+|------|-----|
+| Static | Fixed data (config, docs) |
+| Dynamic | Generated on request |
+| Template | URI with parameters |
+
+### URI Patterns
+
+| Pattern | Example |
+|---------|----------|
+| Fixed | `docs://readme` |
+| Parameterized | `users://{userId}` |
+| Collection | `files://project/*` |
+
+## Error Handling
+
+### Error Response Strategy
+
+| Situation | Response |
+|-----------|----------|
+| Invalid params | Validation error message |
+| Not found | Clear "not found" message |
+| Server error | Generic error, log details |
+
+### Best Practices
+
+- Return structured errors
+- Don't expose internal details
+- Log for debugging
+- Provide actionable messages
+
+## Multimodal Handling
+
+| Type | Encoding |
+|------|----------|
+| Text | Plain text |
+| Images | Base64 + MIME type |
+| Files | Base64 + MIME type |
+
+## Security Principles
+
+### Input Validation
+
+- Validate all tool inputs against schema
+- Sanitize user-provided data
+- Limit resource access scope
+
+### API Keys and Secrets
+
+- Use environment variables for secrets
+- Never log API keys or tokens
+- Validate permissions before execution
+
+## Project Structure
+
+```
+my-mcp-server/
+├── src/
+│   └── index.ts      # Main entry
+├── package.json
+└── tsconfig.json
+```
+
+## Claude Desktop Configuration
+
+| Field | Purpose |
+|-------|----------|
+| command | Executable to run |
+| args | Command arguments |
+| env | Environment variables |
+
+## Testing Categories
+
+| Type | Focus |
+|------|-------|
+| Unit | Tool logic |
+| Integration | Full server |
+| Contract | Schema validation |
+
+## Best Practices Checklist
+
+- [ ] Clear, action-oriented tool names
+- [ ] Complete input schemas with descriptions
+- [ ] Structured JSON output
+- [ ] Error handling for all cases
+- [ ] Input validation
+- [ ] Environment-based configuration
+- [ ] Logging for debugging
+- [ ] No secrets in code
+
+## Remember
+
+MCP tools should be simple, focused, and well-documented. The AI relies on your descriptions to use them correctly. Make tool names and descriptions as clear and actionable as possible.

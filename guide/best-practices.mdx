@@ -1,0 +1,544 @@
+---
+title: Best Practices
+description: Tips and guidelines for getting the best results from Antigravity Kit
+---
+
+# Best Practices
+
+Get the most out of Antigravity Kit by following these proven practices and guidelines.
+
+## Workflow Selection Guidelines
+
+Choosing the right workflow command is crucial for optimal results. Here's when to use each:
+
+### Start with `/brainstorm`
+
+<Card title="Use /brainstorm When:" icon="lightbulb">
+  - Requirements are unclear or vague
+  - You need to explore multiple options
+  - The problem is complex and needs breaking down
+  - You're not sure of the best approach
+  - Stakeholders have conflicting opinions
+</Card>
+
+**Why it matters:**
+
+The Socratic questioning method helps uncover hidden requirements and edge cases. 5 minutes of brainstorming can save hours of rework.
+
+**Example:**
+```
+❌ Bad: "Build an authentication system" → jumps straight to coding
+✅ Good: "/brainstorm authentication system" → explores options first
+```
+
+The brainstorming session will ask:
+- What authentication methods do you need? (email/password, OAuth, magic links?)
+- Do you need multi-factor authentication?
+- What's your session management strategy?
+- What are your security requirements?
+- Do you need role-based access control?
+
+### Use `/create` for Single-Domain Features
+
+<Card title="Use /create When:" icon="plus">
+  - Adding features to existing projects
+  - Work is confined to one domain (frontend OR backend)
+  - Small-to-medium complexity
+  - Requirements are clear
+</Card>
+
+**Ideal use cases:**
+- Creating a new React component
+- Adding an API endpoint
+- Building a database migration
+- Adding a utility function
+
+**Example:**
+```
+✅ /create user profile component with avatar and bio
+✅ /create REST API endpoint for fetching posts
+✅ /create database schema for comments
+```
+
+<Warning>
+Don't use `/create` for full-stack features that span multiple domains. Use `/orchestrate` instead.
+</Warning>
+
+### Use `/orchestrate` for Multi-Domain Tasks
+
+<Card title="Use /orchestrate When:" icon="network">
+  - Building full-stack features
+  - Work spans multiple domains (frontend + backend + database)
+  - Complex features with many moving parts
+  - Need multiple specialist perspectives
+</Card>
+
+**Perfect for:**
+- Complete authentication systems (UI + API + database)
+- E-commerce checkout flows
+- Admin dashboards with CRUD operations
+- Real-time chat features
+- Payment integrations
+
+**Example:**
+```
+✅ /orchestrate build a blog with posts, comments, and admin panel
+✅ /orchestrate create user authentication with social login
+✅ /orchestrate implement shopping cart with checkout
+```
+
+**What happens:**
+1. **@frontend-specialist** builds the UI components and pages
+2. **@backend-specialist** creates API endpoints and business logic
+3. **@database-architect** designs schema and migrations
+4. **@test-engineer** writes comprehensive tests
+5. **@security-auditor** reviews for vulnerabilities
+6. **@performance-optimizer** ensures optimal performance
+
+<Note>
+The orchestrator maintains code coherence across all domains, ensuring consistent types, API contracts, and coding patterns.
+</Note>
+
+## Validation and Quality Gates
+
+Antigravity Kit provides two validation scripts that catch issues before they reach production.
+
+### Quick Validation: `checklist.py`
+
+**Use during development:**
+```bash
+python .agent/scripts/checklist.py .
+```
+
+**What it checks:**
+- ✅ Security scan (vulnerabilities, exposed secrets)
+- ✅ Code quality (ESLint errors, TypeScript issues)
+- ✅ Schema validation (database schema errors)
+- ✅ Test suite (unit tests pass)
+- ✅ UX audit (basic accessibility)
+- ✅ SEO check (meta tags, performance)
+
+**Time:** ~30 seconds
+
+**When to run:**
+- After making changes
+- Before committing code
+- During feature development
+- When AI completes a task
+
+<Tip>
+Run `checklist.py` frequently during development. It's fast and catches most issues early.
+</Tip>
+
+### Full Verification: `verify_all.py`
+
+**Use before deployment:**
+```bash
+python .agent/scripts/verify_all.py . --url http://localhost:3000
+```
+
+**What it checks:**
+- ✅ Everything in `checklist.py` PLUS:
+- ✅ Lighthouse audit (Core Web Vitals, performance)
+- ✅ Playwright E2E tests (full user flows)
+- ✅ Bundle analysis (bundle size, tree-shaking)
+- ✅ Mobile audit (responsive design, touch targets)
+- ✅ i18n check (translations, localization)
+
+**Time:** ~3-5 minutes
+
+**When to run:**
+- Before deploying to production
+- Before creating a release
+- After major changes
+- Weekly as part of CI/CD
+
+<Warning>
+NEVER skip `verify_all.py` before deploying to production. It catches issues that only appear in production-like environments.
+</Warning>
+
+## `.gitignore` Configuration
+
+Proper `.gitignore` configuration is crucial for Antigravity Kit to work correctly with AI-powered editors like Cursor and Windsurf.
+
+### The Problem
+
+<Card title="⚠️ Common Issue" icon="alert-triangle">
+  If `.agent/` is in `.gitignore`, AI editors may not index the workflows, causing slash commands to disappear from suggestions.
+</Card>
+
+### Recommended Solution
+
+**DON'T add `.agent/` to `.gitignore`**
+
+Instead, keep the `.agent/` folder tracked by Git but exclude it locally:
+
+```bash
+# Add to .git/info/exclude (this file is local to your machine)
+echo ".agent/" >> .git/info/exclude
+```
+
+This approach:
+- ✅ Keeps `.agent/` indexed by AI editors (slash commands work)
+- ✅ Prevents local `.agent/` changes from being tracked
+- ✅ Doesn't affect other team members
+- ✅ Allows the kit to be updated via `ag-kit update`
+
+### Why This Matters
+
+**With `.agent/` in `.gitignore`:**
+```
+❌ Slash commands don't appear in chat suggestions
+❌ AI can't access skill knowledge
+❌ Workflows don't trigger properly
+```
+
+**With `.agent/` tracked (recommended):**
+```
+✅ All slash commands work
+✅ Full access to 36 skills
+✅ All 20 agents available
+✅ Workflows trigger correctly
+```
+
+<Tip>
+If you're working in a team, commit the `.agent/` folder to your repository so everyone has access to the same agents and skills.
+</Tip>
+
+## Getting Best Results from Agents
+
+### Be Specific with Context
+
+**Bad requests:**
+```
+❌ "Fix the bug"
+❌ "Make it better"
+❌ "Add a form"
+```
+
+**Good requests:**
+```
+✅ "Fix the TypeError on line 45 of auth.ts when user.email is null"
+✅ "Optimize the product list query - it's taking 3 seconds to load"
+✅ "Add a contact form with name, email, message fields and validation"
+```
+
+### Provide Error Messages
+
+When debugging, always include:
+- Full error message
+- Stack trace
+- Steps to reproduce
+- Expected vs actual behavior
+
+**Example:**
+```
+/debug I'm getting this error when logging in:
+
+TypeError: Cannot read property 'id' of undefined
+  at getUserProfile (lib/auth.ts:45)
+  at login (app/api/auth/login/route.ts:23)
+
+Steps: Click login button with valid credentials
+Expected: Redirect to dashboard
+Actual: Error page shows
+```
+
+### Trust the Automatic Agent Selection
+
+The system is designed to automatically choose the right agent. Trust it!
+
+**Don't do this:**
+```
+❌ @frontend-specialist build an API endpoint
+   (Backend work assigned to frontend agent)
+```
+
+**Do this instead:**
+```
+✅ "Build an API endpoint for user registration"
+   (System automatically uses @backend-specialist)
+```
+
+**Only use explicit agent mentions when:**
+- Getting a second opinion
+- Requesting a specific code review perspective
+- The automatic selection was clearly wrong
+
+### Leverage Multi-Agent Orchestration
+
+For complex features, let the orchestrator do its job:
+
+**Avoid:**
+```
+❌ /create the frontend for authentication
+❌ /create the backend for authentication  
+❌ /create the database schema for authentication
+   (Three separate, disconnected tasks)
+```
+
+**Instead:**
+```
+✅ /orchestrate build authentication with email/password and OAuth
+   (Single coordinated task with all pieces working together)
+```
+
+## Skill Loading Optimization
+
+Agents automatically load skills based on context, but you can optimize this:
+
+### Related Skills Pattern
+
+Some skills automatically trigger related skills:
+
+- `frontend-design` → suggests `web-design-guidelines` after coding
+- `web-design-guidelines` → suggests `frontend-design` before coding
+- `api-patterns` → may trigger `database-design` for data models
+
+<Note>
+You don't need to manually load skills. The system handles this automatically based on your request.
+</Note>
+
+### Scripts Are Not Auto-Executed
+
+Skills may include validation scripts, but they're never run automatically:
+
+```
+✅ AI suggests: "I can run the API validator script to check your endpoints"
+✅ You approve: "Yes, run it"
+✅ AI executes: python .agent/skills/api-patterns/scripts/api_validator.py
+```
+
+**Security note:** You're always in control. No code runs without your approval.
+
+## Task Complexity Guidelines
+
+### Simple Tasks (1-2 hours)
+
+**Use:** Direct natural language or `/create`
+
+**Examples:**
+- Add a button component
+- Create a utility function
+- Fix a typo in API response
+- Update styling on a page
+
+### Medium Tasks (2-8 hours)
+
+**Use:** `/create` for single-domain or `/orchestrate` for multi-domain
+
+**Examples:**
+- Build a feature with multiple components
+- Create CRUD endpoints for a resource
+- Implement form validation
+- Add user notifications
+
+### Complex Tasks (8+ hours)
+
+**Use:** `/brainstorm` → `/plan` → `/orchestrate`
+
+**Examples:**
+- Complete authentication system
+- E-commerce checkout flow
+- Admin dashboard with analytics
+- Real-time chat feature
+
+**Workflow:**
+```
+1. /brainstorm explore approaches and requirements
+2. /plan break down into phases with estimates
+3. /orchestrate implement phase 1
+4. /test validate phase 1
+5. /orchestrate implement phase 2
+6. /test validate phase 2
+7. /deploy to production
+```
+
+<Tip>
+For projects over 40 hours, break them into multiple `/orchestrate` sessions. This maintains code quality and allows for iterative feedback.
+</Tip>
+
+## Deployment Best Practices
+
+### Pre-Deployment Checklist
+
+Before running `/deploy`, ensure:
+
+```bash
+# 1. Run full verification
+python .agent/scripts/verify_all.py . --url http://localhost:3000
+
+# 2. Check all tests pass
+npm test
+
+# 3. Build succeeds locally
+npm run build
+
+# 4. No console errors or warnings
+# Test the app manually in browser
+
+# 5. Environment variables configured
+# Check .env.production has all required vars
+```
+
+<Warning>
+Never deploy if `verify_all.py` reports errors. Fix issues first, even if they seem minor.
+</Warning>
+
+### Post-Deployment Validation
+
+After deploying:
+
+1. **Test critical user flows** - Login, signup, checkout, etc.
+2. **Check error monitoring** - Watch for new errors in production
+3. **Monitor performance** - Check Lighthouse scores for production URL
+4. **Verify analytics** - Ensure tracking is working
+5. **Test on mobile devices** - Real device testing, not just browser DevTools
+
+## Common Pitfalls to Avoid
+
+### ❌ Skipping Brainstorming
+
+**Problem:** Jumping straight to implementation without exploring options
+
+**Solution:** Always `/brainstorm` for complex features
+
+### ❌ Using `/create` for Full-Stack Features
+
+**Problem:** Frontend and backend don't align, manual integration needed
+
+**Solution:** Use `/orchestrate` for any work spanning multiple domains
+
+### ❌ Ignoring Validation Scripts
+
+**Problem:** Issues discovered in production that could have been caught locally
+
+**Solution:** Run `checklist.py` frequently and `verify_all.py` before every deployment
+
+### ❌ Vague Requests
+
+**Problem:** AI makes assumptions that don't match your needs
+
+**Solution:** Provide specific requirements, examples, and context
+
+### ❌ Not Reading Agent Responses
+
+**Problem:** Missing important caveats or manual steps needed
+
+**Solution:** Read the full response, especially "Next Steps" sections
+
+### ❌ Overriding Agent Selection Without Reason
+
+**Problem:** Using wrong specialist for the task
+
+**Solution:** Trust automatic agent selection unless you have a specific reason to override
+
+## Pro Tips
+
+<Tip>
+**Use `/status` regularly** - Get a health check of your project and catch issues early.
+</Tip>
+
+<Tip>
+**Chain workflows** - `/brainstorm` → `/plan` → `/orchestrate` → `/test` → `/deploy` for comprehensive feature development.
+</Tip>
+
+<Tip>
+**Read skill descriptions** - Browse `.agent/skills/` to understand what knowledge is available.
+</Tip>
+
+<Tip>
+**Customize agents** - Edit `.agent/agents/*.md` files to adjust agent behaviors for your team's needs.
+</Tip>
+
+<Tip>
+**Version control your `.agent/` folder** - Commit it to your repo so the whole team uses the same configuration.
+</Tip>
+
+## Performance Optimization Tips
+
+### For Large Codebases
+
+1. **Use specific file paths** in requests:
+   ```
+   ✅ "Fix the authentication logic in lib/auth.ts"
+   ❌ "Fix the authentication logic" (AI has to search)
+   ```
+
+2. **Break large tasks into smaller ones**:
+   ```
+   ✅ "/orchestrate Phase 1: User model and auth API"
+   ✅ "/orchestrate Phase 2: Admin dashboard UI"
+   ❌ "/orchestrate Entire admin system" (too large)
+   ```
+
+3. **Use `/explorer-agent`** to understand codebase structure:
+   ```
+   @explorer-agent analyze the authentication flow
+   ```
+
+### For Better AI Responses
+
+1. **Provide examples** of what you want:
+   ```
+   "Create a form component similar to ContactForm.tsx but for newsletter signup"
+   ```
+
+2. **Mention your tech stack** if ambiguous:
+   ```
+   "Build a REST API using Next.js App Router and Prisma"
+   ```
+
+3. **Specify your preferences**:
+   ```
+   "Use Tailwind CSS for styling"
+   "Write tests using Vitest"
+   "Follow functional programming style"
+   ```
+
+## Getting Help
+
+### Review Documentation
+
+- **Architecture**: `.agent/ARCHITECTURE.md` - System overview
+- **Agent Flow**: `.agent/AGENT_FLOW.md` - How requests are processed
+- **Agents**: `.agent/agents/*.md` - Individual agent capabilities
+- **Skills**: `.agent/skills/*/SKILL.md` - Skill documentation
+- **Workflows**: `.agent/workflows/*.md` - Slash command details
+
+### Debug Issues
+
+```bash
+# Check installation status
+ag-kit status
+
+# Update to latest version
+ag-kit update
+
+# Reinstall if needed
+ag-kit init --force
+```
+
+### Common Issues
+
+**Slash commands not appearing:**
+- Check `.agent/` is not in `.gitignore`
+- Restart your AI editor
+- Run `ag-kit status` to verify installation
+
+**Agents not loading:**
+- Verify `.agent/agents/` folder exists
+- Check agent `.md` files are not corrupted
+- Run `ag-kit init --force` to reinstall
+
+**Skills not applying:**
+- Ensure `.agent/skills/` folder is intact
+- Check `SKILL.md` files exist for each skill
+- Verify skill names in agent frontmatter are correct
+
+## Next Steps
+
+- Try the [Web App Example](/guide/examples/brainstorm) for a complete workflow
+- Review [Slash Commands](/guide/slash-commands) reference
+- Learn about [Using Agents](/guide/using-agents) in detail
+- Explore the [API Reference](/api-reference) for advanced usage

@@ -1,0 +1,215 @@
+---
+title: Lint and Validate
+description: Automatic quality control, linting, and static analysis procedures
+---
+
+## Overview
+
+The **lint-and-validate** skill provides mandatory quality control procedures that must be run after every code modification. It ensures syntax correctness, type safety, and adherence to project standards.
+
+## What This Skill Provides
+
+- **Mandatory Validation**: Quality checks required before completing tasks
+- **Ecosystem-Specific Tools**: Node.js, Python, and other language support
+- **The Quality Loop**: Write → Lint → Fix → Repeat workflow
+- **Error Handling**: How to address linting and type errors
+- **Security Scanning**: Vulnerability detection in dependencies
+- **Automated Scripts**: Unified lint and type coverage tools
+
+## Core Principle
+
+**MANDATORY**: Run appropriate validation tools after EVERY code change. Do not finish a task until the code is error-free.
+
+## Validation Procedures by Ecosystem
+
+### Node.js / TypeScript
+
+1. **Lint/Fix:** `npm run lint` or `npx eslint "path" --fix`
+2. **Types:** `npx tsc --noEmit`
+3. **Security:** `npm audit --audit-level=high`
+
+### Python
+
+1. **Linter (Ruff):** `ruff check "path" --fix` (Fast & Modern)
+2. **Security (Bandit):** `bandit -r "path" -ll`
+3. **Types (MyPy):** `mypy "path"`
+
+## The Quality Loop
+
+1. **Write/Edit Code**
+2. **Run Audit:** `npm run lint && npx tsc --noEmit`
+3. **Analyze Report:** Check the "FINAL AUDIT REPORT" section
+4. **Fix & Repeat:** Submitting code with "FINAL AUDIT" failures is NOT allowed
+
+## Use Cases
+
+### When to Use This Skill
+
+- After every code modification
+- Before committing code
+- During code reviews
+- In CI/CD pipelines
+- When setting up new projects
+
+### Example Scenarios
+
+1. **Post-Edit**: "I just modified this file, now run lint checks"
+2. **Pre-Commit**: "Validate all code before committing"
+3. **Type Safety**: "Check TypeScript types across the project"
+4. **Security**: "Scan dependencies for vulnerabilities"
+
+## Error Handling
+
+### Lint Failures
+- Fix style or syntax issues immediately
+- Use `--fix` flag for automatic corrections
+- Address remaining issues manually
+
+### TypeScript Failures
+- Correct type mismatches
+- Add proper type annotations
+- Fix any type errors before proceeding
+
+### No Tool Configured
+- Check project root for `.eslintrc`, `tsconfig.json`, `pyproject.toml`
+- Suggest creating configuration if missing
+- Set up appropriate tools for the project
+
+## Automated Scripts
+
+| Script | Purpose | Command |
+|--------|---------|----------|
+| `scripts/lint_runner.py` | Unified lint check | `python scripts/lint_runner.py <project_path>` |
+| `scripts/type_coverage.py` | Type coverage analysis | `python scripts/type_coverage.py <project_path>` |
+
+## Quality Standards
+
+### Mandatory Checks
+
+- [ ] No lint errors
+- [ ] No type errors
+- [ ] No high-severity security vulnerabilities
+- [ ] Code formatted according to project standards
+
+### Optional but Recommended
+
+- [ ] High type coverage (>80%)
+- [ ] No lint warnings
+- [ ] All security vulnerabilities addressed
+
+## Language-Specific Tools
+
+### JavaScript/TypeScript
+
+| Tool | Purpose |
+|------|----------|
+| ESLint | Style and syntax linting |
+| TypeScript | Type checking |
+| Prettier | Code formatting |
+| npm audit | Security scanning |
+
+### Python
+
+| Tool | Purpose |
+|------|----------|
+| Ruff | Fast linting and formatting |
+| Bandit | Security vulnerability scanning |
+| MyPy | Static type checking |
+| Black | Code formatting |
+
+### Other Languages
+
+- **Rust**: `cargo clippy` + `cargo fmt`
+- **Go**: `golint` + `go vet`
+- **Java**: Checkstyle + SpotBugs
+
+## CI/CD Integration
+
+### Pipeline Steps
+
+1. Install dependencies
+2. Run linter
+3. Run type checker
+4. Run security scanner
+5. Fail build if any errors
+
+### Pre-Commit Hooks
+
+```bash
+# .git/hooks/pre-commit
+npm run lint && npx tsc --noEmit
+```
+
+## Anti-Patterns to Avoid
+
+- ❌ Skipping validation before completing tasks
+- ❌ Committing code with lint errors
+- ❌ Ignoring type errors with `@ts-ignore`
+- ❌ Disabling security warnings without investigation
+- ❌ Not fixing auto-fixable issues
+
+## Related Skills
+
+- **clean-code**: Code quality principles
+- **code-review-checklist**: Review standards
+- **testing-patterns**: Test quality validation
+
+## Which Agents Use This Skill
+
+- **test-engineer**: Validates test code
+- **qa-automation-engineer**: Ensures test quality
+- **orchestrator**: Overall quality enforcement
+- **frontend-specialist**: Frontend code validation
+- **backend-specialist**: Backend code validation
+- **All agents**: Should use for code they write
+
+## Configuration Files
+
+### ESLint (.eslintrc.json)
+```json
+{
+  "extends": ["eslint:recommended"],
+  "rules": {
+    "no-unused-vars": "error",
+    "no-console": "warn"
+  }
+}
+```
+
+### TypeScript (tsconfig.json)
+```json
+{
+  "compilerOptions": {
+    "strict": true,
+    "noEmit": true
+  }
+}
+```
+
+### Python (pyproject.toml)
+```toml
+[tool.ruff]
+line-length = 100
+select = ["E", "F", "W"]
+```
+
+## Workflow Example
+
+1. **Edit code** in `src/user.ts`
+2. **Run lint**: `npm run lint`
+3. **Check output**: 3 errors found
+4. **Auto-fix**: `npm run lint -- --fix`
+5. **Manual fix**: Address remaining issues
+6. **Run types**: `npx tsc --noEmit`
+7. **Fix types**: Add proper type annotations
+8. **Re-run**: Verify no errors
+9. **Complete**: Task can now be marked done
+
+## Tools Available
+
+- Read, Glob, Grep: For finding configuration files
+- Bash: For running lint and validation commands
+
+---
+
+**Strict Rule**: No code should be committed or reported as "done" without passing these checks. This is non-negotiable.

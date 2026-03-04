@@ -1,0 +1,259 @@
+---
+title: Project Planner
+description: Smart project planning and task breakdown
+---
+
+<Note>
+The Project Planner breaks down user requests into actionable tasks, plans file structure, and creates dependency graphs for systematic execution.
+</Note>
+
+## Overview
+
+The Project Planner is a strategic planning agent that analyzes user requests, identifies required components, and creates detailed execution plans with task dependencies. It's essential for starting new projects or planning major features.
+
+**Use Project Planner when:**
+- Starting new projects from scratch
+- Planning major feature additions
+- Need task breakdown with dependencies
+- Require file structure planning
+- Want agent assignment recommendations
+
+## Key Capabilities
+
+<CardGroup cols={2}>
+  <Card title="Request Analysis" icon="search">
+    Parses user requests to understand domain, features, constraints, and risk areas
+  </Card>
+  <Card title="Task Breakdown" icon="list">
+    Creates detailed tasks with INPUT→OUTPUT→VERIFY criteria for each step
+  </Card>
+  <Card title="Dependency Mapping" icon="project-diagram">
+    Generates task dependency graphs showing what must be done first
+  </Card>
+  <Card title="Agent Assignment" icon="user-tie">
+    Recommends which specialist agent should handle each task
+  </Card>
+</CardGroup>
+
+## Skills Used
+
+- [Clean Code](/skills/clean-code) - Code quality standards
+- [App Builder](/skills/app-builder) - Application architecture
+- [Plan Writing](/skills/plan-writing) - Structured planning methodology
+- [Brainstorming](/skills/brainstorming) - Creative problem-solving
+
+## 4-Phase Workflow
+
+The Project Planner follows a structured BMAD-inspired workflow:
+
+| Phase | Name | Focus | Output | Code Allowed? |
+|-------|------|-------|--------|---------------|
+| 1 | **ANALYSIS** | Research, brainstorm, explore | Decisions | ❌ NO |
+| 2 | **PLANNING** | Create plan | `{task-slug}.md` | ❌ NO |
+| 3 | **SOLUTIONING** | Architecture, design | Design docs | ❌ NO |
+| 4 | **IMPLEMENTATION** | Code per plan | Working code | ✅ YES |
+| X | **VERIFICATION** | Test & validate | Verified project | ✅ Scripts |
+
+<Warning>
+During planning phase, agents MUST NOT write any code files! Only the plan markdown file.
+</Warning>
+
+## Planning Process
+
+### Step 1: Request Analysis
+
+Parse the request to understand:
+- **Domain**: What type of project? (ecommerce, auth, realtime, cms)
+- **Features**: Explicit + Implied requirements
+- **Constraints**: Tech stack, timeline, scale, budget
+- **Risk Areas**: Complex integrations, security, performance
+
+### Step 2: Project Type Detection
+
+<Tip>
+Critical: Correctly identifying project type determines which agents to use!
+</Tip>
+
+| Trigger | Project Type | Primary Agent | DO NOT USE |
+|---------|--------------|---------------|------------|
+| "mobile app", "iOS", "Android", "React Native" | **MOBILE** | `mobile-developer` | ❌ frontend-specialist |
+| "website", "web app", "Next.js" | **WEB** | `frontend-specialist` | ❌ mobile-developer |
+| "API", "backend", "server" | **BACKEND** | `backend-specialist` | - |
+
+### Step 3: Component Identification
+
+**Components by Project Type:**
+
+| Component | WEB Agent | MOBILE Agent |
+|-----------|-----------|---------------|
+| Database/Schema | `database-architect` | `mobile-developer` |
+| API/Backend | `backend-specialist` | `mobile-developer` |
+| Auth | `security-auditor` | `mobile-developer` |
+| UI/Styling | `frontend-specialist` | `mobile-developer` |
+| Tests | `test-engineer` | `mobile-developer` |
+| Deploy | `devops-engineer` | `mobile-developer` |
+
+<Note>
+`mobile-developer` is full-stack for mobile projects and handles all layers.
+</Note>
+
+### Step 4: Task Format
+
+Each task must include:
+- `task_id` - Unique identifier
+- `name` - Clear task name
+- `agent` - Recommended specialist
+- `skills` - Required skills
+- `priority` - P0, P1, P2, P3
+- `dependencies` - Blocking tasks
+- `INPUT→OUTPUT→VERIFY` - Clear success criteria
+
+### Step 5: Plan File Creation
+
+<Warning>
+Plan files use dynamic naming based on the task, NOT a fixed name like "PLAN.md".
+</Warning>
+
+**Naming Convention:**
+
+| User Request | Plan File Name |
+|--------------|----------------|
+| "e-commerce site with cart" | `ecommerce-cart.md` |
+| "add dark mode feature" | `dark-mode.md` |
+| "mobile fitness app" | `fitness-app.md` |
+
+**Required Plan Structure:**
+
+| Section | Must Include |
+|---------|---------------|
+| **Overview** | What & why |
+| **Project Type** | WEB/MOBILE/BACKEND (explicit) |
+| **Success Criteria** | Measurable outcomes |
+| **Tech Stack** | Technologies with rationale |
+| **File Structure** | Directory layout |
+| **Task Breakdown** | All tasks with Agent + Skill |
+| **Phase X** | Final verification checklist |
+
+## Implementation Priority Order
+
+| Priority | Phase | Agents | When to Use |
+|----------|-------|--------|-------------|
+| **P0** | Foundation | `database-architect` → `security-auditor` | If project needs DB |
+| **P1** | Core | `backend-specialist` | If project has backend |
+| **P2** | UI/UX | `frontend-specialist` OR `mobile-developer` | Web OR Mobile (not both!) |
+| **P3** | Polish | `test-engineer`, `performance-optimizer` | Based on needs |
+
+## Phase X: Verification
+
+<Tip>
+Every plan must include a Phase X verification checklist with mandatory script execution.
+</Tip>
+
+### Run All Verifications (Recommended)
+
+```bash
+# Single command - runs all checks in priority order:
+python .agent/scripts/verify_all.py . --url http://localhost:3000
+
+# Priority Order:
+# P0: Security Scan (vulnerabilities, secrets)
+# P1: Color Contrast (WCAG AA accessibility)
+# P1.5: UX Audit (Psychology laws, Fitts, Hick, Trust)
+# P2: Touch Target (mobile accessibility)
+# P3: Lighthouse Audit (performance, SEO)
+# P4: Playwright Tests (E2E)
+```
+
+### Or Run Individually
+
+```bash
+# P0: Security Scan
+python .agent/skills/vulnerability-scanner/scripts/security_scan.py .
+
+# P1: UX Audit
+python .agent/skills/frontend-design/scripts/ux_audit.py .
+
+# P3: Lighthouse (requires running server)
+python .agent/skills/performance-profiling/scripts/lighthouse_audit.py http://localhost:3000
+```
+
+## Example Use Cases
+
+### Use Case 1: New E-commerce Project
+
+```
+User: "Build an e-commerce site with cart and checkout"
+
+[Project Planner analyzes]
+
+→ Domain: E-commerce
+→ Project Type: WEB
+→ Features: Product catalog, cart, checkout, payments
+→ Components: Database, Backend API, Frontend, Auth, Payments
+
+[Creates plan file: ecommerce-site.md]
+
+Plan includes:
+- 25 tasks across 4 phases
+- Agent assignments: database-architect, backend-specialist, 
+  frontend-specialist, security-auditor, test-engineer
+- Dependencies: Schema → API → UI
+- Verification checklist
+```
+
+### Use Case 2: Mobile Fitness App
+
+```
+User: "Mobile fitness tracking app for iOS and Android"
+
+[Project Planner analyzes]
+
+→ Domain: Mobile Health & Fitness
+→ Project Type: MOBILE
+→ Features: Workout tracking, progress charts, offline sync
+→ Agent: mobile-developer (full-stack for mobile)
+
+[Creates plan file: fitness-app.md]
+
+Plan includes:
+- React Native + Expo setup
+- Offline-first architecture
+- Push notifications
+- All handled by mobile-developer
+```
+
+## Best Practices
+
+<CardGroup cols={2}>
+  <Card title="Task Size" icon="clock">
+    Each task should take 2-10 minutes with one clear outcome
+  </Card>
+  <Card title="Dependencies" icon="link">
+    Only mark explicit blockers - avoid hidden dependencies
+  </Card>
+  <Card title="Verify-First" icon="check-double">
+    Define success criteria before coding begins
+  </Card>
+  <Card title="Context" icon="circle-info">
+    Explain WHY not just WHAT for better agent decisions
+  </Card>
+</CardGroup>
+
+## Automatic Selection Triggers
+
+Project Planner is automatically selected when:
+- User says "build", "create", "start new project"
+- Major feature planning is needed
+- No existing plan file is found
+- User explicitly asks for a plan or roadmap
+
+## Related Agents
+
+<CardGroup cols={2}>
+  <Card title="Orchestrator" icon="sitemap" href="/agents/orchestrator">
+    Executes the plan with multiple agents
+  </Card>
+  <Card title="Product Manager" icon="clipboard-list" href="/agents/product-manager">
+    Defines requirements and user stories
+  </Card>
+</CardGroup>

@@ -1,0 +1,155 @@
+---
+title: PowerShell/Windows
+description: Critical PowerShell patterns and pitfalls for Windows development
+---
+
+## Overview
+
+The PowerShell/Windows skill focuses on critical patterns and common pitfalls specific to Windows PowerShell. It emphasizes syntax rules that differ from other shells, particularly around operator usage, Unicode handling, and error management.
+
+## What This Skill Provides
+
+- **Operator syntax rules**: Critical parentheses requirements for logical operators
+- **Unicode restrictions**: Why emoji and Unicode must be avoided in PowerShell scripts
+- **Null check patterns**: Safe ways to check for null before property access
+- **String interpolation**: Handling complex expressions correctly
+- **Error handling**: ErrorActionPreference settings and try/catch patterns
+- **File path handling**: Windows-specific path patterns and Join-Path usage
+- **Array operations**: Correct patterns for arrays and ArrayLists
+- **JSON operations**: Depth parameter requirements for nested objects
+- **Common errors**: Diagnosis and fixes for typical PowerShell errors
+- **Script template**: Production-ready PowerShell script structure
+
+## Use Cases
+
+- Writing robust PowerShell scripts for Windows automation
+- Avoiding common PowerShell syntax errors
+- Handling file paths correctly across Windows systems
+- Managing errors and exceptions properly
+- Working with JSON data in PowerShell
+- Building maintainable Windows deployment scripts
+
+## Related Skills
+
+- [Bash Linux](/skills/bash-linux) - Linux/macOS equivalent
+- [Server Management](/skills/server-management) - Windows server administration
+- [Deployment Procedures](/skills/deployment-procedures) - Windows deployment
+
+## Which Agents Use This Skill
+
+This skill is commonly used by:
+
+- **Windows developers** writing automation scripts
+- **DevOps engineers** managing Windows infrastructure
+- **System administrators** automating Windows tasks
+- **Backend developers** on Windows environments
+
+## Key Principles
+
+### CRITICAL: Parentheses Required
+
+Each cmdlet call MUST be in parentheses when using logical operators.
+
+| Wrong | Correct |
+|-------|----------|
+| `if (Test-Path "a" -or Test-Path "b")` | `if ((Test-Path "a") -or (Test-Path "b"))` |
+| `if (Get-Item $x -and $y -eq 5)` | `if ((Get-Item $x) -and ($y -eq 5))` |
+
+### CRITICAL: No Unicode in Scripts
+
+Use ASCII characters only. PowerShell has encoding issues with Unicode.
+
+| Purpose | Don't Use | Use |
+|---------|-----------|-----|
+| Success | ✅ ✓ | [OK] [+] |
+| Error | ❌ ✗ 🔴 | [!] [X] |
+| Warning | ⚠️ 🟡 | [*] [WARN] |
+| Info | ℹ️ 🔵 | [i] [INFO] |
+
+### CRITICAL: JSON Depth Parameter
+
+Always specify `-Depth` for nested objects to avoid truncation.
+
+| Wrong | Correct |
+|-------|----------|
+| `ConvertTo-Json` | `ConvertTo-Json -Depth 10` |
+
+## Common Errors
+
+| Error Message | Cause | Fix |
+|---------------|-------|-----|
+| "parameter 'or'" | Missing parentheses | Wrap cmdlets in () |
+| "Unexpected token" | Unicode character | Use ASCII only |
+| "Cannot find property" | Null object | Check null first |
+| "Cannot convert" | Type mismatch | Use .ToString() |
+
+## Null Check Patterns
+
+Always check before accessing properties:
+
+| Wrong | Correct |
+|-------|----------|
+| `$array.Count -gt 0` | `$array -and $array.Count -gt 0` |
+| `$text.Length` | `if ($text) { $text.Length }` |
+
+## Error Handling
+
+### ErrorActionPreference Values
+
+| Value | Use |
+|-------|-----|
+| Stop | Development (fail fast) |
+| Continue | Production scripts |
+| SilentlyContinue | When errors expected |
+
+### Try/Catch Pattern
+
+- Don't return inside try block
+- Use finally for cleanup
+- Return after try/catch
+
+## File Paths
+
+Use `Join-Path` for cross-platform safety:
+
+| Pattern | Use |
+|---------|-----|
+| Literal path | `C:\Users\User\file.txt` |
+| Variable path | `Join-Path $env:USERPROFILE "file.txt"` |
+| Relative | `Join-Path $ScriptDir "data"` |
+
+## Script Template
+
+```powershell
+# Strict mode
+Set-StrictMode -Version Latest
+$ErrorActionPreference = "Continue"
+
+# Paths
+$ScriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
+
+# Main
+try {
+    # Logic here
+    Write-Output "[OK] Done"
+    exit 0
+}
+catch {
+    Write-Warning "Error: $_"
+    exit 1
+}
+```
+
+## JSON File Operations
+
+```powershell
+# Read
+$data = Get-Content "file.json" -Raw | ConvertFrom-Json
+
+# Write
+$data | ConvertTo-Json -Depth 10 | Out-File "file.json" -Encoding UTF8
+```
+
+## Remember
+
+PowerShell has unique syntax rules. Parentheses, ASCII-only, and null checks are non-negotiable.

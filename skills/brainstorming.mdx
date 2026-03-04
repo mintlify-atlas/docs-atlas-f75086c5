@@ -1,0 +1,121 @@
+---
+title: Brainstorming
+description: Socratic questioning protocol with user communication and progress reporting
+---
+
+## Overview
+
+The brainstorming skill provides a Socratic questioning protocol combined with effective user communication patterns. It enforces asking clarifying questions before implementation to prevent building the wrong solution.
+
+## What This Skill Provides
+
+- **Socratic Gate**: Mandatory questioning before complex implementations
+- **Dynamic question generation**: Context-aware questions based on project type and domain
+- **Progress reporting**: Visual status boards with real-time updates
+- **Error handling**: Structured error response patterns
+- **Completion messages**: Clear success communication with next steps
+
+## Key Features
+
+### Socratic Gate Enforcement
+
+The skill enforces a mandatory questioning phase for:
+- Complex or vague requests
+- New feature implementations
+- Updates without clear requirements
+- Architectural decisions
+
+**Pattern**: Stop → Ask (minimum 3 questions) → Wait → Proceed
+
+### Dynamic Questioning
+
+Instead of static templates, the skill generates questions that:
+- Reveal architectural consequences
+- Connect to concrete implementation decisions
+- Show trade-offs with pros/cons analysis
+- Provide defaults if user doesn't answer
+
+### Question Format
+
+Each question includes:
+- **Priority level**: P0 (blocking), P1 (high-leverage), P2 (nice-to-have)
+- **Decision point**: What needs to be decided
+- **Why it matters**: Architectural impact
+- **Options table**: Comparing alternatives with trade-offs
+- **Default**: What happens if not specified
+
+### Progress Reporting
+
+Visual status boards with icons:
+- ✅ Completed
+- 🔄 Running
+- ⏳ Waiting
+- ❌ Error
+- ⚠️ Warning
+
+### Communication Principles
+
+- **Concise**: No unnecessary details
+- **Visual**: Emojis for quick scanning
+- **Specific**: "~2 minutes" not "wait a bit"
+- **Alternatives**: Offer multiple paths when stuck
+- **Proactive**: Suggest next steps after completion
+
+## Use Cases
+
+- Building new features from scratch
+- Architecting complex systems
+- Clarifying vague requirements
+- Making technology stack decisions
+- Planning multi-phase implementations
+- Handling errors with clear user communication
+
+## Domain-Specific Question Banks
+
+The skill includes pre-defined question frameworks for:
+- E-commerce systems
+- Authentication flows
+- Real-time applications
+- Content management systems
+
+## Related Skills
+
+- [Plan Writing](/skills/plan-writing) - Turns clarified requirements into actionable plans
+- [Architecture](/skills/architecture) - Deep architectural decision-making
+- [App Builder](/skills/app-builder) - Uses brainstorming for project initialization
+
+## Which Agents Use This Skill
+
+- **orchestrator** - For coordinating complex multi-agent tasks
+- **project-planner** - Initial requirements gathering
+- **product-owner** - Product definition and scope clarification
+- **backend-specialist** - API design decisions
+- **frontend-specialist** - UI/UX architecture decisions
+- **game-developer** - Game mechanics and architecture
+
+## Anti-Patterns to Avoid
+
+- Jumping to solutions before understanding
+- Assuming requirements without asking
+- Over-engineering first versions
+- Ignoring user constraints
+- Using "I think" phrases instead of asking
+
+## Example Question Generation
+
+For a request like "Build an Instagram clone":
+
+1. **Storage Strategy** (P0 - Blocking)
+   - Options: Cloudinary, AWS S3, Supabase
+   - Impact: Cost, speed, complexity
+   - Default: Cloudinary for MVP
+
+2. **Feed Algorithm** (P0 - Blocking)
+   - Options: Chronological, Follow-only, Algorithmic
+   - Impact: Query complexity, dev time
+   - Default: Follow-only
+
+3. **Real-time Notifications** (P1 - High-leverage)
+   - Options: WebSocket, Polling, None
+   - Impact: Infrastructure, scale cost
+   - Default: Polling for MVP

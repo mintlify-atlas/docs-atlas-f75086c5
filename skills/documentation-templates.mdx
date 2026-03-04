@@ -1,0 +1,284 @@
+---
+title: Documentation Templates
+description: Documentation templates and structure guidelines for README, API docs, code comments, and AI-friendly documentation
+---
+
+## Overview
+
+The documentation-templates skill provides templates and structure guidelines for common documentation types including README files, API documentation, code comments, changelogs, Architecture Decision Records, and AI-friendly documentation formats.
+
+## What This Skill Provides
+
+- **README structure**: Essential sections in priority order
+- **API documentation templates**: Per-endpoint documentation format
+- **Code comment guidelines**: JSDoc/TSDoc with when-to-comment rules
+- **Changelog templates**: Keep a Changelog format
+- **ADR templates**: Architecture Decision Record structure
+- **AI-friendly documentation**: llms.txt and MCP-ready formats
+- **Structure principles**: Scannable, example-first documentation
+
+## 1. README Structure
+
+### Essential Sections (Priority Order)
+
+| Section | Purpose |
+|---------|--------|
+| **Title + One-liner** | What is this? |
+| **Quick Start** | Running in less than 5 minutes |
+| **Features** | What can I do? |
+| **Configuration** | How to customize |
+| **API Reference** | Link to detailed docs |
+| **Contributing** | How to help |
+| **License** | Legal |
+
+### README Template
+
+```markdown
+# Project Name
+
+Brief one-line description.
+
+## Quick Start
+
+[Minimum steps to run]
+
+## Features
+
+- Feature 1
+- Feature 2
+
+## Configuration
+
+| Variable | Description | Default |
+|----------|-------------|----------|
+| PORT | Server port | 3000 |
+
+## Documentation
+
+- [API Reference](./docs/api.md)
+- [Architecture](./docs/architecture.md)
+
+## License
+
+MIT
+```
+
+## 2. API Documentation Structure
+
+### Per-Endpoint Template
+
+```markdown
+## GET /users/:id
+
+Get a user by ID.
+
+**Parameters:**
+| Name | Type | Required | Description |
+|------|------|----------|-------------|
+| id | string | Yes | User ID |
+
+**Response:**
+- 200: User object
+- 404: User not found
+
+**Example:**
+[Request and response example]
+```
+
+## 3. Code Comment Guidelines
+
+### JSDoc/TSDoc Template
+
+```typescript
+/**
+ * Brief description of what the function does.
+ * 
+ * @param paramName - Description of parameter
+ * @returns Description of return value
+ * @throws ErrorType - When this error occurs
+ * 
+ * @example
+ * const result = functionName(input);
+ */
+```
+
+### When to Comment
+
+| ✅ Comment | ❌ Don't Comment |
+|-----------|----------------|
+| Why (business logic) | What (obvious) |
+| Complex algorithms | Every line |
+| Non-obvious behavior | Self-explanatory code |
+| API contracts | Implementation details |
+
+## 4. Changelog Template
+
+Following [Keep a Changelog](https://keepachangelog.com/) format:
+
+```markdown
+# Changelog
+
+## [Unreleased]
+### Added
+- New feature
+
+## [1.0.0] - 2025-01-01
+### Added
+- Initial release
+### Changed
+- Updated dependency
+### Fixed
+- Bug fix
+```
+
+## 5. Architecture Decision Record (ADR)
+
+```markdown
+# ADR-001: [Title]
+
+## Status
+Accepted / Deprecated / Superseded
+
+## Context
+Why are we making this decision?
+
+## Decision
+What did we decide?
+
+## Consequences
+What are the trade-offs?
+```
+
+## 6. AI-Friendly Documentation
+
+### llms.txt Template
+
+For AI crawlers and agents:
+
+```markdown
+# Project Name
+> One-line objective.
+
+## Core Files
+- [src/index.ts]: Main entry
+- [src/api/]: API routes
+- [docs/]: Documentation
+
+## Key Concepts
+- Concept 1: Brief explanation
+- Concept 2: Brief explanation
+```
+
+### MCP-Ready Documentation
+
+For RAG indexing:
+- Clear H1-H3 hierarchy
+- JSON/YAML examples for data structures
+- Mermaid diagrams for flows
+- Self-contained sections
+
+## Structure Principles
+
+| Principle | Why |
+|-----------|-----|
+| **Scannable** | Headers, lists, tables |
+| **Examples first** | Show, don't just tell |
+| **Progressive detail** | Simple → Complex |
+| **Up to date** | Outdated = misleading |
+
+## Use Cases
+
+- Creating project README files
+- Documenting REST APIs
+- Writing code comments
+- Maintaining changelogs
+- Recording architectural decisions
+- Creating AI-friendly documentation
+- Setting up project documentation structure
+
+## Documentation Types
+
+### User-Facing Documentation
+- README files
+- API documentation
+- User guides
+- Tutorials
+- FAQ pages
+
+### Developer Documentation
+- Code comments
+- Architecture docs
+- Contributing guides
+- Development setup
+- Testing guides
+
+### Project Documentation
+- Changelogs
+- ADRs (Architecture Decision Records)
+- Meeting notes
+- Project plans
+- Roadmaps
+
+### AI-Friendly Documentation
+- llms.txt files
+- Structured markdown with clear hierarchy
+- JSON schemas
+- OpenAPI specifications
+
+## Related Skills
+
+- [Architecture](/skills/architecture) - ADR documentation
+- [API Patterns](/skills/api-patterns) - API documentation standards
+- [Clean Code](/skills/clean-code) - Code commenting guidelines
+
+## Which Agents Use This Skill
+
+- **documentation-writer** - Primary user for all documentation tasks
+- Other agents reference this skill when creating documentation
+
+## Best Practices
+
+### README Files
+- Start with what, not why
+- Quick start should be < 5 steps
+- Include visual examples (screenshots, GIFs)
+- Link to detailed docs, don't inline everything
+- Keep it updated with code changes
+
+### API Documentation
+- Document all endpoints
+- Include example requests and responses
+- Specify error codes and meanings
+- Document rate limits and authentication
+- Keep OpenAPI/Swagger spec in sync
+
+### Code Comments
+- Explain why, not what
+- Update comments when code changes
+- Remove commented-out code (use git history)
+- Use TODO/FIXME/NOTE consistently
+- Document public APIs thoroughly
+
+### Changelogs
+- Update with every release
+- Group changes by type (Added, Changed, Fixed, etc.)
+- Include dates and version numbers
+- Link to commits or PRs
+- Write for users, not developers
+
+### ADRs
+- Create for significant decisions
+- Include context and alternatives considered
+- Document consequences and trade-offs
+- Number sequentially (ADR-001, ADR-002, etc.)
+- Keep them short and focused
+
+## Anti-Patterns to Avoid
+
+- Outdated documentation that contradicts code
+- Over-commenting obvious code
+- No documentation at all
+- Documentation only in code comments
+- Verbose documentation without examples
+- No structure or organization
+- Documentation in non-standard locations

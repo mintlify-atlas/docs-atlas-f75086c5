@@ -1,0 +1,178 @@
+---
+title: "/deploy"
+description: "Production deployment with pre-flight checks and verification"
+---
+
+The `/deploy` command handles production deployment with comprehensive pre-flight checks, deployment execution, and verification. It ensures your application is ready for production before deploying.
+
+## Sub-commands
+
+```bash
+/deploy            # Interactive deployment wizard
+/deploy check      # Run pre-deployment checks only
+/deploy preview    # Deploy to preview/staging
+/deploy production # Deploy to production
+/deploy rollback   # Rollback to previous version
+```
+
+## When to use this
+
+<CardGroup cols={2}>
+  <Card title="Ready to ship" icon="rocket">
+    All tests pass and features are complete
+  </Card>
+  <Card title="After testing" icon="check-double">
+    You've verified everything works
+  </Card>
+  <Card title="Production releases" icon="globe">
+    Deploying to live environment
+  </Card>
+  <Card title="Staging deploys" icon="flask">
+    Testing in staging before production
+  </Card>
+</CardGroup>
+
+## Pre-deployment checklist
+
+Before any deployment, the system verifies:
+
+### Code Quality
+- [ ] No TypeScript errors (`npx tsc --noEmit`)
+- [ ] ESLint passing (`npx eslint .`)
+- [ ] All tests passing (`npm test`)
+
+### Security
+- [ ] No hardcoded secrets
+- [ ] Environment variables documented
+- [ ] Dependencies audited (`npm audit`)
+
+### Performance
+- [ ] Bundle size acceptable
+- [ ] No console.log statements
+- [ ] Images optimized
+
+### Documentation
+- [ ] README updated
+- [ ] CHANGELOG updated
+- [ ] API docs current
+
+## Deployment flow
+
+<Steps>
+  <Step title="Pre-flight checks">
+    Run all quality, security, and performance checks
+  </Step>
+  
+  <Step title="Build application">
+    Create production-optimized build
+  </Step>
+  
+  <Step title="Deploy to platform">
+    Push to Vercel, Railway, Fly.io, or your chosen platform
+  </Step>
+  
+  <Step title="Health check & verify">
+    Confirm deployment succeeded and services are healthy
+  </Step>
+</Steps>
+
+## Output format
+
+### Successful deploy
+
+```markdown
+## 🚀 Deployment Complete
+
+### Summary
+- **Version:** v1.2.3
+- **Environment:** production
+- **Duration:** 47 seconds
+- **Platform:** Vercel
+
+### URLs
+- 🌐 Production: https://app.example.com
+- 📊 Dashboard: https://vercel.com/project
+
+### What Changed
+- Added user profile feature
+- Fixed login bug
+- Updated dependencies
+
+### Health Check
+✅ API responding (200 OK)
+✅ Database connected
+✅ All services healthy
+```
+
+### Failed deploy
+
+```markdown
+## ❌ Deployment Failed
+
+### Error
+Build failed at step: TypeScript compilation
+
+### Details
+error TS2345: Argument of type 'string' is not assignable...
+
+### Resolution
+1. Fix TypeScript error in src/services/user.ts:45
+2. Run npm run build locally to verify
+3. Try /deploy again
+
+### Rollback Available
+Previous version (v1.2.2) is still active.
+Run /deploy rollback if needed.
+```
+
+## Platform support
+
+| Platform | Command | Notes |
+|----------|---------|-------|
+| Vercel | `vercel --prod` | Auto-detected for Next.js |
+| Railway | `railway up` | Needs Railway CLI |
+| Fly.io | `fly deploy` | Needs flyctl |
+| Docker | `docker compose up -d` | For self-hosted |
+
+## Usage examples
+
+```bash
+/deploy
+```
+
+Interactive deployment with all checks
+
+```bash
+/deploy check
+```
+
+Run pre-flight checks without deploying
+
+```bash
+/deploy preview
+```
+
+Deploy to staging/preview environment
+
+```bash
+/deploy production --skip-tests
+```
+
+Deploy directly to production (use with caution)
+
+```bash
+/deploy rollback
+```
+
+Revert to previous version
+
+## Related agents
+
+- [DevOps Engineer](/agents/devops-engineer) - Deployment and CI/CD expert
+- [Security Auditor](/agents/security-auditor) - Pre-deployment security checks
+
+## Related workflows
+
+- [/test](/workflows/test) - Run tests before deployment
+- [/status](/workflows/status) - Check project status
+- [/preview](/workflows/preview) - Test locally before deploying

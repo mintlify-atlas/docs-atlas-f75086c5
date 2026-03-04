@@ -1,0 +1,105 @@
+---
+title: "/brainstorm"
+description: "Structured idea exploration before implementation"
+---
+
+The `/brainstorm` command activates structured brainstorming mode for exploring options before committing to an implementation. Use this workflow when you need to evaluate multiple approaches and understand tradeoffs.
+
+## When to use this
+
+<CardGroup cols={2}>
+  <Card title="Unclear requirements" icon="question">
+    You need to explore the problem space before starting
+  </Card>
+  <Card title="Multiple approaches" icon="fork">
+    Several valid solutions exist and you need to compare them
+  </Card>
+  <Card title="Complex problems" icon="diagram-project">
+    The problem needs to be broken down and analyzed
+  </Card>
+  <Card title="Before commitment" icon="lightbulb">
+    You want to evaluate options before investing in implementation
+  </Card>
+</CardGroup>
+
+## How it works
+
+When you invoke `/brainstorm`, the system follows this structured approach:
+
+<Steps>
+  <Step title="Understand the goal">
+    - What problem are we solving?
+    - Who is the user?
+    - What constraints exist?
+  </Step>
+  
+  <Step title="Generate options">
+    - Provide at least 3 different approaches
+    - Each with pros and cons
+    - Consider unconventional solutions
+  </Step>
+  
+  <Step title="Compare and recommend">
+    - Summarize tradeoffs
+    - Give a recommendation with reasoning
+    - Let you make the final decision
+  </Step>
+</Steps>
+
+## Output format
+
+You'll receive a structured brainstorming document with:
+
+- **Context**: Brief problem statement
+- **Option A, B, C**: Each with:
+  - Description
+  - ✅ Pros
+  - ❌ Cons
+  - 📊 Effort estimate (Low/Medium/High)
+- **Recommendation**: Suggested approach with reasoning
+
+## Usage examples
+
+```bash
+/brainstorm authentication system
+```
+
+Explore authentication options (JWT, sessions, OAuth, etc.)
+
+```bash
+/brainstorm state management for complex form
+```
+
+Evaluate state management approaches for your form requirements
+
+```bash
+/brainstorm database schema for social app
+```
+
+Design data model options for social features
+
+```bash
+/brainstorm caching strategy
+```
+
+Compare caching approaches and tradeoffs
+
+## Key principles
+
+<Note>
+  **No code**: This workflow is about ideas and architecture, not implementation. You'll explore concepts visually with diagrams when helpful.
+</Note>
+
+<Note>
+  **Honest tradeoffs**: The AI won't hide complexity or oversimplify. You'll see real pros and cons for each approach.
+</Note>
+
+<Note>
+  **Defer to you**: The AI presents options and recommendations, but you make the final decision on which direction to pursue.
+</Note>
+
+## Related workflows
+
+- [/plan](/workflows/plan) - Create detailed task breakdown after choosing approach
+- [/create](/workflows/create) - Start implementation after brainstorming
+- [/orchestrate](/workflows/orchestrate) - Use multi-agent coordination for complex decisions

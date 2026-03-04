@@ -1,0 +1,153 @@
+---
+title: Testing Patterns
+description: Testing patterns and principles for unit, integration, and mocking strategies
+---
+
+## Overview
+
+The **testing-patterns** skill provides comprehensive guidance on building reliable test suites. It covers the testing pyramid, AAA pattern, test type selection, and best practices for unit, integration, and E2E testing.
+
+## What This Skill Provides
+
+- **Testing Pyramid**: Understanding the balance between unit, integration, and E2E tests
+- **AAA Pattern**: Arrange-Act-Assert structure for clear tests
+- **Test Type Selection**: When to use unit vs integration vs E2E
+- **Unit Test Principles**: Fast, isolated, repeatable tests
+- **Integration Testing**: API, database, and service integration
+- **Mocking Strategies**: When and how to mock dependencies
+- **Test Organization**: Naming conventions and file structure
+- **Test Data Management**: Factories, fixtures, and builders
+
+## Key Concepts
+
+### Testing Pyramid
+
+```
+        /\          E2E (Few)
+       /  \         Critical flows
+      /----\
+     /      \       Integration (Some)
+    /--------\      API, DB queries
+   /          \
+  /------------\    Unit (Many)
+                    Functions, classes
+```
+
+### AAA Pattern
+
+| Step | Purpose |
+|------|----------|
+| **Arrange** | Set up test data |
+| **Act** | Execute code under test |
+| **Assert** | Verify expected outcome |
+
+### Test Type Selection
+
+| Type | Best For | Speed |
+|------|----------|-------|
+| **Unit** | Pure functions, logic | Fast (under 50ms) |
+| **Integration** | API, DB, services | Medium |
+| **E2E** | Critical user flows | Slow |
+
+## Use Cases
+
+### When to Use This Skill
+
+- Setting up a test suite for a new project
+- Deciding what types of tests to write
+- Improving test coverage and quality
+- Debugging flaky tests
+- Implementing mocking strategies
+- Organizing test code structure
+
+### Example Scenarios
+
+1. **New Feature**: "Add tests for the user authentication feature"
+2. **Refactoring**: "Make these tests more maintainable"
+3. **Coverage**: "What should I test in this module?"
+4. **Mocking**: "Should I mock this database call?"
+
+## Best Practices
+
+### Unit Tests
+
+| Principle | Meaning |
+|-----------|----------|
+| Fast | < 100ms each |
+| Isolated | No external deps |
+| Repeatable | Same result always |
+| Self-checking | No manual verification |
+| Timely | Written with code |
+
+### What to Test
+
+| Test | Don't Test |
+|------|------------|
+| Business logic | Framework code |
+| Edge cases | Third-party libs |
+| Error handling | Simple getters |
+
+### Mocking Principles
+
+| Mock | Don't Mock |
+|------|------------|
+| External APIs | The code under test |
+| Database (unit) | Simple dependencies |
+| Time/random | Pure functions |
+| Network | In-memory stores |
+
+## Anti-Patterns to Avoid
+
+- ❌ Testing implementation details instead of behavior
+- ❌ Duplicating test code without using factories
+- ❌ Complex test setup (simplify or split)
+- ❌ Ignoring flaky tests
+- ❌ Skipping cleanup between tests
+
+## Related Skills
+
+- **tdd-workflow**: Test-Driven Development cycle
+- **webapp-testing**: E2E and Playwright testing
+- **code-review-checklist**: Testing coverage in reviews
+- **clean-code**: Clean test code principles
+
+## Which Agents Use This Skill
+
+- **test-engineer**: Primary user for all testing activities
+- **qa-automation-engineer**: Uses for automated test development
+
+## Test Organization
+
+### Naming Conventions
+
+| Pattern | Example |
+|---------|----------|
+| Should behavior | "should return error when..." |
+| When condition | "when user not found..." |
+| Given-when-then | "given X, when Y, then Z" |
+
+### File Structure
+
+```
+tests/
+├── unit/          # Fast, isolated tests
+├── integration/   # API, database tests
+├── e2e/           # Full user flows
+└── fixtures/      # Shared test data
+```
+
+## Tools Available
+
+- Read, Write, Edit: For working with test files
+- Glob, Grep: For searching test patterns
+- Bash: For running test commands
+
+### Scripts
+
+| Script | Purpose | Command |
+|--------|---------|----------|
+| `scripts/test_runner.py` | Run tests with validation | `python scripts/test_runner.py .` |
+
+---
+
+**Remember**: Tests are documentation. If someone can't understand what the code does from the tests, rewrite them.

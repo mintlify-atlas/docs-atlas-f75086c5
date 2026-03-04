@@ -1,0 +1,137 @@
+---
+title: Bash/Linux
+description: Essential Bash and Linux terminal patterns for macOS and Linux systems
+---
+
+## Overview
+
+The Bash/Linux skill provides essential patterns for working with Bash shells on Linux and macOS systems. It covers command chaining, file operations, process management, text processing, scripting, and error handling.
+
+## What This Skill Provides
+
+- **Command chaining operators**: `;`, `&&`, `||`, `|` for sequential and conditional execution
+- **File operations**: Essential commands for listing, searching, and manipulating files
+- **Process management**: Finding, managing, and killing processes by PID or port
+- **Text processing**: Using grep, sed, awk, cut, sort, uniq, and wc
+- **Environment variables**: Setting, viewing, and managing environment configuration
+- **Network operations**: curl, nc, and network information commands
+- **Script templates**: Production-ready Bash script structure with error handling
+- **Common patterns**: Command checking, default values, file reading, loops
+- **Error handling**: set options and cleanup traps
+
+## Use Cases
+
+- Automating development workflows with shell scripts
+- Managing processes and finding what's using specific ports
+- Text processing and data extraction from files
+- Debugging network issues and making API requests
+- Writing robust shell scripts with proper error handling
+- Chaining commands for complex operations
+
+## Related Skills
+
+- [PowerShell Windows](/skills/powershell-windows) - Windows equivalent
+- [Server Management](/skills/server-management) - Server administration
+- [Deployment Procedures](/skills/deployment-procedures) - Deployment automation
+- [Systematic Debugging](/skills/systematic-debugging) - Debugging with shell tools
+
+## Which Agents Use This Skill
+
+This skill is commonly used by:
+
+- **Backend developers** working on Linux/macOS
+- **DevOps engineers** writing deployment scripts
+- **System administrators** managing servers
+- **Data engineers** processing text files
+
+## Key Principles
+
+### Command Chaining
+
+| Operator | Meaning | Example |
+|----------|---------|----------|
+| `;` | Run sequentially | `cmd1; cmd2` |
+| `&&` | Run if previous succeeded | `npm install && npm run dev` |
+| `||` | Run if previous failed | `npm test || echo "Tests failed"` |
+| `|` | Pipe output | `ls | grep ".js"` |
+
+### Text-Based Pipeline
+
+Bash pipelines are text-based (unlike PowerShell's object-based approach). Always quote variables and consider word splitting.
+
+### Error Handling with Set Options
+
+```bash
+set -e          # Exit on error
+set -u          # Exit on undefined variable
+set -o pipefail # Exit on pipe failure
+set -x          # Debug: print commands
+```
+
+## Script Template
+
+```bash
+#!/bin/bash
+set -euo pipefail  # Exit on error, undefined var, pipe fail
+
+# Colors (optional)
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+NC='\033[0m'
+
+# Script directory
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+# Functions
+log_info() { echo -e "${GREEN}[INFO]${NC} $1"; }
+log_error() { echo -e "${RED}[ERROR]${NC} $1" >&2; }
+
+# Main
+main() {
+    log_info "Starting..."
+    # Your logic here
+    log_info "Done!"
+}
+
+main "$@"
+```
+
+## Common Patterns
+
+### Check if Command Exists
+
+```bash
+if command -v node &> /dev/null; then
+    echo "Node is installed"
+fi
+```
+
+### Default Variable Value
+
+```bash
+NAME=${1:-"default_value"}
+```
+
+### Cleanup on Exit
+
+```bash
+cleanup() {
+    echo "Cleaning up..."
+    rm -f /tmp/tempfile
+}
+trap cleanup EXIT
+```
+
+## Differences from PowerShell
+
+| Task | PowerShell | Bash |
+|------|------------|------|
+| List files | `Get-ChildItem` | `ls -la` |
+| Find files | `Get-ChildItem -Recurse` | `find . -type f` |
+| Environment | `$env:VAR` | `$VAR` |
+| Null check | `if ($x)` | `if [ -n "$x" ]` |
+| Pipeline | Object-based | Text-based |
+
+## Remember
+
+Bash is text-based. Use `&&` for success chains, `set -e` for safety, and quote your variables!

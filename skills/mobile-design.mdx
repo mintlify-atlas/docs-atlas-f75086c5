@@ -1,0 +1,185 @@
+---
+title: Mobile Design
+description: Mobile-first design thinking for iOS and Android apps with touch interaction and platform conventions
+---
+
+## Overview
+
+The Mobile Design skill teaches mobile-first design principles and decision-making for iOS and Android applications. It emphasizes touch interaction psychology, performance patterns, and platform-specific conventions while avoiding common AI defaults that lead to poor mobile UX.
+
+## What This Skill Provides
+
+- **Mobile design thinking**: Anti-memorization approach forcing context-based decisions
+- **Touch psychology**: Fitts' Law, thumb zones, gesture design, haptics
+- **Performance patterns**: React Native and Flutter optimization for 60fps
+- **Platform conventions**: iOS Human Interface Guidelines and Android Material Design
+- **Navigation patterns**: Tab, stack, and drawer navigation with deep linking
+- **Mobile backend**: Push notifications, offline sync, mobile API patterns
+- **Testing strategies**: Mobile-specific testing pyramid and E2E testing
+- **Debugging techniques**: Native vs JS debugging, Flipper, Logcat
+- **Decision trees**: Framework, state management, and storage selection
+- **Anti-patterns**: AI default tendencies to avoid
+
+## Use Cases
+
+- Building React Native or Flutter cross-platform apps
+- Creating native iOS (SwiftUI) or Android (Compose) applications
+- Optimizing mobile performance for 60fps interactions
+- Implementing platform-specific navigation and gestures
+- Designing touch-first interfaces with proper target sizes
+- Supporting offline functionality and background sync
+- Debugging performance issues in mobile apps
+
+## Related Skills
+
+- [Frontend Design](/skills/frontend-design) - Web UI patterns
+- [Performance Profiling](/skills/performance-profiling) - Performance optimization
+- [Testing Patterns](/skills/testing-patterns) - Mobile testing strategies
+- [API Patterns](/skills/api-patterns) - Mobile backend integration
+
+## Which Agents Use This Skill
+
+This skill is commonly used by:
+
+- **Mobile developers** building iOS and Android apps
+- **UX designers** creating mobile-first experiences
+- **Product managers** planning mobile features
+- **QA engineers** testing mobile applications
+
+## Key Principles
+
+### Mobile is NOT a Small Desktop
+
+Mobile has unique constraints: touch input, limited screen space, interrupted attention, battery concerns, and variable network conditions.
+
+### Touch Target Requirements
+
+- **iOS**: Minimum 44pt × 44pt
+- **Android**: Minimum 48dp × 48dp
+- **Spacing**: Minimum 8-12px between targets
+
+### Thumb Zone Design
+
+```
+┌─────────────────────────────┐
+│      HARD TO REACH          │ ← Navigation, menu, back
+│        (stretch)            │
+├─────────────────────────────┤
+│      OK TO REACH            │ ← Secondary actions
+│       (natural)             │
+├─────────────────────────────┤
+│      EASY TO REACH          │ ← PRIMARY CTAs, tab bar
+│    (thumb's natural arc)    │ ← Main content interaction
+└─────────────────────────────┘
+```
+
+### Platform Decision: When to Unify vs Diverge
+
+**Unify (same on both):**
+- Business logic
+- Data layer
+- Core features
+
+**Diverge (platform-specific):**
+- Navigation patterns (iOS edge swipe vs Android back button)
+- Icons (SF Symbols vs Material Icons)
+- Date pickers and modals
+- Typography (SF Pro vs Roboto)
+
+## Critical Anti-Patterns to Avoid
+
+### Performance Sins
+
+| Never Do | Why It's Wrong | Always Do |
+|----------|----------------|------------|
+| ScrollView for long lists | Renders ALL items, memory explodes | FlatList / FlashList / ListView.builder |
+| Inline renderItem function | New function every render | useCallback + React.memo |
+| Native driver: false | Animations blocked by JS thread | useNativeDriver: true |
+| console.log in production | Blocks JS thread severely | Remove before release |
+
+### Touch/UX Sins
+
+| Never Do | Why It's Wrong | Always Do |
+|----------|----------------|------------|
+| Touch target < 44px | Impossible to tap accurately | Minimum 44pt (iOS) / 48dp (Android) |
+| No loading state | User thinks app crashed | ALWAYS show loading feedback |
+| No offline handling | Crash/block when network lost | Graceful degradation, cached data |
+| Ignore platform conventions | Users confused | iOS feels iOS, Android feels Android |
+
+### Security Sins
+
+| Never Do | Why It's Wrong | Always Do |
+|----------|----------------|------------|
+| Token in AsyncStorage | Easily stolen on rooted device | SecureStore / Keychain / EncryptedSharedPreferences |
+| Hardcode API keys | Reverse engineered from APK/IPA | Environment variables, secure storage |
+
+## Framework Decision Tree
+
+```
+WHAT ARE YOU BUILDING?
+        │
+        ├── Need OTA updates + rapid iteration + web team
+        │   └── ✅ React Native + Expo
+        │
+        ├── Need pixel-perfect custom UI + performance critical
+        │   └── ✅ Flutter
+        │
+        ├── Deep native features + single platform focus
+        │   ├── iOS only → SwiftUI
+        │   └── Android only → Kotlin + Jetpack Compose
+```
+
+## Performance: React Native Critical Rules
+
+```typescript
+// ✅ CORRECT: Memoized renderItem + React.memo wrapper
+const ListItem = React.memo(({ item }: { item: Item }) => (
+  <View style={styles.item}>
+    <Text>{item.title}</Text>
+  </View>
+));
+
+const renderItem = useCallback(
+  ({ item }: { item: Item }) => <ListItem item={item} />,
+  []
+);
+
+<FlatList
+  data={items}
+  renderItem={renderItem}
+  keyExtractor={(item) => item.id}  // Stable ID, NOT index
+  removeClippedSubviews={true}
+  maxToRenderPerBatch={10}
+  windowSize={5}
+/>
+```
+
+## Pre-Development Checkpoint
+
+Before writing ANY mobile code:
+
+```
+Platform:   [ iOS / Android / Both ]
+Framework:  [ React Native / Flutter / SwiftUI / Kotlin ]
+
+3 Principles I Will Apply:
+1. _______________
+2. _______________
+3. _______________
+
+Anti-Patterns I Will Avoid:
+1. _______________
+2. _______________
+```
+
+## Tools
+
+The skill includes a `mobile_audit.py` script for UX and touch auditing:
+
+```bash
+python scripts/mobile_audit.py <project_path>
+```
+
+## Remember
+
+Mobile users are impatient, interrupted, and using imprecise fingers on small screens. Design for the WORST conditions: bad network, one hand, bright sun, low battery.

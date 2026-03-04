@@ -1,80 +1,301 @@
 ---
-title: "Quickstart"
-description: "Start building awesome documentation in minutes"
+title: "Quick Start"
+description: "Get started with Antigravity Kit in minutes"
 ---
 
-## Get started in three steps
+# Quick Start Guide
 
-Get your documentation site running locally and make your first customization.
+Get up and running with Antigravity Kit in just a few minutes. This guide walks you through installation, configuration, and your first agent interaction.
 
-### Step 1: Set up your local environment
+## Getting Started
 
-<AccordionGroup>
-  <Accordion icon="copy" title="Clone your docs locally">
-    During the onboarding process, you created a GitHub repository with your docs content if you didn't already have one. You can find a link to this repository in your [dashboard](https://dashboard.mintlify.com).
+<Steps>
+  <Step title="Install Antigravity Kit">
+    Install the `.agent` folder into your project using npx:
     
-    To clone the repository locally so that you can make and preview changes to your docs, follow the [Cloning a repository](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository) guide in the GitHub docs.
-  </Accordion>
-  <Accordion icon="rectangle-terminal" title="Start the preview server">
-    1. Install the Mintlify CLI: `npm i -g mint`
-    2. Navigate to your docs directory and run: `mint dev`
-    3. Open `http://localhost:3000` to see your docs live!
+    ```bash
+    npx @vudovn/ag-kit init
+    ```
     
-    <Tip>Your preview updates automatically as you edit files.</Tip>
-  </Accordion>
-</AccordionGroup>
+    This creates a `.agent` folder containing:
+    - 20 specialist agents
+    - 37 domain-specific skills
+    - 11 slash command workflows
+    - Validation scripts and documentation
+  </Step>
 
-### Step 2: Deploy your changes
-
-<AccordionGroup>
-  <Accordion icon="github" title="Install our GitHub app">
-    Install the Mintlify GitHub app from your [dashboard](https://dashboard.mintlify.com/settings/organization/github-app).
+  <Step title="Configure Git (Optional)">
+    If you want to keep `.agent` local without tracking it in Git:
     
-    Our GitHub app automatically deploys your changes to your docs site, so you don't need to manage deployments yourself.
-</Accordion>
-<Accordion icon="palette" title="Update your site name and colors">
-    For a first change, let's update the name and colors of your docs site.
+    ```bash
+    echo ".agent/" >> .git/info/exclude
+    ```
+    
+    <Warning>
+      Do **NOT** add `.agent/` to `.gitignore` if you're using Cursor or Windsurf. This prevents the IDE from indexing workflows and showing slash command suggestions.
+    </Warning>
+  </Step>
 
-    1. Open `docs.json` in your editor.
-    2. Change the `"name"` field to your project name.
-    3. Update the `"colors"` to match your brand.
-    4. Save and see your changes instantly at `http://localhost:3000`.
+  <Step title="Open Your AI Editor">
+    Launch **Cursor** or **Windsurf** and open your project. The editor will automatically index the `.agent` folder and make agents and workflows available.
+  </Step>
 
-    <Tip>Try changing the primary color to see an immediate difference!</Tip>
-  </Accordion>
-</AccordionGroup>
+  <Step title="Start Using Agents">
+    Simply describe what you need - agents are automatically selected:
+    
+    ```
+    You: "Add JWT authentication to the login endpoint"
+    AI: 🤖 Applying @security-auditor + @backend-specialist...
+    ```
+    
+    The AI will:
+    - Detect relevant domains (security + backend)
+    - Load appropriate skills (api-patterns, nodejs-best-practices)
+    - Provide expert-level implementation
+  </Step>
+</Steps>
 
-### Step 3: Go live
+## Using Agents
 
-<Accordion icon="rocket" title="Publish your docs">
-  1. Commit and push your changes.
-  2. Your docs will update and be live in moments!
-</Accordion>
+### Automatic Selection
 
-## Next steps
+Agents are automatically selected based on your request. No need to explicitly mention them!
 
-Now that you have your docs running, explore these key features:
+**Examples:**
 
-<CardGroup cols={2}>
+```
+You: "Fix the dark mode button"
+AI: 🤖 Using @frontend-specialist...
+     Skills: frontend-design, react-best-practices
 
-<Card title="Write Content" icon="pen-to-square" href="/essentials/markdown">
-  Learn MDX syntax and start writing your documentation.
-</Card>
+You: "Optimize database queries"
+AI: 🤖 Using @database-architect...
+     Skills: database-design, prisma-expert
 
-<Card title="Customize style" icon="palette" href="/essentials/settings">
-  Make your docs match your brand perfectly.
-</Card>
+You: "Login returns 500 error"
+AI: 🤖 Using @debugger for systematic analysis...
+     Skills: systematic-debugging
+```
 
-<Card title="Add code examples" icon="square-code" href="/essentials/code">
-  Include syntax-highlighted code blocks.
-</Card>
+### Available Agents
 
-<Card title="API documentation" icon="code" href="/api-reference/introduction">
-  Auto-generate API docs from OpenAPI specs.
-</Card>
-
-</CardGroup>
+| Agent | When It's Used | Skills Loaded |
+| --- | --- | --- |
+| `frontend-specialist` | UI/UX work, React components | react-best-practices, tailwind-patterns |
+| `backend-specialist` | API development, server logic | api-patterns, nodejs-best-practices |
+| `database-architect` | Schema design, SQL queries | database-design, prisma-expert |
+| `security-auditor` | Security compliance, audits | vulnerability-scanner |
+| `debugger` | Bug investigation, errors | systematic-debugging |
+| `test-engineer` | Writing tests, test strategies | testing-patterns, webapp-testing |
+| `devops-engineer` | Deployment, CI/CD | docker-expert, deployment-procedures |
+| `performance-optimizer` | Speed optimization | performance-profiling |
 
 <Note>
-  **Need help?** See our [full documentation](https://mintlify.com/docs) or join our [community](https://mintlify.com/community).
+  View all 20 agents in `.agent/agents/` or check the [ARCHITECTURE.md](https://github.com/vudovn/antigravity-kit/blob/main/.agent/ARCHITECTURE.md) file.
 </Note>
+
+## Using Slash Commands
+
+Workflows are invoked using slash commands in your AI editor. Type `/` to see available commands.
+
+### Common Workflows
+
+<Tabs>
+  <Tab title="/brainstorm">
+    Explore options before implementation:
+    
+    ```
+    /brainstorm authentication system for multi-tenant app
+    ```
+    
+    The AI will:
+    - Ask strategic questions
+    - Explore different approaches
+    - Provide recommendations
+    - Create a structured discovery document
+  </Tab>
+
+  <Tab title="/create">
+    Create new features or components:
+    
+    ```
+    /create landing page with hero section and pricing cards
+    ```
+    
+    The AI will:
+    - Detect project type (web/mobile/API)
+    - Load relevant templates
+    - Scaffold the feature
+    - Apply best practices
+  </Tab>
+
+  <Tab title="/debug">
+    Systematic debugging:
+    
+    ```
+    /debug why login fails with 401 error
+    ```
+    
+    The AI will:
+    - Analyze error logs
+    - Perform root cause analysis
+    - Suggest fixes with code examples
+    - Verify the solution
+  </Tab>
+
+  <Tab title="/plan">
+    Create task breakdowns:
+    
+    ```
+    /plan implement real-time chat feature
+    ```
+    
+    The AI will:
+    - Analyze requirements
+    - Break down into tasks
+    - Provide time estimates
+    - Create a structured plan
+  </Tab>
+</Tabs>
+
+### All Available Workflows
+
+| Command | Description | Use Case |
+| --- | --- | --- |
+| `/brainstorm` | Socratic discovery | Unclear requirements, need options |
+| `/create` | Create features/apps | New functionality |
+| `/debug` | Systematic debugging | Bug reports, errors |
+| `/deploy` | Deploy application | Ready to ship |
+| `/enhance` | Improve existing code | Refactoring, optimization |
+| `/orchestrate` | Multi-agent coordination | Complex full-stack tasks |
+| `/plan` | Task breakdown | Large projects, estimates |
+| `/preview` | Preview changes locally | Before deploying |
+| `/status` | Check project status | Health checks |
+| `/test` | Generate and run tests | Before deployment |
+| `/ui-ux-pro-max` | Design with 50 styles | Professional UI design |
+
+## Real-World Examples
+
+### Example 1: Building a Feature
+
+```
+You: /create user profile page with avatar upload
+
+AI: 🤖 Using @frontend-specialist...
+    Creating:
+    - app/profile/page.tsx (Next.js server component)
+    - components/AvatarUpload.tsx (React component)
+    - lib/upload-utils.ts (utility functions)
+    
+    Applied skills:
+    ✓ react-best-practices (server components, hooks)
+    ✓ tailwind-patterns (responsive design)
+    ✓ frontend-design (UX patterns)
+```
+
+### Example 2: Debugging an Issue
+
+```
+You: /debug API returns 500 when creating a post
+
+AI: 🤖 Using @debugger...
+    Analyzing:
+    1. Checking error logs... Found: "Cannot read property 'id' of undefined"
+    2. Root cause: Missing user authentication check
+    3. Location: app/api/posts/route.ts:15
+    
+    Fix:
+    [Code example provided]
+    
+    Verification:
+    ✓ Added auth middleware
+    ✓ Added error handling
+    ✓ Suggested test cases
+```
+
+### Example 3: Multi-Agent Task
+
+```
+You: /orchestrate build e-commerce product page with cart
+
+AI: 🤖 Orchestrating multiple specialists...
+    
+    @frontend-specialist:
+    - Building ProductPage component
+    - Creating Cart UI with animations
+    
+    @backend-specialist:
+    - API routes for cart operations
+    - Session management
+    
+    @database-architect:
+    - Cart schema design
+    - Product inventory tracking
+    
+    @test-engineer:
+    - E2E cart flow tests
+    - Unit tests for calculations
+```
+
+## Validation Scripts
+
+Antigravity Kit includes validation scripts to ensure code quality:
+
+<CodeGroup>
+```bash Quick validation
+python .agent/scripts/checklist.py .
+```
+
+```bash Full verification
+python .agent/scripts/verify_all.py . --url http://localhost:3000
+```
+</CodeGroup>
+
+**checklist.py** (Development - ~30 seconds):
+- Security scan
+- Code quality (lint, types)
+- Schema validation
+- Unit tests
+- UX audit
+- SEO check
+
+**verify_all.py** (Pre-deployment - ~3-5 minutes):
+- All quick checks
+- Lighthouse (Core Web Vitals)
+- Playwright E2E tests
+- Bundle analysis
+- Mobile audit
+- i18n check
+
+## Tips for Best Results
+
+<CardGroup cols={2}>
+  <Card title="Be Specific" icon="bullseye">
+    Provide clear requirements and context for better results
+  </Card>
+  
+  <Card title="Use Workflows" icon="diagram-project">
+    Use `/` commands for structured, multi-step processes
+  </Card>
+  
+  <Card title="Trust Auto-Selection" icon="wand-magic-sparkles">
+    Let the system choose agents - it's trained to detect domains
+  </Card>
+  
+  <Card title="Run Validations" icon="circle-check">
+    Use validation scripts before committing or deploying
+  </Card>
+</CardGroup>
+
+## Next Steps
+
+Now that you're familiar with the basics:
+
+- Explore the `.agent/agents/` folder to see all 20 specialist agents
+- Check out `.agent/skills/` to discover 37 domain-specific skills
+- Read `.agent/ARCHITECTURE.md` for detailed system documentation
+- Try different workflows with `/` commands in your AI editor
+
+<Card title="View Full Documentation" icon="book" href="https://antigravity-kit.unikorn.vn/docs">
+  Browse comprehensive guides and examples online
+</Card>

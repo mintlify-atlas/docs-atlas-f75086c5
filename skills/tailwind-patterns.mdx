@@ -1,0 +1,265 @@
+---
+title: Tailwind CSS Patterns
+description: Modern utility-first CSS with Tailwind v4, CSS-first configuration, and container queries
+---
+
+<Note>
+This skill covers Tailwind CSS v4 (2025) with CSS-native configuration, Oxide engine, and modern patterns. The architecture has fundamentally changed from v3.
+</Note>
+
+## What This Skill Provides
+
+The Tailwind CSS Patterns skill provides comprehensive knowledge of Tailwind v4's modern, CSS-first approach to styling. It covers the architectural shift from JavaScript configuration to CSS-based theming.
+
+### Core Concepts
+
+<CardGroup cols={2}>
+<Card title="CSS-First Configuration" icon="code">
+Theme definition using `@theme` directive instead of JavaScript config files
+</Card>
+
+<Card title="Oxide Engine" icon="bolt">
+Rust-based compiler providing 10x faster builds with always-on JIT
+</Card>
+
+<Card title="Container Queries" icon="layout">
+Native support for container-based responsive design without breakpoints
+</Card>
+
+<Card title="Modern Color System" icon="palette">
+OKLCH color space for perceptually uniform color tokens
+</Card>
+</CardGroup>
+
+## When This Skill Is Loaded
+
+Agents load this skill when:
+
+- Implementing CSS styling with Tailwind
+- Configuring Tailwind v4 themes
+- Working with responsive design and container queries
+- Setting up design tokens and color systems
+- Optimizing CSS performance
+- Migrating from Tailwind v3 to v4
+
+## Key Changes from v3 to v4
+
+| v3 (Legacy) | v4 (Current) |
+|-------------|-------------|
+| `tailwind.config.js` | CSS-based `@theme` directive |
+| PostCSS plugin | Oxide engine (10x faster) |
+| JIT mode | Native, always-on |
+| Plugin system | CSS-native features |
+| `@apply` directive | Still works, discouraged |
+
+<Tip>
+Tailwind v4 embraces CSS-first philosophy. The config file is now optional - everything can be defined in CSS using CSS variables.
+</Tip>
+
+## Use Cases
+
+### CSS-Based Theme Configuration
+
+Define design tokens directly in CSS:
+
+```css
+@theme {
+  /* Colors - use semantic names */
+  --color-primary: oklch(0.7 0.15 250);
+  --color-surface: oklch(0.98 0 0);
+  --color-surface-dark: oklch(0.15 0 0);
+  
+  /* Spacing scale */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 2rem;
+  
+  /* Typography */
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+```
+
+### Container Queries (v4 Native)
+
+Respond to parent element width instead of viewport:
+
+**When to use:**
+- Page-level layouts → Viewport breakpoints (`md:`, `lg:`)
+- Component-level responsive → Container queries (`@md:`, `@lg:`)
+- Reusable components → Container queries (context-independent)
+
+<Card title="Container Query Pattern" icon="box">
+Define container on parent with `@container`, then use `@sm:`, `@md:`, `@lg:` prefixes on children to respond to parent width instead of viewport.
+</Card>
+
+### Modern Layout Patterns
+
+**Flexbox Patterns:**
+- Center both axes: `flex items-center justify-center`
+- Vertical stack: `flex flex-col gap-4`
+- Space between: `flex justify-between items-center`
+
+**Grid Patterns:**
+- Auto-fit responsive: `grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))]`
+- Asymmetric (Bento): `grid grid-cols-3 grid-rows-2` with spans
+- Sidebar layout: `grid grid-cols-[auto_1fr]`
+
+### Dark Mode Strategies
+
+| Method | Behavior | Use When |
+|--------|----------|----------|
+| `class` | `.dark` class toggles | Manual theme switcher |
+| `media` | Follows system preference | No user control |
+| `selector` | Custom selector (v4) | Complex theming |
+
+## Modern Color System
+
+### OKLCH vs RGB/HSL
+
+<CardGroup cols={3}>
+<Card title="OKLCH" icon="star">
+Perceptually uniform, better for design systems
+</Card>
+
+<Card title="HSL" icon="palette">
+Intuitive hue/saturation control
+</Card>
+
+<Card title="RGB" icon="code">
+Legacy compatibility
+</Card>
+</CardGroup>
+
+### Color Token Architecture
+
+<Note>
+**Three-Layer System:**
+
+1. **Primitive** - Raw color values (`--blue-500`)
+2. **Semantic** - Purpose-based naming (`--color-primary`)
+3. **Component** - Component-specific (`--button-bg`)
+</Note>
+
+## Typography System
+
+### Font Stack Pattern
+
+| Type | Recommended |
+|------|-------------|
+| Sans | `'Inter', 'SF Pro', system-ui, sans-serif` |
+| Mono | `'JetBrains Mono', 'Fira Code', monospace` |
+| Display | `'Outfit', 'Poppins', sans-serif` |
+
+### Type Scale
+
+| Class | Size | Use |
+|-------|------|-----|
+| `text-xs` | 0.75rem | Labels, captions |
+| `text-sm` | 0.875rem | Secondary text |
+| `text-base` | 1rem | Body text |
+| `text-lg` | 1.125rem | Lead text |
+| `text-xl`+ | 1.25rem+ | Headings |
+
+## Animation & Transitions
+
+### Built-in Animations
+
+- `animate-spin` - Continuous rotation (loading spinners)
+- `animate-ping` - Attention pulse (notifications)
+- `animate-pulse` - Subtle opacity pulse (loading state)
+- `animate-bounce` - Bouncing effect (scroll indicators)
+
+### Transition Patterns
+
+- All properties: `transition-all duration-200`
+- Specific: `transition-colors duration-150`
+- With easing: `ease-out` or `ease-in-out`
+- Hover effect: `hover:scale-105 transition-transform`
+
+## Related Skills
+
+<CardGroup cols={2}>
+<Card title="Frontend Design" href="/skills/frontend-design">
+Design principles for color, typography, and layout decisions
+</Card>
+
+<Card title="Next.js React Expert" href="/skills/nextjs-react-expert">
+Performance optimization for CSS and rendering
+</Card>
+
+<Card title="Web Design Guidelines" href="/skills/web-design-guidelines">
+Accessibility and best practices for implementations
+</Card>
+</CardGroup>
+
+## Which Agents Use This Skill
+
+<Card title="Frontend Specialist" href="/agents/frontend-specialist" icon="browser">
+The Frontend Specialist loads this skill for all styling work with Tailwind CSS. It's used in conjunction with `frontend-design` for design decisions and `nextjs-react-expert` for performance considerations.
+</Card>
+
+## Component Extraction
+
+### When to Extract
+
+| Signal | Action |
+|--------|--------|
+| Same class combo 3+ times | Extract component |
+| Complex state variants | Extract component |
+| Design system element | Extract + document |
+
+### Extraction Methods
+
+<CardGroup cols={2}>
+<Card title="React/Vue Component">
+When dynamic behavior or JS needed
+</Card>
+
+<Card title="@apply in CSS">
+For static styles without JS
+</Card>
+
+<Card title="Design Tokens">
+For reusable values across components
+</Card>
+</CardGroup>
+
+## Anti-Patterns to Avoid
+
+<Warning>
+**Don't:**
+- Use arbitrary values everywhere → Use design system scale
+- Add `!important` → Fix specificity properly
+- Use inline `style=` → Use utilities instead
+- Duplicate long class lists → Extract component
+- Mix v3 config with v4 → Migrate fully to CSS-first
+- Use `@apply` heavily → Prefer components
+
+**Do:**
+- Use the design system scale
+- Configure theme tokens in CSS
+- Extract reusable patterns
+- Leverage Oxide performance
+- Embrace CSS-native features
+</Warning>
+
+## Performance Principles
+
+<Card title="Automatic Optimizations" icon="bolt">
+- **Purge unused CSS** - Automatic in v4
+- **Oxide compiler** - Default, 10x faster than v3
+- **JIT compilation** - Always on, no configuration needed
+- **CSS caching** - Leverage CI/CD caching for builds
+</Card>
+
+<Tip>
+**Important:** Avoid dynamic class names in template strings - Tailwind cannot detect them at build time. Use complete class names for proper purging.
+</Tip>
+
+---
+
+<Note>
+**Remember:** Tailwind v4 is CSS-first. Embrace CSS variables, container queries, and native features. The JavaScript config file is now optional.
+</Note>

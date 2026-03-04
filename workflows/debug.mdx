@@ -1,0 +1,138 @@
+---
+title: "/debug"
+description: "Systematic problem investigation and root cause analysis"
+---
+
+The `/debug` command activates systematic debugging mode for investigating issues, errors, or unexpected behavior. It applies the [systematic-debugging skill](/skills/systematic-debugging) to methodically identify and fix problems.
+
+## When to use this
+
+<CardGroup cols={2}>
+  <Card title="Bug reports" icon="bug">
+    Something isn't working as expected
+  </Card>
+  <Card title="Error messages" icon="triangle-exclamation">
+    You're seeing errors and need to understand why
+  </Card>
+  <Card title="Unexpected behavior" icon="question-circle">
+    The application behaves differently than intended
+  </Card>
+  <Card title="Performance issues" icon="gauge-high">
+    Slowness or performance degradation
+  </Card>
+</CardGroup>
+
+## How it works
+
+The debugging workflow follows a systematic 4-phase approach:
+
+<Steps>
+  <Step title="Gather information">
+    - Error message and stack trace
+    - Reproduction steps
+    - Expected vs actual behavior
+    - Recent changes
+  </Step>
+  
+  <Step title="Form hypotheses">
+    - List possible causes
+    - Order by likelihood
+    - Identify what to test
+  </Step>
+  
+  <Step title="Investigate systematically">
+    - Test each hypothesis
+    - Check logs and data flow
+    - Use elimination method
+  </Step>
+  
+  <Step title="Fix and prevent">
+    - Apply the fix
+    - Explain root cause
+    - Add prevention measures (tests, validation)
+  </Step>
+</Steps>
+
+## Output format
+
+You'll receive a detailed debugging report:
+
+### 1. Symptom
+What's happening (the observable problem)
+
+### 2. Information Gathered
+- Error: `[error message]`
+- File: `[filepath]`
+- Line: [line number]
+
+### 3. Hypotheses
+1. ❓ Most likely cause
+2. ❓ Second possibility
+3. ❓ Less likely cause
+
+### 4. Investigation
+**Testing hypothesis 1:**
+[What was checked] → [Result]
+
+### 5. Root Cause
+🎯 **Explanation of why this happened**
+
+### 6. Fix
+Before/after code comparison with the solution
+
+### 7. Prevention
+🛡️ How to prevent this in the future (tests, validation, etc.)
+
+## Usage examples
+
+```bash
+/debug login not working
+```
+
+Investigate authentication issues
+
+```bash
+/debug API returns 500
+```
+
+Analyze server errors systematically
+
+```bash
+/debug form doesn't submit
+```
+
+Trace form submission problems
+
+```bash
+/debug data not saving
+```
+
+Investigate persistence issues
+
+## Key principles
+
+<Note>
+  **Ask before assuming**: The debugger will gather full context before making guesses.
+</Note>
+
+<Note>
+  **Test hypotheses**: Uses systematic elimination rather than random guessing.
+</Note>
+
+<Note>
+  **Explain why**: Focuses on understanding the root cause, not just fixing symptoms.
+</Note>
+
+<Note>
+  **Prevent recurrence**: Adds tests and validation to prevent the bug from returning.
+</Note>
+
+## Related agents
+
+- [Debugger agent](/agents/debugger) - Specialized in root cause analysis
+- [Test Engineer](/agents/test-engineer) - Creates prevention tests
+
+## Related workflows
+
+- [/test](/workflows/test) - Generate tests to prevent bugs
+- [/enhance](/workflows/enhance) - Apply fixes and improvements

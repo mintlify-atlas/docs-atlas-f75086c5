@@ -1,0 +1,217 @@
+---
+title: Systematic Debugging
+description: 4-phase systematic debugging methodology with root cause analysis and evidence-based verification
+---
+
+## Overview
+
+The systematic-debugging skill provides a structured, evidence-based approach to debugging that prevents random guessing and ensures problems are properly understood before solving. It emphasizes reproducibility, isolation, root cause analysis, and verification.
+
+## What This Skill Provides
+
+- **4-phase debugging process**: Reproduce → Isolate → Understand → Fix & Verify
+- **Root cause analysis**: 5 Whys technique to find true causes, not symptoms
+- **Evidence-based investigation**: Using logs, traces, and systematic testing
+- **Fix verification**: Ensuring the fix works and doesn't introduce new issues
+- **Debugging checklists**: Before, during, and after investigation
+
+## 4-Phase Debugging Process
+
+### Phase 1: Reproduce
+
+Before fixing, reliably reproduce the issue.
+
+**Checklist**:
+- Document exact reproduction steps
+- Identify reproduction rate (Always/Often/Sometimes/Rare)
+- Note expected vs actual behavior
+- Capture error messages and stack traces
+
+**Reproduction Rate Categories**:
+- Always (100%)
+- Often (50-90%)
+- Sometimes (10-50%)
+- Rare (under 10%)
+
+### Phase 2: Isolate
+
+Narrow down the source.
+
+**Isolation Questions**:
+- When did this start happening?
+- What changed recently?
+- Does it happen in all environments?
+- Can we reproduce with minimal code?
+- What's the smallest change that triggers it?
+
+**Techniques**:
+- Binary search (comment out half the code)
+- Remove dependencies one by one
+- Test in fresh environment
+- Compare working vs broken versions
+
+### Phase 3: Understand
+
+Find the root cause, not just symptoms.
+
+**The 5 Whys Technique**:
+
+1. **Why**: [First observation]
+2. **Why**: [Deeper reason]
+3. **Why**: [Still deeper]
+4. **Why**: [Getting closer]
+5. **Why**: [Root cause]
+
+Example:
+1. Why is the page slow? → API call takes 3 seconds
+2. Why does API take 3 seconds? → Database query is slow
+3. Why is query slow? → Missing index on user_id
+4. Why is index missing? → Migration didn't run
+5. Why didn't migration run? → Deployment script skipped migrations
+
+**Root cause**: Deployment script configuration error
+
+### Phase 4: Fix & Verify
+
+Fix and verify it's truly fixed.
+
+**Fix Verification Checklist**:
+- [ ] Bug no longer reproduces
+- [ ] Related functionality still works
+- [ ] No new issues introduced
+- [ ] Test added to prevent regression
+
+## Debugging Checklists
+
+### Before Starting
+- [ ] Can reproduce consistently
+- [ ] Have minimal reproduction case
+- [ ] Understand expected behavior
+
+### During Investigation
+- [ ] Check recent changes (git log)
+- [ ] Check logs for errors
+- [ ] Add logging if needed
+- [ ] Use debugger/breakpoints
+
+### After Fix
+- [ ] Root cause documented
+- [ ] Fix verified
+- [ ] Regression test added
+- [ ] Similar code checked
+
+## Common Debugging Commands
+
+```bash
+# Recent changes
+git log --oneline -20
+git diff HEAD~5
+
+# Search for pattern
+grep -r "errorPattern" --include="*.ts"
+
+# Check logs
+pm2 logs app-name --err --lines 100
+```
+
+## Use Cases
+
+- Debugging complex production issues
+- Investigating intermittent bugs
+- Solving performance problems
+- Analyzing crash dumps
+- Root cause analysis for system failures
+- Debugging race conditions
+- Tracking down memory leaks
+
+## Anti-Patterns to Avoid
+
+❌ **Random changes** - "Maybe if I change this..."  
+❌ **Ignoring evidence** - "That can't be the cause"  
+❌ **Assuming** - "It must be X" without proof  
+❌ **Not reproducing first** - Fixing blindly  
+❌ **Stopping at symptoms** - Not finding root cause  
+
+## Root Cause vs Symptom
+
+**Symptom**: Login button doesn't work  
+**Immediate cause**: API returns 401  
+**Root cause**: JWT token expired, refresh logic not implemented
+
+**Symptom**: Page loads slowly  
+**Immediate cause**: API call takes 3 seconds  
+**Root cause**: Missing database index
+
+**Symptom**: App crashes on startup  
+**Immediate cause**: Null pointer exception  
+**Root cause**: Config file not loaded, environment variable missing
+
+## Evidence-Based Investigation
+
+**Gather evidence**:
+- Error messages and stack traces
+- Application logs
+- Network requests (browser DevTools)
+- Database query logs
+- System metrics (CPU, memory)
+- Git history
+
+**Form hypothesis**:
+- Based on evidence, not guesses
+- Testable prediction
+- Single variable change
+
+**Test hypothesis**:
+- Change one thing at a time
+- Document results
+- Keep or discard hypothesis
+
+## Related Skills
+
+- [Plan Writing](/skills/plan-writing) - Structured debugging plans
+- [Architecture](/skills/architecture) - Understanding system design for debugging
+- [Performance Profiling](/skills/performance-profiling) - Performance debugging
+- [Vulnerability Scanner](/skills/vulnerability-scanner) - Security issue debugging
+
+## Which Agents Use This Skill
+
+- **debugger** - Primary agent for systematic debugging
+- Other agents reference this skill when encountering complex bugs during their work
+
+## Debugging Patterns by Issue Type
+
+### Production Crash
+1. Check error monitoring (Sentry, etc.)
+2. Get stack trace and error message
+3. Check deployment logs
+4. Compare with last working version
+5. Reproduce in staging
+
+### Performance Issue
+1. Measure baseline performance
+2. Profile the application
+3. Identify bottlenecks
+4. Isolate slow component
+5. Optimize and measure again
+
+### Intermittent Bug
+1. Increase logging
+2. Look for timing/race conditions
+3. Check for external dependencies
+4. Test under load
+5. Add telemetry
+
+### Integration Issue
+1. Test components in isolation
+2. Check API contracts
+3. Verify data formats
+4. Test with mock data
+5. Check authentication/authorization
+
+## Verification Techniques
+
+- **Unit tests**: Test the specific fix
+- **Integration tests**: Test related functionality
+- **Regression tests**: Prevent bug from returning
+- **Manual testing**: Verify in real environment
+- **Load testing**: Ensure fix works under load

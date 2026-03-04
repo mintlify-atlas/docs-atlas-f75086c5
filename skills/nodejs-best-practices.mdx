@@ -1,0 +1,341 @@
+---
+title: Node.js Best Practices
+description: Node.js development principles with framework selection, async patterns, and security
+---
+
+<Note>
+This skill teaches Node.js decision-making principles for 2025, not fixed code patterns to copy. Learn to THINK about architecture and choose frameworks based on context.
+</Note>
+
+## What This Skill Provides
+
+The Node.js Best Practices skill provides comprehensive Node.js development principles covering framework selection, async patterns, architecture, error handling, validation, and security.
+
+### Core Knowledge Areas
+
+<CardGroup cols={2}>
+<Card title="Framework Selection" icon="layer-group">
+Decision trees for Hono (edge), Fastify (performance), Express (stable), NestJS (enterprise)
+</Card>
+
+<Card title="Runtime Considerations" icon="server">
+Node.js 22+ native TypeScript, ESM vs CommonJS, Bun vs Deno considerations
+</Card>
+
+<Card title="Async Patterns" icon="code">
+Async/await, Promise.all, event loop awareness, I/O vs CPU-bound work
+</Card>
+
+<Card title="Architecture" icon="sitemap">
+Layered structure (Controller → Service → Repository), dependency injection
+</Card>
+
+<Card title="Error Handling" icon="triangle-exclamation">
+Centralized error handling, custom error classes, status code selection
+</Card>
+
+<Card title="Security" icon="shield">
+Input validation, parameterized queries, password hashing, JWT verification
+</Card>
+</CardGroup>
+
+## When This Skill Is Loaded
+
+Agents load this skill when:
+
+- Building Node.js applications or APIs
+- Choosing frameworks for backend projects
+- Implementing async patterns
+- Designing backend architecture
+- Handling errors and validation
+- Securing Node.js applications
+- Optimizing Node.js performance
+- Writing tests for Node.js code
+
+## Use Cases
+
+### Framework Selection (2025)
+
+Decision tree based on context:
+
+```
+What are you building?
+│
+├── Edge/Serverless (Cloudflare, Vercel)
+│   └── Hono (zero-dependency, ultra-fast cold starts)
+│
+├── High Performance API
+│   └── Fastify (2-3x faster than Express)
+│
+├── Enterprise/Team familiarity
+│   └── NestJS (structured, DI, decorators)
+│
+├── Legacy/Stable/Maximum ecosystem
+│   └── Express (mature, most middleware)
+│
+└── Full-stack with frontend
+    └── Next.js API Routes or tRPC
+```
+
+<Tip>
+**Always ASK the user about deployment target and requirements before choosing a framework. Don't default to Express for edge deployments or Hono for enterprise projects.**
+</Tip>
+
+### Framework Comparison
+
+| Factor | Hono | Fastify | Express |
+|--------|------|---------|----------|
+| **Best for** | Edge, serverless | Performance | Legacy, learning |
+| **Cold start** | Fastest | Fast | Moderate |
+| **Ecosystem** | Growing | Good | Largest |
+| **TypeScript** | Native | Excellent | Good |
+| **Learning curve** | Low | Medium | Low |
+
+### Runtime Considerations (2025)
+
+<CardGroup cols={3}>
+<Card title="Node.js" icon="node-js">
+**Use for:**
+- General purpose
+- Largest ecosystem
+- Native TS (22+)
+- Production stability
+</Card>
+
+<Card title="Bun" icon="rabbit">
+**Use for:**
+- Performance critical
+- Built-in bundler
+- Fast startup
+- Modern tooling
+</Card>
+
+<Card title="Deno" icon="shield">
+**Use for:**
+- Security-first
+- Built-in TypeScript
+- Web standards
+- Fresh projects
+</Card>
+</CardGroup>
+
+### Async Patterns Decision
+
+<Card title="When to Use Each Pattern" icon="code">
+- **async/await** - Sequential async operations
+- **Promise.all** - Parallel independent operations
+- **Promise.allSettled** - Parallel where some can fail
+- **Promise.race** - Timeout or first response wins
+</Card>
+
+### Event Loop Awareness
+
+```
+I/O-bound (async helps):
+├── Database queries
+├── HTTP requests
+├── File system
+└── Network operations
+
+CPU-bound (async doesn't help):
+├── Crypto operations
+├── Image processing
+├── Complex calculations
+└── → Use worker threads or offload
+```
+
+## Key Principles
+
+### Layered Architecture
+
+<Note>
+**Request Flow:**
+
+1. **Controller/Route Layer** - Handles HTTP specifics, input validation at boundary
+2. **Service Layer** - Business logic, framework-agnostic
+3. **Repository Layer** - Data access only, database queries
+
+**Why:** Testability, flexibility, clarity
+</Note>
+
+### Error Handling Strategy
+
+<CardGroup cols={2}>
+<Card title="Client Gets" icon="user">
+- Appropriate HTTP status
+- Error code for handling
+- User-friendly message
+- NO internal details
+</Card>
+
+<Card title="Logs Get" icon="file-lines">
+- Full stack trace
+- Request context
+- User ID (if applicable)
+- Timestamp
+</Card>
+</CardGroup>
+
+### Status Code Selection
+
+| Situation | Status | When |
+|-----------|--------|------|
+| Bad input | 400 | Client sent invalid data |
+| No auth | 401 | Missing/invalid credentials |
+| No permission | 403 | Valid auth, not allowed |
+| Not found | 404 | Resource doesn't exist |
+| Conflict | 409 | Duplicate or state conflict |
+| Validation | 422 | Valid schema, business rules fail |
+| Server error | 500 | Our fault, log everything |
+
+### Validation Strategy
+
+**Validate at boundaries:**
+- API entry point (request body/params)
+- Before database operations
+- External data (API responses, file uploads)
+- Environment variables (at startup)
+
+**Library Selection:**
+
+| Library | Best For |
+|---------|----------|
+| **Zod** | TypeScript first, type inference |
+| **Valibot** | Smaller bundle, tree-shakeable |
+| **ArkType** | Performance critical |
+| **Yup** | Existing React Form usage |
+
+## Related Skills
+
+<CardGroup cols={2}>
+<Card title="API Patterns" href="/skills/api-patterns">
+API design principles for REST, GraphQL, tRPC
+</Card>
+
+<Card title="Python Patterns" href="/skills/python-patterns">
+Alternative backend runtime patterns
+</Card>
+
+<Card title="Rust Pro" href="/skills/rust-pro">
+High-performance systems programming
+</Card>
+</CardGroup>
+
+## Which Agents Use This Skill
+
+<Card title="Backend Specialist" href="/agents/backend-specialist" icon="server">
+The Backend Specialist loads this skill for all Node.js development work. It's used alongside `api-patterns` for API design and other runtime skills as needed.
+</Card>
+
+<Tip>
+The Backend Specialist combines this with `api-patterns`, `database-design`, and security skills for comprehensive backend development.
+</Tip>
+
+## Security Checklist
+
+<Note>
+**Critical Security Measures:**
+
+- [ ] **Input validation** - All inputs validated
+- [ ] **Parameterized queries** - No SQL string concatenation
+- [ ] **Password hashing** - bcrypt or argon2
+- [ ] **JWT verification** - Always verify signature and expiry
+- [ ] **Rate limiting** - Protect from abuse
+- [ ] **Security headers** - Helmet.js or equivalent
+- [ ] **HTTPS** - Everywhere in production
+- [ ] **CORS** - Properly configured
+- [ ] **Secrets** - Environment variables only
+- [ ] **Dependencies** - Regularly audited
+</Note>
+
+### Security Mindset
+
+```
+Trust nothing:
+├── Query params → validate
+├── Request body → validate
+├── Headers → verify
+├── Cookies → validate
+├── File uploads → scan
+└── External APIs → validate response
+```
+
+## Testing Strategy
+
+| Type | Purpose | Tools |
+|------|---------|-------|
+| **Unit** | Business logic | node:test, Vitest |
+| **Integration** | API endpoints | Supertest |
+| **E2E** | Full flows | Playwright |
+
+<Card title="Built-in Test Runner" icon="vial">
+Node.js 22+ includes native test runner:
+
+```bash
+node --test src/**/*.test.ts
+```
+
+No external dependency needed, includes coverage reporting and watch mode.
+</Card>
+
+## Anti-Patterns to Avoid
+
+<Warning>
+**Don't:**
+- Use Express for new edge projects (use Hono)
+- Use sync methods in production code (`fs.readFileSync`)
+- Put business logic in controllers
+- Skip input validation
+- Hardcode secrets
+- Trust external data without validation
+- Block event loop with CPU work
+- Use `any` type in TypeScript
+
+**Do:**
+- Choose framework based on context
+- Ask user for preferences when unclear
+- Use layered architecture for growing projects
+- Validate all inputs at boundaries
+- Use environment variables for secrets
+- Profile before optimizing
+- Use TypeScript strict mode
+</Warning>
+
+## Decision Checklist
+
+<Note>
+Before implementing:
+
+- [ ] **Asked user about stack preference?**
+- [ ] **Chosen framework for THIS context?** (not just default)
+- [ ] **Considered deployment target?** (edge/serverless/container)
+- [ ] **Planned error handling strategy?**
+- [ ] **Identified validation points?**
+- [ ] **Considered security requirements?**
+- [ ] **Chosen testing approach?**
+</Note>
+
+## Module System Decision
+
+<CardGroup cols={2}>
+<Card title="ESM (import/export)">
+**Use for:**
+- Modern standard
+- Better tree-shaking
+- Async module loading
+- New projects
+</Card>
+
+<Card title="CommonJS (require)">
+**Use for:**
+- Legacy compatibility
+- Existing codebases
+- Some edge cases
+</Card>
+</CardGroup>
+
+---
+
+<Tip>
+**Remember:** Node.js best practices are about decision-making, not memorizing patterns. Every project deserves fresh consideration based on its requirements, deployment target, and constraints.
+</Tip>

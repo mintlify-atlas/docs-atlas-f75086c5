@@ -1,0 +1,440 @@
+---
+title: 'Skills'
+description: 'Modular knowledge domains loaded on-demand by agents'
+---
+
+## What are Skills?
+
+Skills are modular knowledge domains that agents can load on-demand based on task context. Each skill contains:
+
+- **Instructions**: Best practices and patterns (SKILL.md)
+- **References**: Templates, documentation, examples
+- **Scripts**: Validation and automation tools (Python/Bash)
+- **Assets**: Images, logos, configuration files
+
+### On-Demand Loading
+
+Skills are loaded dynamically when needed:
+
+1. **Request Analysis**: System analyzes your task
+2. **Skill Matching**: Identifies relevant skills
+3. **Dynamic Loading**: Loads SKILL.md and references
+4. **Script Execution**: Runs validation scripts (with approval)
+
+```plaintext
+User: "Build a REST API"
+     ↓
+Keyword Match: "API" → api-patterns skill
+     ↓
+Load: .agent/skills/api-patterns/SKILL.md
+     ↓
+Read References: rest.md, graphql.md, auth.md
+     ↓
+Agent Now Has: API design patterns, auth strategies
+```
+
+## Skill Categories
+
+Antigravity Kit includes 36 skills organized by domain:
+
+### Frontend & UI
+
+<Accordion title="Frontend Skills (5)">
+  <ResponseField name="react-best-practices">
+    **React & Next.js performance optimization**
+    
+    Comprehensive React and Next.js patterns from Vercel. 57 performance rules covering:
+    - Eliminating waterfalls
+    - Bundle size optimization
+    - Server-side performance
+    - Client-side data fetching
+    - Re-render optimization
+    
+    *Source: Vercel best practices*
+  </ResponseField>
+
+  <ResponseField name="web-design-guidelines">
+    **Web UI audit - 100+ rules**
+    
+    Comprehensive web design checklist covering accessibility, UX, performance. From Vercel.
+    
+    - WCAG compliance
+    - Performance optimization
+    - Mobile-first design
+  </ResponseField>
+
+  <ResponseField name="tailwind-patterns">
+    **Tailwind CSS v4 utilities**
+    
+    Modern Tailwind patterns, custom configurations, design tokens.
+  </ResponseField>
+
+  <ResponseField name="frontend-design">
+    **UI/UX patterns & design systems**
+    
+    Color systems, typography, animation guides, visual effects, UX psychology.
+    
+    References: `color-system.md`, `typography-system.md`, `animation-guide.md`
+  </ResponseField>
+
+  <ResponseField name="ui-ux-pro-max">
+    **50 styles, 21 palettes, 50 fonts**
+    
+    Professional design system with extensive style library.
+  </ResponseField>
+</Accordion>
+
+### Backend & API
+
+<Accordion title="Backend Skills (4)">
+  <ResponseField name="api-patterns">
+    **REST, GraphQL, tRPC**
+    
+    API design patterns, authentication strategies, documentation templates.
+    
+    Script: `api_validator.py`
+  </ResponseField>
+
+  <ResponseField name="nestjs-expert">
+    **NestJS modules, DI, decorators**
+    
+    Enterprise-grade Node.js framework patterns.
+  </ResponseField>
+
+  <ResponseField name="nodejs-best-practices">
+    **Node.js async, modules**
+    
+    Modern Node.js patterns, async/await, error handling.
+  </ResponseField>
+
+  <ResponseField name="python-patterns">
+    **Python standards, FastAPI**
+    
+    Python best practices, FastAPI patterns, async programming.
+  </ResponseField>
+</Accordion>
+
+### Database
+
+<Accordion title="Database Skills (2)">
+  <ResponseField name="database-design">
+    **Schema design & optimization**
+    
+    Database selection, schema design, indexing, migrations, optimization.
+    
+    References: `schema-design.md`, `indexing.md`, `optimization.md`
+    
+    Script: `schema_validator.py`
+  </ResponseField>
+
+  <ResponseField name="prisma-expert">
+    **Prisma ORM & migrations**
+    
+    Prisma schema design, migrations, query optimization.
+  </ResponseField>
+</Accordion>
+
+### TypeScript/JavaScript
+
+<Accordion title="TypeScript Skills (1)">
+  <ResponseField name="typescript-expert">
+    **Type-level programming & performance**
+    
+    Advanced TypeScript patterns, generics, utility types.
+  </ResponseField>
+</Accordion>
+
+### Cloud & Infrastructure
+
+<Accordion title="Infrastructure Skills (3)">
+  <ResponseField name="docker-expert">
+    **Containerization & Compose**
+    
+    Docker best practices, multi-stage builds, optimization.
+  </ResponseField>
+
+  <ResponseField name="deployment-procedures">
+    **CI/CD & deploy workflows**
+    
+    Deployment strategies for Vercel, AWS, Docker, GitHub Actions.
+  </ResponseField>
+
+  <ResponseField name="server-management">
+    **Infrastructure management**
+    
+    Server configuration, monitoring, scaling.
+  </ResponseField>
+</Accordion>
+
+### Testing & Quality
+
+<Accordion title="Testing Skills (5)">
+  <ResponseField name="testing-patterns">
+    **Jest, Vitest, strategies**
+    
+    Unit testing patterns, mocking, coverage strategies.
+    
+    Script: `test_runner.py`
+  </ResponseField>
+
+  <ResponseField name="webapp-testing">
+    **E2E, Playwright**
+    
+    End-to-end testing with Playwright, user flow testing.
+    
+    Script: `playwright_runner.py`
+  </ResponseField>
+
+  <ResponseField name="tdd-workflow">
+    **Test-driven development**
+    
+    TDD methodology, red-green-refactor cycle.
+  </ResponseField>
+
+  <ResponseField name="code-review-checklist">
+    **Code review standards**
+    
+    Comprehensive code review checklist.
+  </ResponseField>
+
+  <ResponseField name="lint-and-validate">
+    **Linting & validation**
+    
+    ESLint, TypeScript, code quality tools.
+    
+    Scripts: `lint_runner.py`, `type_coverage.py`
+  </ResponseField>
+</Accordion>
+
+### Security
+
+<Accordion title="Security Skills (2)">
+  <ResponseField name="vulnerability-scanner">
+    **Security auditing, OWASP**
+    
+    Security scanning, vulnerability detection, OWASP Top 10.
+    
+    Script: `security_scan.py`
+  </ResponseField>
+
+  <ResponseField name="red-team-tactics">
+    **Offensive security**
+    
+    Penetration testing, security exploitation.
+  </ResponseField>
+</Accordion>
+
+### Architecture & Planning
+
+<Accordion title="Architecture Skills (4)">
+  <ResponseField name="app-builder">
+    **Full-stack app scaffolding**
+    
+    Project templates, structure generation. 20 reference files.
+  </ResponseField>
+
+  <ResponseField name="architecture">
+    **System design patterns**
+    
+    Architecture patterns, trade-off analysis, pattern selection.
+    
+    References: `patterns-reference.md`, `trade-off-analysis.md`
+  </ResponseField>
+
+  <ResponseField name="plan-writing">
+    **Task planning & breakdown**
+    
+    Task decomposition, estimation, milestone planning.
+  </ResponseField>
+
+  <ResponseField name="brainstorming">
+    **Socratic questioning**
+    
+    Discovery through questioning, exploring options.
+    
+    References: `dynamic-questioning.md`
+  </ResponseField>
+</Accordion>
+
+### Mobile
+
+<Accordion title="Mobile Skills (1)">
+  <ResponseField name="mobile-design">
+    **Mobile UI/UX patterns**
+    
+    iOS/Android design, navigation, performance, touch psychology.
+    
+    References: `platform-ios.md`, `platform-android.md`, `touch-psychology.md`
+    
+    Script: `mobile_audit.py`
+  </ResponseField>
+</Accordion>
+
+### Game Development
+
+<Accordion title="Game Skills (1)">
+  <ResponseField name="game-development">
+    **Game logic & mechanics**
+    
+    2D/3D games, multiplayer, game design, audio, art. 10 sub-skills.
+  </ResponseField>
+</Accordion>
+
+### SEO & Growth
+
+<Accordion title="SEO Skills (2)">
+  <ResponseField name="seo-fundamentals">
+    **SEO, E-E-A-T, Core Web Vitals**
+    
+    Search engine optimization, meta tags, performance.
+    
+    Script: `seo_checker.py`
+  </ResponseField>
+
+  <ResponseField name="geo-fundamentals">
+    **GenAI optimization**
+    
+    Optimization for AI search engines, LLM visibility.
+    
+    Script: `geo_checker.py`
+  </ResponseField>
+</Accordion>
+
+### Shell/CLI
+
+<Accordion title="Shell Skills (2)">
+  <ResponseField name="bash-linux">
+    **Linux commands & scripting**
+    
+    Bash scripting, Linux system administration.
+  </ResponseField>
+
+  <ResponseField name="powershell-windows">
+    **Windows PowerShell**
+    
+    PowerShell scripting, Windows automation.
+  </ResponseField>
+</Accordion>
+
+### Other
+
+<Accordion title="Other Skills (9)">
+  <ResponseField name="clean-code">
+    **Coding standards (Global)**
+    
+    Universal code quality principles applied by all agents.
+  </ResponseField>
+
+  <ResponseField name="behavioral-modes">
+    **Agent personas**
+    
+    Different behavioral modes for agents.
+  </ResponseField>
+
+  <ResponseField name="parallel-agents">
+    **Multi-agent patterns**
+    
+    Coordination patterns for multiple agents.
+  </ResponseField>
+
+  <ResponseField name="mcp-builder">
+    **Model Context Protocol**
+    
+    Building MCP servers and clients.
+  </ResponseField>
+
+  <ResponseField name="documentation-templates">
+    **Doc formats**
+    
+    Documentation templates and formats.
+  </ResponseField>
+
+  <ResponseField name="i18n-localization">
+    **Internationalization**
+    
+    Multi-language support, locale management.
+    
+    Script: `i18n_checker.py`
+  </ResponseField>
+
+  <ResponseField name="performance-profiling">
+    **Web Vitals & optimization**
+    
+    Performance profiling, Lighthouse audits.
+    
+    Script: `lighthouse_audit.py`
+  </ResponseField>
+
+  <ResponseField name="systematic-debugging">
+    **Troubleshooting**
+    
+    Systematic debugging methodology, root cause analysis.
+  </ResponseField>
+
+  <ResponseField name="intelligent-routing">
+    **Agent routing logic**
+    
+    Smart agent selection based on context.
+  </ResponseField>
+</Accordion>
+
+## Skill Structure
+
+Each skill follows a standard structure:
+
+```plaintext
+.agent/skills/skill-name/
+├── SKILL.md           # Main instructions & metadata
+├── scripts/           # Automation scripts
+│   ├── validator.py
+│   └── analyzer.py
+├── references/        # Templates & documentation
+│   ├── patterns.md
+│   └── examples.md
+└── assets/            # Images, configs
+    └── logo.png
+```
+
+## Enhanced Skills
+
+Some skills include extensive reference materials:
+
+| Skill | Files | Coverage |
+|-------|-------|----------|
+| `ui-ux-pro-max` | 27 | 50 styles, 21 palettes, 50 fonts |
+| `app-builder` | 20 | Full-stack scaffolding templates |
+| `mobile-design` | 13 | Complete mobile design system |
+| `nextjs-react-expert` | 10 | 57 React performance rules |
+
+## Validation Scripts
+
+Many skills include automated scripts:
+
+```bash
+# Security scan
+python .agent/skills/vulnerability-scanner/scripts/security_scan.py .
+
+# SEO check
+python .agent/skills/seo-fundamentals/scripts/seo_checker.py .
+
+# Lighthouse audit
+python .agent/skills/performance-profiling/scripts/lighthouse_audit.py http://localhost:3000
+
+# Mobile audit
+python .agent/skills/mobile-design/scripts/mobile_audit.py .
+```
+
+<Note>
+  Scripts are **suggested** by agents but require user approval before execution.
+</Note>
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="Agents" icon="users" href="/concepts/agents">
+    Learn about specialist agents
+  </Card>
+  <Card title="Workflows" icon="diagram-project" href="/concepts/workflows">
+    Discover slash command workflows
+  </Card>
+</CardGroup>

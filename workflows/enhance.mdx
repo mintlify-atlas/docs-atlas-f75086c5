@@ -1,0 +1,123 @@
+---
+title: "/enhance"
+description: "Add or update features in existing applications"
+---
+
+The `/enhance` command adds features or makes updates to existing applications. Use this for iterative development after you've created an initial version with `/create`.
+
+## When to use this
+
+<CardGroup cols={2}>
+  <Card title="Adding features" icon="plus-circle">
+    Add new functionality to existing projects
+  </Card>
+  <Card title="Improving UI" icon="paintbrush">
+    Update design or user experience
+  </Card>
+  <Card title="Refactoring" icon="code">
+    Improve code quality or architecture
+  </Card>
+  <Card title="Bug fixes" icon="wrench">
+    Apply fixes identified during debugging
+  </Card>
+</CardGroup>
+
+## How it works
+
+<Steps>
+  <Step title="Understand current state">
+    The system analyzes your project to understand:
+    - Existing features and tech stack
+    - Current file structure
+    - Dependencies and patterns
+  </Step>
+  
+  <Step title="Plan changes">
+    Determine what will be added or changed:
+    - Files to create or modify
+    - Dependencies to add
+    - Potential conflicts
+  </Step>
+  
+  <Step title="Present plan (for major changes)">
+    For significant updates, you'll see:
+    ```
+    "To add admin panel:
+    - I'll create 15 new files
+    - Update 8 files
+    - Takes ~10 minutes
+    
+    Should I start?"
+    ```
+  </Step>
+  
+  <Step title="Apply changes">
+    Relevant agents make the changes:
+    - Update existing code
+    - Create new files
+    - Run tests
+  </Step>
+  
+  <Step title="Update preview">
+    Hot reload or restart the preview server to show changes
+  </Step>
+</Steps>
+
+## Usage examples
+
+```bash
+/enhance add dark mode
+```
+
+Add dark mode support to your application
+
+```bash
+/enhance build admin panel
+```
+
+Create an admin interface for management
+
+```bash
+/enhance integrate payment system
+```
+
+Add payment processing functionality
+
+```bash
+/enhance add search feature
+```
+
+Implement search across your content
+
+```bash
+/enhance edit profile page
+```
+
+Update the profile page design or features
+
+```bash
+/enhance make responsive
+```
+
+Improve mobile responsiveness
+
+## Cautions
+
+<Warning>
+  **Get approval for major changes**: The system will ask before making large-scale modifications.
+</Warning>
+
+<Warning>
+  **Conflicting requests**: You'll be warned if requests conflict with existing choices (e.g., switching databases).
+</Warning>
+
+<Tip>
+  Each change is committed with git, making it easy to review or revert changes.
+</Tip>
+
+## Related workflows
+
+- [/create](/workflows/create) - Initial application creation
+- [/debug](/workflows/debug) - Identify issues before enhancing
+- [/test](/workflows/test) - Verify enhancements work correctly
+- [/preview](/workflows/preview) - See changes in browser

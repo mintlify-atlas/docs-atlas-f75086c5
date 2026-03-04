@@ -1,0 +1,220 @@
+---
+title: "/ui-ux-pro-max"
+description: "AI-powered design with 50+ styles, 97 palettes, and design systems"
+---
+
+The `/ui-ux-pro-max` command provides comprehensive design intelligence with searchable databases of styles, colors, typography, and UX patterns. Use this for professional UI/UX implementation.
+
+## What's included
+
+<CardGroup cols={2}>
+  <Card title="50+ Styles" icon="palette">
+    Glassmorphism, minimalism, brutalism, and more
+  </Card>
+  <Card title="97 Color Palettes" icon="droplet">
+    Product-specific palettes (SaaS, e-commerce, healthcare, etc.)
+  </Card>
+  <Card title="57 Font Pairings" icon="font">
+    Google Fonts combinations for every style
+  </Card>
+  <Card title="99 UX Guidelines" icon="book">
+    Best practices and anti-patterns
+  </Card>
+  <Card title="25 Chart Types" icon="chart-line">
+    Visualization recommendations
+  </Card>
+  <Card title="9 Tech Stacks" icon="code">
+    Implementation guides (React, Vue, Next.js, etc.)
+  </Card>
+</CardGroup>
+
+## Prerequisites
+
+Python 3.x is required. Check if installed:
+
+```bash
+python3 --version || python --version
+```
+
+If not installed:
+
+<Tabs>
+  <Tab title="macOS">
+    ```bash
+    brew install python3
+    ```
+  </Tab>
+  <Tab title="Ubuntu/Debian">
+    ```bash
+    sudo apt update && sudo apt install python3
+    ```
+  </Tab>
+  <Tab title="Windows">
+    ```powershell
+    winget install Python.Python.3.12
+    ```
+  </Tab>
+</Tabs>
+
+## How to use
+
+### Step 1: Generate design system (REQUIRED)
+
+**Always start with `--design-system`** for comprehensive recommendations:
+
+```bash
+python3 .agent/.shared/ui-ux-pro-max/scripts/search.py "<product_type> <industry> <keywords>" --design-system -p "Project Name"
+```
+
+This command:
+1. Searches 5 domains in parallel (product, style, color, landing, typography)
+2. Applies reasoning rules to select best matches
+3. Returns complete design system with anti-patterns to avoid
+
+**Example:**
+```bash
+python3 .agent/.shared/ui-ux-pro-max/scripts/search.py "beauty spa wellness service" --design-system -p "Serenity Spa"
+```
+
+### Step 2: Persist design system (optional)
+
+Save for hierarchical retrieval across sessions:
+
+```bash
+python3 .agent/.shared/ui-ux-pro-max/scripts/search.py "<query>" --design-system --persist -p "Project Name"
+```
+
+This creates:
+- `design-system/MASTER.md` - Global source of truth
+- `design-system/pages/` - Page-specific overrides
+
+**With page-specific override:**
+```bash
+python3 .agent/.shared/ui-ux-pro-max/scripts/search.py "<query>" --design-system --persist -p "Project Name" --page "dashboard"
+```
+
+### Step 3: Detailed searches (as needed)
+
+Get additional details for specific domains:
+
+```bash
+python3 .agent/.shared/ui-ux-pro-max/scripts/search.py "<keyword>" --domain <domain> [-n <max_results>]
+```
+
+| Need | Domain | Example |
+|------|--------|--------|
+| More style options | `style` | `--domain style "glassmorphism dark"` |
+| Chart recommendations | `chart` | `--domain chart "real-time dashboard"` |
+| UX best practices | `ux` | `--domain ux "animation accessibility"` |
+| Alternative fonts | `typography` | `--domain typography "elegant luxury"` |
+| Landing structure | `landing` | `--domain landing "hero social-proof"` |
+
+### Step 4: Stack guidelines
+
+Get implementation-specific best practices (defaults to `html-tailwind`):
+
+```bash
+python3 .agent/.shared/ui-ux-pro-max/scripts/search.py "<keyword>" --stack html-tailwind
+```
+
+## Available domains
+
+| Domain | Use For | Example Keywords |
+|--------|---------|------------------|
+| `product` | Product type recommendations | SaaS, e-commerce, portfolio, healthcare |
+| `style` | UI styles, colors, effects | glassmorphism, minimalism, dark mode |
+| `typography` | Font pairings | elegant, playful, professional |
+| `color` | Color palettes by product | saas, ecommerce, healthcare, beauty |
+| `landing` | Page structure, CTAs | hero, testimonial, pricing |
+| `chart` | Chart types | trend, comparison, timeline, funnel |
+| `ux` | Best practices | animation, accessibility, z-index |
+| `web` | Web guidelines | aria, focus, keyboard, semantic |
+
+## Available stacks
+
+| Stack | Focus |
+|-------|-------|
+| `html-tailwind` | Tailwind utilities, responsive, a11y (DEFAULT) |
+| `react` | State, hooks, performance, patterns |
+| `nextjs` | SSR, routing, images, API routes |
+| `vue` | Composition API, Pinia, Vue Router |
+| `svelte` | Runes, stores, SvelteKit |
+| `swiftui` | Views, State, Navigation, Animation |
+| `react-native` | Components, Navigation, Lists |
+| `flutter` | Widgets, State, Layout, Theming |
+| `shadcn` | shadcn/ui components, theming, forms |
+| `jetpack-compose` | Composables, Modifiers, State Hoisting |
+
+## Common rules for professional UI
+
+### Icons & Visual Elements
+
+| Rule | Do | Don't |
+|------|----|----- |
+| **No emoji icons** | Use SVG icons (Heroicons, Lucide) | Use emojis like 🎨 🚀 ⚙️ |
+| **Stable hover states** | Use color/opacity transitions | Use scale transforms that shift layout |
+| **Correct brand logos** | Research official SVG | Guess or use incorrect logos |
+| **Consistent icon sizing** | Use fixed viewBox (24x24) | Mix different sizes randomly |
+
+### Interaction & Cursor
+
+| Rule | Do | Don't |
+|------|----|----- |
+| **Cursor pointer** | Add `cursor-pointer` to clickable cards | Leave default cursor |
+| **Hover feedback** | Provide visual feedback | No indication of interactivity |
+| **Smooth transitions** | Use `transition-colors duration-200` | Instant state changes |
+
+### Light/Dark Mode Contrast
+
+| Rule | Do | Don't |
+|------|----|----- |
+| **Glass card light mode** | Use `bg-white/80` or higher | Use `bg-white/10` (too transparent) |
+| **Text contrast light** | Use `#0F172A` (slate-900) for text | Use `#94A3B8` (slate-400) |
+| **Muted text light** | Use `#475569` (slate-600) minimum | Use gray-400 or lighter |
+| **Border visibility** | Use `border-gray-200` in light mode | Use `border-white/10` |
+
+## Pre-delivery checklist
+
+Before delivering UI code:
+
+### Visual Quality
+- [ ] No emojis used as icons (use SVG instead)
+- [ ] All icons from consistent set (Heroicons/Lucide)
+- [ ] Brand logos are correct (Simple Icons)
+- [ ] Hover states don't cause layout shift
+
+### Interaction
+- [ ] All clickable elements have `cursor-pointer`
+- [ ] Hover states provide clear feedback
+- [ ] Transitions are smooth (150-300ms)
+- [ ] Focus states visible for keyboard navigation
+
+### Light/Dark Mode
+- [ ] Light mode text has sufficient contrast (4.5:1 minimum)
+- [ ] Glass/transparent elements visible in light mode
+- [ ] Borders visible in both modes
+- [ ] Test both modes before delivery
+
+### Layout
+- [ ] Floating elements have proper spacing from edges
+- [ ] No content hidden behind fixed navbars
+- [ ] Responsive at 375px, 768px, 1024px, 1440px
+- [ ] No horizontal scroll on mobile
+
+### Accessibility
+- [ ] All images have alt text
+- [ ] Form inputs have labels
+- [ ] Color is not the only indicator
+- [ ] `prefers-reduced-motion` respected
+
+## Related agents
+
+- [Frontend Specialist](/agents/frontend-specialist) - UI/UX implementation
+- [SEO Specialist](/agents/seo-specialist) - Landing page optimization
+- [Performance Optimizer](/agents/performance-optimizer) - UI performance
+
+## Related skills
+
+- [Frontend Design](/skills/frontend-design) - Design thinking and patterns
+- [Tailwind Patterns](/skills/tailwind-patterns) - Tailwind CSS v4 utilities
+- [Web Design Guidelines](/skills/web-design-guidelines) - UI audit checklist

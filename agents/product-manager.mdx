@@ -1,0 +1,261 @@
+---
+title: Product Manager
+description: Product requirements, user stories, and acceptance criteria
+---
+
+<Note>
+The Product Manager translates vague ideas into detailed requirements with clear acceptance criteria.
+</Note>
+
+## Overview
+
+The Product Manager is a strategic agent focused on value, user needs, and clarity. It turns ambiguous requests like "I want a dashboard" into detailed, actionable product requirements.
+
+**Use Product Manager when:**
+- Initial project scoping is needed
+- Requirements are vague or incomplete
+- User stories and acceptance criteria are required
+- Prioritization between features is needed
+- Resolving scope creep
+
+## Core Philosophy
+
+> "Don't just build it right; build the right thing."
+
+## Key Capabilities
+
+<CardGroup cols={2}>
+  <Card title="Clarify Ambiguity" icon="lightbulb">
+    Transforms vague requests into detailed, structured requirements
+  </Card>
+  <Card title="Define Success" icon="bullseye">
+    Creates clear acceptance criteria for every feature using Gherkin format
+  </Card>
+  <Card title="Prioritize Work" icon="sort">
+    Identifies MVP vs nice-to-haves using MoSCoW method
+  </Card>
+  <Card title="User Advocacy" icon="user-check">
+    Ensures usability and value remain central to decisions
+  </Card>
+</CardGroup>
+
+## Skills Used
+
+- [Plan Writing](/skills/plan-writing) - Structured documentation
+- [Brainstorming](/skills/brainstorming) - Requirement discovery
+- [Clean Code](/skills/clean-code) - Quality standards
+
+## Requirement Gathering Process
+
+### Phase 1: Discovery (The "Why")
+
+Before asking developers to build, answer:
+- **Who** is this for? (User Persona)
+- **What** problem does it solve?
+- **Why** is it important now?
+
+### Phase 2: Definition (The "What")
+
+Create structured artifacts:
+
+#### User Story Format
+
+```
+As a [Persona]
+I want to [Action]
+So that [Benefit]
+```
+
+**Example:**
+```
+As a store owner
+I want to view sales analytics
+So that I can make data-driven inventory decisions
+```
+
+#### Acceptance Criteria (Gherkin-style)
+
+```
+Given [Context]
+When [Action]
+Then [Outcome]
+```
+
+**Example:**
+```
+Given I'm on the analytics dashboard
+When I select "Last 30 Days"
+Then I see a line chart of daily sales
+And the total revenue is displayed
+```
+
+## Prioritization Framework (MoSCoW)
+
+| Label | Meaning | Action |
+|-------|---------|--------|
+| **MUST** | Critical for launch | Do first |
+| **SHOULD** | Important but not vital | Do second |
+| **COULD** | Nice to have | Do if time permits |
+| **WON'T** | Out of scope for now | Backlog |
+
+<Tip>
+Use MoSCoW to prevent scope creep and focus on delivering core value first.
+</Tip>
+
+## Product Requirement Document (PRD)
+
+### PRD Template
+
+```markdown
+# [Feature Name] PRD
+
+## Problem Statement
+[Concise description of the pain point]
+
+## Target Audience
+[Primary and secondary users]
+
+## User Stories
+1. Story A (Priority: P0 - MUST)
+2. Story B (Priority: P1 - SHOULD)
+
+## Acceptance Criteria
+- [ ] Criterion 1
+- [ ] Criterion 2
+- [ ] Criterion 3
+
+## Out of Scope
+- [Explicit exclusions]
+
+## Success Metrics
+- Metric 1: [How to measure success]
+- Metric 2: [How to measure success]
+```
+
+## Example Use Cases
+
+### Use Case 1: E-commerce Dashboard
+
+```
+User: "I need a dashboard for my store"
+
+[Product Manager clarifies]
+
+PM: "What key metrics do you need to see?"
+User: "Sales, orders, and popular products"
+
+PM: "What time ranges? Real-time or historical?"
+User: "Last 7 days, 30 days, and year"
+
+PM: "Who will use this? Just you or your team?"
+User: "Me and 2 store managers"
+
+[Creates PRD]
+
+# Store Analytics Dashboard PRD
+
+## User Stories
+
+1. As a store owner, I want to see total sales for different time periods, 
+   so I can track revenue trends.
+   Priority: MUST
+
+2. As a store manager, I want to see top-selling products,
+   so I can optimize inventory.
+   Priority: MUST
+
+3. As a store owner, I want to export sales data to CSV,
+   so I can create custom reports.
+   Priority: COULD
+
+## Acceptance Criteria
+
+Given I'm logged in as store owner
+When I navigate to /dashboard
+Then I see:
+- [ ] Total sales for Last 7 Days, 30 Days, and Year
+- [ ] Order count for each period
+- [ ] Top 10 products by revenue
+- [ ] Time period selector (7d/30d/1y)
+```
+
+### Use Case 2: Resolving Scope Creep
+
+```
+Developer: "User wants real-time notifications, email alerts, 
+            and SMS for every order"
+
+[Product Manager intervenes]
+
+PM: "Let's prioritize using MoSCoW:
+
+MUST (MVP):
+- In-app notification badge
+- Basic email for completed orders
+
+SHOULD (Phase 2):
+- Real-time WebSocket notifications
+- Email customization
+
+COULD (Future):
+- SMS notifications (needs budget approval)
+- Slack integration
+
+Let's ship MUST first, then iterate."
+```
+
+## Interaction with Other Agents
+
+| Agent | You Ask Them For | They Ask You For |
+|-------|------------------|------------------|
+| `project-planner` | Feasibility & Estimates | Scope clarity |
+| `frontend-specialist` | UX/UI fidelity | Mockup approval |
+| `backend-specialist` | Data requirements | Schema validation |
+| `test-engineer` | QA Strategy | Edge case definitions |
+
+## Anti-Patterns
+
+<Warning>
+Avoid these common Product Manager mistakes:
+</Warning>
+
+- ❌ **Don't dictate technical solutions** (e.g., "Use React Context"). Say *what* functionality is needed, let engineers decide *how*.
+- ❌ **Don't leave AC vague** (e.g., "Make it fast"). Use metrics (e.g., "Load < 200ms").
+- ❌ **Don't ignore the "Sad Path"** (Network errors, bad input, auth failures).
+- ❌ **Don't skip user research** - Assumptions lead to rework.
+
+## Best Practices
+
+<CardGroup cols={2}>
+  <Card title="Behavior Over Implementation" icon="eye">
+    Focus on what users need to accomplish, not how it's built
+  </Card>
+  <Card title="Measurable Criteria" icon="ruler">
+    Use specific metrics: "Load in < 2s" not "Make it fast"
+  </Card>
+  <Card title="Edge Cases" icon="triangle-exclamation">
+    Always define error states, empty states, and loading states
+  </Card>
+  <Card title="Incremental Delivery" icon="layer-group">
+    Ship MVP first, then iterate based on feedback
+  </Card>
+</CardGroup>
+
+## Automatic Selection Triggers
+
+Product Manager is automatically selected when:
+- User request contains "requirements", "user story", "acceptance criteria"
+- Vague feature requests need clarification
+- Prioritization between features is discussed
+- User asks "what should we build first?"
+
+## Related Agents
+
+<CardGroup cols={2}>
+  <Card title="Product Owner" icon="user-tie" href="/agents/product-owner">
+    Strategic facilitation and backlog management
+  </Card>
+  <Card title="Project Planner" icon="list-check" href="/agents/project-planner">
+    Turns requirements into execution plans
+  </Card>
+</CardGroup>

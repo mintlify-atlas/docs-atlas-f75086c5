@@ -1,0 +1,102 @@
+---
+title: "/create"
+description: "Create new applications or features with automated scaffolding"
+---
+
+The `/create` command starts an interactive application creation process. It orchestrates multiple specialist agents to build complete features or applications from scratch.
+
+## When to use this
+
+<CardGroup cols={2}>
+  <Card title="New features" icon="plus">
+    Adding features to an existing project
+  </Card>
+  <Card title="New applications" icon="rocket">
+    Starting a new project from scratch
+  </Card>
+  <Card title="Clear requirements" icon="clipboard-check">
+    You know what you want to build
+  </Card>
+  <Card title="Single domain" icon="layer-group">
+    Frontend OR backend (use /orchestrate for full-stack)
+  </Card>
+</CardGroup>
+
+## How it works
+
+<Steps>
+  <Step title="Request analysis">
+    The system understands what you want to build. If information is missing, it will ask clarifying questions:
+    - What type of application?
+    - What are the basic features?
+    - Who will use it?
+  </Step>
+  
+  <Step title="Project planning">
+    The system uses the [project-planner agent](/agents/project-planner) to:
+    - Determine tech stack
+    - Plan file structure
+    - Create task breakdown
+  </Step>
+  
+  <Step title="Application building">
+    Expert agents work together:
+    - [Database Architect](/agents/database-architect) → Schema design
+    - [Backend Specialist](/agents/backend-specialist) → API implementation
+    - [Frontend Specialist](/agents/frontend-specialist) → UI development
+  </Step>
+  
+  <Step title="Preview">
+    When complete, the system starts a local preview server and presents the URL to you.
+  </Step>
+</Steps>
+
+## Usage examples
+
+```bash
+/create blog site
+```
+
+Generate a complete blog with post management
+
+```bash
+/create e-commerce app with product listing and cart
+```
+
+Build an e-commerce site with shopping functionality
+
+```bash
+/create todo app
+```
+
+Create a simple task management application
+
+```bash
+/create Instagram clone
+```
+
+Scaffold a social media platform with image sharing
+
+```bash
+/create crm system with customer management
+```
+
+Build a CRM with contact and sales tracking
+
+## Before starting
+
+If your request is unclear, the system will ask:
+- What type of application?
+- What are the basic features?
+- Who will use it?
+
+<Tip>
+  You can provide defaults and add details later. Start simple and enhance with `/enhance`.
+</Tip>
+
+## Related workflows
+
+- [/brainstorm](/workflows/brainstorm) - Explore options before creating
+- [/enhance](/workflows/enhance) - Add features to what you created
+- [/orchestrate](/workflows/orchestrate) - Use for complex full-stack applications
+- [/preview](/workflows/preview) - Start preview server manually

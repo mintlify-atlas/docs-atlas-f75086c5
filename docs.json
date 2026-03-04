@@ -1,122 +1,230 @@
 {
   "$schema": "https://mintlify.com/docs.json",
-  "theme": "mint",
-  "name": "Mint Starter Kit",
+  "name": "Antigravity Kit",
+  "theme": "aspen",
   "colors": {
-    "primary": "#16A34A",
-    "light": "#07C983",
-    "dark": "#15803D"
+    "primary": "#458be3",
+    "light": "#b1688d"
   },
-  "favicon": "/favicon.svg",
+  "favicon": "https://media.brand.dev/f0c7cc42-0d41-419b-a90e-7b0986ffcae2.png",
+  "logo": {
+    "light": "https://media.brand.dev/f0c7cc42-0d41-419b-a90e-7b0986ffcae2.png",
+    "dark": "https://media.brand.dev/f0c7cc42-0d41-419b-a90e-7b0986ffcae2.png"
+  },
+  "navbar": {
+    "primary": {
+      "type": "github",
+      "href": "https://github.com/vudovn/antigravity-kit"
+    }
+  },
+  "footer": {
+    "socials": {
+      "github": "https://github.com/vudovn/antigravity-kit"
+    }
+  },
   "navigation": {
     "tabs": [
       {
-        "tab": "Guides",
+        "tab": "Documentation",
         "groups": [
           {
-            "group": "Getting started",
+            "group": "Get Started",
             "pages": [
-              "index",
-              "quickstart",
-              "development"
+              "introduction",
+              "installation",
+              "quickstart"
             ]
           },
           {
-            "group": "Customization",
+            "group": "CLI Commands",
             "pages": [
-              "essentials/settings",
-              "essentials/navigation"
+              "cli/init",
+              "cli/update",
+              "cli/status"
             ]
           },
           {
-            "group": "Writing content",
+            "group": "Core Concepts",
             "pages": [
-              "essentials/markdown",
-              "essentials/code",
-              "essentials/images",
-              "essentials/reusable-snippets"
+              "concepts/agents",
+              "concepts/skills",
+              "concepts/workflows",
+              "concepts/architecture"
             ]
           },
           {
-            "group": "AI tools",
+            "group": "Usage Guide",
             "pages": [
-              "ai-tools/cursor",
-              "ai-tools/claude-code",
-              "ai-tools/windsurf"
+              "guide/using-agents",
+              "guide/slash-commands",
+              "guide/best-practices"
             ]
           }
         ]
       },
       {
-        "tab": "API reference",
+        "tab": "Agents",
         "groups": [
           {
-            "group": "API documentation",
+            "group": "Coordination",
             "pages": [
-              "api-reference/introduction"
+              "agents/orchestrator",
+              "agents/project-planner",
+              "agents/product-manager",
+              "agents/product-owner"
             ]
           },
           {
-            "group": "Endpoint examples",
+            "group": "Development",
             "pages": [
-              "api-reference/endpoint/get",
-              "api-reference/endpoint/create",
-              "api-reference/endpoint/delete",
-              "api-reference/endpoint/webhook"
+              "agents/frontend-specialist",
+              "agents/backend-specialist",
+              "agents/mobile-developer",
+              "agents/game-developer",
+              "agents/database-architect"
+            ]
+          },
+          {
+            "group": "Quality Assurance",
+            "pages": [
+              "agents/test-engineer",
+              "agents/qa-automation-engineer",
+              "agents/debugger",
+              "agents/performance-optimizer",
+              "agents/code-archaeologist"
+            ]
+          },
+          {
+            "group": "Security & Operations",
+            "pages": [
+              "agents/security-auditor",
+              "agents/penetration-tester",
+              "agents/devops-engineer"
+            ]
+          },
+          {
+            "group": "Content & Discovery",
+            "pages": [
+              "agents/documentation-writer",
+              "agents/seo-specialist",
+              "agents/explorer-agent"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Skills",
+        "groups": [
+          {
+            "group": "Frontend",
+            "pages": [
+              "skills/nextjs-react-expert",
+              "skills/frontend-design",
+              "skills/tailwind-patterns",
+              "skills/web-design-guidelines"
+            ]
+          },
+          {
+            "group": "Backend",
+            "pages": [
+              "skills/api-patterns",
+              "skills/nodejs-best-practices",
+              "skills/python-patterns",
+              "skills/rust-pro"
+            ]
+          },
+          {
+            "group": "Database",
+            "pages": [
+              "skills/database-design"
+            ]
+          },
+          {
+            "group": "Testing & Quality",
+            "pages": [
+              "skills/testing-patterns",
+              "skills/tdd-workflow",
+              "skills/webapp-testing",
+              "skills/code-review-checklist",
+              "skills/clean-code",
+              "skills/lint-and-validate"
+            ]
+          },
+          {
+            "group": "DevOps & Deployment",
+            "pages": [
+              "skills/deployment-procedures",
+              "skills/server-management"
+            ]
+          },
+          {
+            "group": "Security",
+            "pages": [
+              "skills/vulnerability-scanner",
+              "skills/red-team-tactics"
+            ]
+          },
+          {
+            "group": "Optimization",
+            "pages": [
+              "skills/performance-profiling",
+              "skills/seo-fundamentals",
+              "skills/geo-fundamentals"
+            ]
+          },
+          {
+            "group": "Platform & Tools",
+            "pages": [
+              "skills/bash-linux",
+              "skills/powershell-windows",
+              "skills/mobile-design",
+              "skills/game-development",
+              "skills/i18n-localization",
+              "skills/mcp-builder"
+            ]
+          },
+          {
+            "group": "Planning & Architecture",
+            "pages": [
+              "skills/brainstorming",
+              "skills/plan-writing",
+              "skills/architecture",
+              "skills/app-builder",
+              "skills/systematic-debugging",
+              "skills/documentation-templates"
+            ]
+          },
+          {
+            "group": "Advanced",
+            "pages": [
+              "skills/parallel-agents",
+              "skills/behavioral-modes",
+              "skills/intelligent-routing"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Workflows",
+        "groups": [
+          {
+            "group": "Slash Commands",
+            "pages": [
+              "workflows/brainstorm",
+              "workflows/create",
+              "workflows/debug",
+              "workflows/enhance",
+              "workflows/plan",
+              "workflows/test",
+              "workflows/deploy",
+              "workflows/preview",
+              "workflows/status",
+              "workflows/orchestrate",
+              "workflows/ui-ux-pro-max"
             ]
           }
         ]
       }
-    ],
-    "global": {
-      "anchors": [
-        {
-          "anchor": "Documentation",
-          "href": "https://mintlify.com/docs",
-          "icon": "book-open-cover"
-        },
-        {
-          "anchor": "Blog",
-          "href": "https://mintlify.com/blog",
-          "icon": "newspaper"
-        }
-      ]
-    }
-  },
-  "logo": {
-    "light": "/logo/light.svg",
-    "dark": "/logo/dark.svg"
-  },
-  "navbar": {
-    "links": [
-      {
-        "label": "Support",
-        "href": "mailto:hi@mintlify.com"
-      }
-    ],
-    "primary": {
-      "type": "button",
-      "label": "Dashboard",
-      "href": "https://dashboard.mintlify.com"
-    }
-  },
-  "contextual": {
-    "options": [
-     "copy",
-     "view",
-     "chatgpt",
-     "claude",
-     "perplexity",
-     "mcp",
-     "cursor",
-     "vscode"
-   ]
-  },
-  "footer": {
-    "socials": {
-      "x": "https://x.com/mintlify",
-      "github": "https://github.com/mintlify",
-      "linkedin": "https://linkedin.com/company/mintlify"
-    }
+    ]
   }
 }

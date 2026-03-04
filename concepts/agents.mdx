@@ -1,0 +1,259 @@
+---
+title: 'Agents'
+description: 'Specialist AI personas for different development domains'
+---
+
+## What are Agents?
+
+Agents are specialist AI personas in Antigravity Kit, each designed with specific expertise in different development domains. When you make a request, the system automatically selects the most appropriate agent based on the task context.
+
+### Auto-Selection
+
+Antigravity Kit uses intelligent routing to select agents:
+
+- **Keyword Detection**: Analyzes your request for domain-specific terms (e.g., "component", "API", "database")
+- **Context Analysis**: Examines project files and structure
+- **Task Classification**: Identifies intent (build, debug, test, deploy, etc.)
+
+For example:
+- "Build a React dashboard" → `frontend-specialist`
+- "Optimize database queries" → `database-architect`
+- "Fix security vulnerability" → `security-auditor`
+
+## Available Agents (20)
+
+Antigravity Kit includes 20 specialized agents, each with their own skills and expertise.
+
+<CardGroup cols={2}>
+  <Card title="orchestrator" icon="sitemap">
+    **Multi-agent coordination**
+    
+    Coordinates multiple specialist agents for complex tasks requiring different domain expertise.
+    
+    **Skills**: parallel-agents, behavioral-modes
+  </Card>
+
+  <Card title="project-planner" icon="list-check">
+    **Discovery & task planning**
+    
+    Creates structured plans, breaks down tasks, estimates effort, and defines milestones.
+    
+    **Skills**: brainstorming, plan-writing, architecture
+  </Card>
+
+  <Card title="frontend-specialist" icon="browser">
+    **Web UI/UX development**
+    
+    Builds React/Next.js systems with performance-first mindset. Handles components, styling, state management.
+    
+    **Skills**: react-best-practices, frontend-design, tailwind-patterns
+  </Card>
+
+  <Card title="backend-specialist" icon="server">
+    **API & business logic**
+    
+    Designs server-side systems with security and scalability as top priorities. Node.js, Python, APIs.
+    
+    **Skills**: api-patterns, nodejs-best-practices, database-design
+  </Card>
+
+  <Card title="database-architect" icon="database">
+    **Schema & SQL design**
+    
+    Designs database schemas, optimizes queries, manages migrations with Prisma/Drizzle.
+    
+    **Skills**: database-design, prisma-expert
+  </Card>
+
+  <Card title="mobile-developer" icon="mobile">
+    **iOS, Android, React Native**
+    
+    Builds mobile applications with native feel. React Native, Flutter, Expo.
+    
+    **Skills**: mobile-design
+  </Card>
+
+  <Card title="game-developer" icon="gamepad">
+    **Game logic & mechanics**
+    
+    Develops games across platforms. Unity, Godot, Unreal, Phaser, multiplayer systems.
+    
+    **Skills**: game-development
+  </Card>
+
+  <Card title="devops-engineer" icon="gear">
+    **CI/CD & infrastructure**
+    
+    Sets up deployment pipelines, containerization, monitoring, and infrastructure management.
+    
+    **Skills**: deployment-procedures, docker-expert
+  </Card>
+
+  <Card title="security-auditor" icon="shield">
+    **Security compliance**
+    
+    Reviews code for vulnerabilities, OWASP compliance, authentication, and authorization.
+    
+    **Skills**: vulnerability-scanner, red-team-tactics
+  </Card>
+
+  <Card title="penetration-tester" icon="skull">
+    **Offensive security**
+    
+    Active security testing, red team operations, vulnerability exploitation.
+    
+    **Skills**: red-team-tactics
+  </Card>
+
+  <Card title="test-engineer" icon="flask">
+    **Testing strategies**
+    
+    Writes unit, integration, and E2E tests. TDD workflows, coverage analysis.
+    
+    **Skills**: testing-patterns, tdd-workflow, webapp-testing
+  </Card>
+
+  <Card title="debugger" icon="bug">
+    **Root cause analysis**
+    
+    Systematic debugging, error investigation, performance issue identification.
+    
+    **Skills**: systematic-debugging
+  </Card>
+
+  <Card title="performance-optimizer" icon="gauge-high">
+    **Speed & Web Vitals**
+    
+    Profiles performance bottlenecks, optimizes Core Web Vitals, reduces bundle size.
+    
+    **Skills**: performance-profiling
+  </Card>
+
+  <Card title="seo-specialist" icon="magnifying-glass">
+    **Ranking & visibility**
+    
+    Optimizes SEO, implements meta tags, schema markup, and GenAI optimization.
+    
+    **Skills**: seo-fundamentals, geo-fundamentals
+  </Card>
+
+  <Card title="documentation-writer" icon="book">
+    **Manuals & documentation**
+    
+    Creates comprehensive documentation, API references, README files.
+    
+    **Skills**: documentation-templates
+  </Card>
+
+  <Card title="product-manager" icon="clipboard">
+    **Requirements & user stories**
+    
+    Defines requirements, writes user stories, manages feature specifications.
+    
+    **Skills**: plan-writing, brainstorming
+  </Card>
+
+  <Card title="product-owner" icon="crown">
+    **Strategy & MVP**
+    
+    Defines product strategy, prioritizes backlog, scopes MVP features.
+    
+    **Skills**: plan-writing, brainstorming
+  </Card>
+
+  <Card title="qa-automation-engineer" icon="robot">
+    **E2E testing & CI pipelines**
+    
+    Automates testing workflows, sets up CI pipelines, Playwright/Cypress.
+    
+    **Skills**: webapp-testing, testing-patterns
+  </Card>
+
+  <Card title="code-archaeologist" icon="magnifying-glass-chart">
+    **Legacy code & refactoring**
+    
+    Analyzes legacy codebases, plans refactoring strategies, improves maintainability.
+    
+    **Skills**: clean-code, code-review-checklist
+  </Card>
+
+  <Card title="explorer-agent" icon="compass">
+    **Codebase analysis**
+    
+    Fast discovery of codebase structure, dependencies, and architecture patterns.
+  </Card>
+</CardGroup>
+
+## Example: Agent Auto-Selection
+
+Here's how agents are automatically applied based on your request:
+
+```plaintext
+User Request: "Build a REST API with authentication"
+
+┌─────────────────────────────────────┐
+│  REQUEST CLASSIFICATION              │
+│  • Domain: Backend + Security        │
+│  • Keywords: API, authentication     │
+│  • Complexity: Medium                │
+└────────────┬────────────────────────┘
+             │
+             ▼
+┌─────────────────────────────────────┐
+│  AGENT SELECTION                     │
+│  Primary: backend-specialist         │
+│  Secondary: security-auditor         │
+└────────────┬────────────────────────┘
+             │
+             ▼
+┌─────────────────────────────────────┐
+│  SKILL LOADING                       │
+│  • api-patterns                      │
+│  • nodejs-best-practices             │
+│  • vulnerability-scanner             │
+└─────────────────────────────────────┘
+```
+
+## Agent Routing Matrix
+
+| Your Request Contains | Agent Selected | Skills Loaded |
+|-----------------------|----------------|---------------|
+| component, react, ui | `frontend-specialist` | react-best-practices, frontend-design |
+| api, endpoint, server | `backend-specialist` | api-patterns, nodejs-best-practices |
+| database, schema, sql | `database-architect` | database-design, prisma-expert |
+| bug, error, crash | `debugger` | systematic-debugging |
+| test, coverage, spec | `test-engineer` | testing-patterns, webapp-testing |
+| deploy, docker, ci/cd | `devops-engineer` | deployment-procedures, docker-expert |
+| security, vulnerability | `security-auditor` | vulnerability-scanner |
+| mobile, ios, android | `mobile-developer` | mobile-design |
+| game, unity, godot | `game-developer` | game-development |
+
+## Multi-Agent Tasks
+
+For complex tasks requiring multiple domains, the `orchestrator` agent coordinates specialists:
+
+```typescript
+// Example: Full-stack feature request
+User: "Build user authentication with dashboard"
+
+// Orchestrator coordinates:
+1. database-architect  → User schema & sessions
+2. backend-specialist  → Auth API endpoints
+3. frontend-specialist → Login UI & dashboard
+4. security-auditor    → Security review
+5. test-engineer       → Test coverage
+```
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="Skills" icon="puzzle-piece" href="/concepts/skills">
+    Learn about skills that agents load on-demand
+  </Card>
+  <Card title="Workflows" icon="diagram-project" href="/concepts/workflows">
+    Discover slash command workflows
+  </Card>
+  <Card title="Architecture" icon="sitemap" href="/concepts/architecture">
+    Understand the system architecture
+  </Card>
+</CardGroup>

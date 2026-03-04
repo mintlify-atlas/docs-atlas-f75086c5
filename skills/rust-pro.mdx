@@ -1,0 +1,407 @@
+---
+title: Rust Pro
+description: Master Rust 1.75+ with modern async patterns, advanced type system, and production-ready systems programming
+---
+
+<Note>
+This skill provides expert-level Rust knowledge for building high-performance, memory-safe systems with Rust 1.75+ features, advanced async programming, and modern ecosystem practices.
+</Note>
+
+## What This Skill Provides
+
+The Rust Pro skill equips agents with deep expertise in modern Rust development, focusing on advanced language features, async programming, and production-ready systems.
+
+### Core Knowledge Areas
+
+<CardGroup cols={2}>
+<Card title="Modern Language Features" icon="rust">
+Rust 1.75+ features, const generics, GATs, advanced lifetime annotations
+</Card>
+
+<Card title="Ownership & Memory" icon="memory">
+Ownership rules, smart pointers, RAII patterns, zero-cost abstractions
+</Card>
+
+<Card title="Async Programming" icon="bolt">
+Tokio runtime, async/await patterns, stream processing, concurrency
+</Card>
+
+<Card title="Type System Mastery" icon="code">
+Advanced traits, GATs, phantom types, type-level programming
+</Card>
+
+<Card title="Performance" icon="gauge">
+Zero-cost abstractions, SIMD, lock-free programming, profiling
+</Card>
+
+<Card title="Web Development" icon="globe">
+axum, warp, actix-web, hyper, HTTP/2-3 support, WebSocket
+</Card>
+</CardGroup>
+
+## When This Skill Is Loaded
+
+Agents load this skill when:
+
+- Building Rust services, libraries, or systems tooling
+- Solving ownership, lifetime, or async design issues
+- Optimizing performance with memory safety guarantees
+- Implementing high-performance backend services
+- Working with Tokio ecosystem (axum, tower, hyper)
+- Creating memory-safe systems or embedded software
+- Interfacing with C libraries via FFI
+
+<Tip>
+Use this skill PROACTIVELY for Rust development, performance optimization, or systems programming tasks.
+</Tip>
+
+## Use Cases
+
+### High-Performance Web Services
+
+Building modern async web services with:
+- **axum** - Ergonomic, modular web framework built on tower
+- **tower** - Middleware and service abstractions
+- **hyper** - HTTP/2 and HTTP/3 support
+- **tokio** - Async runtime for I/O operations
+
+<Card title="Modern Web Stack" icon="layer-group">
+axum + tower + tokio provides ergonomic, composable, high-performance web services with type-safe routing and middleware.
+</Card>
+
+### Async Programming with Tokio
+
+Mastering async patterns:
+- Advanced async/await patterns
+- Stream processing and async iterators
+- Channel patterns (mpsc, broadcast, watch)
+- Select patterns and concurrent task management
+- Backpressure handling and flow control
+
+### Memory Management Excellence
+
+<CardGroup cols={2}>
+<Card title="Smart Pointers" icon="pointer">
+- Box for heap allocation
+- Rc/Arc for reference counting
+- RefCell/Mutex for interior mutability
+- Weak references
+</Card>
+
+<Card title="Zero-Cost Abstractions" icon="sparkles">
+- Memory layout optimization
+- Phantom types and ZSTs
+- Custom allocators
+- RAII patterns
+</Card>
+</CardGroup>
+
+### Systems Programming
+
+- **Low-level I/O** - Memory mapping, direct hardware access
+- **Lock-free programming** - Atomic operations, concurrent data structures
+- **FFI** - Safe abstractions over C libraries
+- **Embedded** - Cross-compilation, no_std environments
+
+### Type System Features
+
+<Note>
+**Advanced Type System:**
+
+- **Generic Associated Types (GATs)** - Higher-kinded type patterns
+- **Const Generics** - Type-level numeric parameters
+- **Phantom Types** - Zero-runtime-cost type safety
+- **Trait Bounds** - Precise capability constraints
+- **Associated Types** - Type-level function outputs
+</Note>
+
+## Key Principles
+
+### Ownership & Borrowing Mastery
+
+<Card title="Core Ownership Rules" icon="key">
+1. Each value has exactly one owner
+2. When the owner goes out of scope, value is dropped
+3. Borrowing rules: multiple immutable OR one mutable
+4. Lifetimes ensure references are always valid
+</Card>
+
+### Async Best Practices
+
+**Tokio Patterns:**
+- Use async/await for I/O-bound operations
+- Select! for concurrent waiting
+- Channels for message passing
+- Streams for async iteration
+- Spawn tasks for parallelism
+
+**Avoid:**
+- Blocking operations in async contexts
+- Too many small tasks (overhead)
+- Forgetting to await futures
+- Holding locks across await points
+
+### Performance Mindset
+
+<Note>
+**Zero-Cost Abstractions:**
+
+Rust abstractions compile down to the same assembly as hand-written C code. Use high-level abstractions without runtime cost.
+
+**When optimizing:**
+1. Profile first (perf, flamegraph, criterion)
+2. Optimize hot paths only
+3. Use SIMD for data parallelism
+4. Consider cache-friendly data structures
+5. Leverage compile-time computation
+</Note>
+
+### Error Handling Excellence
+
+<CardGroup cols={2}>
+<Card title="Error Types" icon="triangle-exclamation">
+- **thiserror** - Derive error types
+- **anyhow** - Application errors
+- Custom error types for libraries
+- Result and Option combinators
+</Card>
+
+<Card title="Best Practices" icon="check">
+- Fail fast with ?
+- Context preservation
+- Typed errors for libraries
+- Anyhow for applications
+- Panic for unrecoverable errors
+</Card>
+</CardGroup>
+
+## Related Skills
+
+<CardGroup cols={2}>
+<Card title="API Patterns" href="/skills/api-patterns">
+API design principles for Rust web services
+</Card>
+
+<Card title="Node.js Best Practices" href="/skills/nodejs-best-practices">
+Complementary backend runtime patterns
+</Card>
+
+<Card title="Python Patterns" href="/skills/python-patterns">
+Alternative backend development approaches
+</Card>
+</CardGroup>
+
+## Which Agents Use This Skill
+
+<Card title="Backend Specialist" href="/agents/backend-specialist" icon="server">
+The Backend Specialist loads this skill for Rust-based backend development, high-performance services, and systems programming tasks.
+</Card>
+
+<Tip>
+The Backend Specialist uses this skill alongside `api-patterns` for designing Rust APIs and other backend skills as needed.
+</Tip>
+
+## Modern Web Frameworks
+
+### axum (Recommended)
+
+<Card title="Why axum?" icon="rocket">
+- Built on tower (composable middleware)
+- Type-safe routing with extractors
+- Ergonomic error handling
+- Excellent async support with tokio
+- Growing ecosystem
+</Card>
+
+### Framework Comparison
+
+| Framework | Best For | Complexity |
+|-----------|----------|------------|
+| **axum** | Modern APIs, microservices | Low-Medium |
+| **actix-web** | High performance, mature | Medium |
+| **warp** | Filter-based routing | Medium-High |
+| **rocket** | Developer experience | Medium |
+
+## Testing & Quality
+
+### Testing Strategy
+
+<CardGroup cols={3}>
+<Card title="Unit Tests" icon="vial">
+Built-in `#[test]` attribute, tests in same file or `tests/` module
+</Card>
+
+<Card title="Integration Tests" icon="link">
+Separate `tests/` directory, test public API as external crate
+</Card>
+
+<Card title="Property-Based" icon="random">
+proptest, quickcheck for generative testing
+</Card>
+</CardGroup>
+
+### Benchmarking
+
+<Card title="criterion.rs" icon="stopwatch">
+Statistical benchmarking with:
+- Precise measurements
+- Statistical analysis
+- Regression detection
+- HTML report generation
+</Card>
+
+### Quality Tools
+
+- **Clippy** - Lints and suggestions
+- **rustfmt** - Code formatting
+- **cargo-audit** - Security audits
+- **cargo-deny** - Dependency policy enforcement
+- **tarpaulin** - Code coverage
+
+## Unsafe Code & FFI
+
+### Safe Abstractions
+
+<Warning>
+**Unsafe Code Principles:**
+
+1. Minimize unsafe blocks
+2. Document safety invariants clearly
+3. Provide safe public API over unsafe internals
+4. Audit regularly
+5. Use `#[deny(unsafe_code)]` when possible
+
+**FFI Best Practices:**
+- Use bindgen for C bindings
+- Wrap in safe Rust API
+- Document safety requirements
+- Test thoroughly
+</Warning>
+
+## Database Integration
+
+### Async Database Access
+
+| Driver | Database | Features |
+|--------|----------|----------|
+| **sqlx** | PostgreSQL, MySQL, SQLite | Compile-time checked queries |
+| **tokio-postgres** | PostgreSQL | Pure Rust, async |
+| **diesel** | PostgreSQL, MySQL, SQLite | ORM, sync |
+| **sea-orm** | PostgreSQL, MySQL, SQLite | Async ORM |
+
+<Tip>
+**sqlx** is recommended for async Rust services - it provides compile-time query verification with `query!` macro.
+</Tip>
+
+## Serialization
+
+<Card title="serde - The Standard" icon="code">
+Universal serialization framework:
+- JSON, YAML, TOML, MessagePack
+- Derive macros for easy implementation
+- Zero-copy deserialization
+- Custom serialization logic
+- Type-safe at compile time
+</Card>
+
+## Concurrency Patterns
+
+### Message Passing
+
+<CardGroup cols={3}>
+<Card title="mpsc">
+Multiple producers, single consumer channel
+</Card>
+
+<Card title="broadcast">
+Multiple producers, multiple consumers
+</Card>
+
+<Card title="watch">
+Single producer, multiple consumers (latest value)
+</Card>
+</CardGroup>
+
+### Shared State
+
+- **Mutex** - Mutual exclusion lock
+- **RwLock** - Read-write lock (multiple readers, one writer)
+- **Arc** - Atomic reference counting for shared ownership
+- **Atomic types** - Lock-free primitives
+
+## Response Approach
+
+<Steps>
+<Step title="Analyze Requirements">
+Understand Rust-specific safety and performance needs
+</Step>
+
+<Step title="Design Type-Safe APIs">
+Leverage type system for compile-time correctness
+</Step>
+
+<Step title="Implement Efficiently">
+Use zero-cost abstractions and appropriate algorithms
+</Step>
+
+<Step title="Include Testing">
+Unit, integration, and property-based tests
+</Step>
+
+<Step title="Consider Async">
+For I/O-bound operations and concurrency
+</Step>
+
+<Step title="Document Safety">
+Explain any unsafe code blocks and invariants
+</Step>
+
+<Step title="Optimize Carefully">
+Profile before optimizing, maintain safety
+</Step>
+</Steps>
+
+## Anti-Patterns to Avoid
+
+<Warning>
+**Don't:**
+- Fight the borrow checker (redesign instead)
+- Use `clone()` everywhere to satisfy compiler
+- Write unsafe code without careful review
+- Block async runtime with sync operations
+- Use `unwrap()` in production code
+- Ignore Clippy warnings without reason
+- Micro-optimize before profiling
+
+**Do:**
+- Embrace ownership and borrowing
+- Use `Arc` and `Rc` appropriately
+- Provide safe abstractions over unsafe code
+- Use async for I/O, threads for CPU-bound work
+- Handle errors with `Result` and `Option`
+- Configure Clippy for your project
+- Profile to find real bottlenecks
+</Warning>
+
+## Behavioral Traits
+
+<Note>
+**Expert Rust Developer Mindset:**
+
+- Leverages type system for compile-time correctness
+- Prioritizes memory safety without sacrificing performance
+- Uses zero-cost abstractions and avoids runtime overhead
+- Implements explicit error handling with Result types
+- Writes comprehensive tests including property-based
+- Follows Rust idioms and community conventions
+- Documents unsafe code blocks with safety invariants
+- Optimizes for both correctness AND performance
+- Embraces functional programming patterns
+- Stays current with Rust evolution
+</Note>
+
+---
+
+<Tip>
+**Remember:** Rust provides memory safety and fearless concurrency. Embrace the borrow checker as your ally, not your enemy. The compiler catches bugs at compile time that would be runtime errors in other languages.
+</Tip>

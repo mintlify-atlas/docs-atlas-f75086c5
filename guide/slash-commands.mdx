@@ -1,0 +1,429 @@
+---
+title: Slash Commands
+description: Learn when and how to use workflow commands in Antigravity Kit
+---
+
+# Slash Commands
+
+Slash commands are structured workflow procedures that guide the AI through specific types of tasks. Antigravity Kit includes 11 specialized workflows that handle everything from brainstorming to deployment.
+
+## Available Commands
+
+Antigravity Kit provides 11 slash command workflows:
+
+| Command | Description |
+|---------|-------------|
+| `/brainstorm` | Explore options before implementation |
+| `/create` | Create new features or apps |
+| `/debug` | Systematic debugging |
+| `/deploy` | Deploy application |
+| `/enhance` | Improve existing code |
+| `/orchestrate` | Multi-agent coordination |
+| `/plan` | Create task breakdown |
+| `/preview` | Preview changes locally |
+| `/status` | Check project status |
+| `/test` | Generate and run tests |
+| `/ui-ux-pro-max` | Design with 50 styles |
+
+## When to Use Each Workflow
+
+### `/brainstorm` - Explore Before You Build
+
+<Card title="Best For" icon="lightbulb">
+  - Unclear or vague requirements
+  - Need to explore multiple options
+  - Complex problems that need breaking down
+  - Early-stage feature planning
+</Card>
+
+**How it works:**
+1. Loads the `brainstorming` skill
+2. Applies Socratic questioning method
+3. Asks strategic questions to clarify requirements
+4. Outputs a structured discovery document
+
+**Example usage:**
+
+```
+/brainstorm authentication system
+```
+
+**Expected output:**
+- 3-5 strategic questions about your requirements
+- Analysis of different authentication approaches (JWT, OAuth, session-based)
+- Pros and cons of each option
+- Recommended approach with rationale
+- Implementation considerations
+
+<Tip>
+Always use `/brainstorm` before starting major features. The 5 minutes spent on discovery can save hours of rework.
+</Tip>
+
+### `/create` - Build New Features
+
+<Card title="Best For" icon="plus">
+  - New features in existing projects
+  - Small-to-medium complexity tasks
+  - Single domain work (frontend OR backend)
+  - Rapid prototyping
+</Card>
+
+**How it works:**
+1. Detects project type (web/mobile/api/game)
+2. Loads `app-builder` skill + domain-specific skills
+3. Selects appropriate template if creating from scratch
+4. Generates project structure and code
+5. Runs quick validation (`checklist.py`)
+
+**Example usage:**
+
+```
+/create landing page with hero section
+/create REST API for blog posts
+/create user profile component
+```
+
+**Expected output:**
+- Complete code files for the feature
+- Proper project structure
+- Dependencies installed (if needed)
+- Basic tests included
+- Documentation on how to use the feature
+
+### `/orchestrate` - Multi-Agent Coordination
+
+<Card title="Best For" icon="network">
+  - Full-stack features
+  - Complex multi-step tasks
+  - Projects requiring multiple specialist agents
+  - Large features spanning multiple domains
+</Card>
+
+**How it works:**
+1. Loads `parallel-agents` skill
+2. Decomposes task into subtasks
+3. Assigns each subtask to appropriate specialist agent
+4. Coordinates sequential execution with context switching
+5. Ensures code coherence across all parts
+6. Runs full verification suite
+
+**Example usage:**
+
+```
+/orchestrate Build a Next.js dashboard with authentication
+```
+
+**Expected output:**
+
+For a full-stack dashboard with authentication:
+
+**Frontend (via @frontend-specialist):**
+- `app/dashboard/page.tsx` - Server Component
+- `components/DashboardLayout.tsx` - Layout component
+- `components/LoginForm.tsx` - Login UI
+- `lib/auth-client.ts` - Client-side auth utilities
+
+**Backend (via @backend-specialist):**
+- `app/api/auth/login/route.ts` - Login endpoint
+- `app/api/auth/logout/route.ts` - Logout endpoint
+- `lib/jwt.ts` - Token management
+- `middleware.ts` - Auth middleware
+
+**Database (via @database-architect):**
+- `prisma/schema.prisma` - User and Session models
+- `prisma/migrations/` - Database migrations
+
+**Testing (via @test-engineer):**
+- `tests/auth.spec.ts` - Playwright E2E tests
+- `tests/dashboard.spec.ts` - Dashboard tests
+
+<Note>
+The orchestrator maintains consistency across all code, ensuring imports, types, and API contracts all align perfectly.
+</Note>
+
+### `/debug` - Systematic Debugging
+
+<Card title="Best For" icon="bug">
+  - Bug reports and error messages
+  - Unexpected application behavior
+  - Performance issues
+  - Failed test cases
+</Card>
+
+**How it works:**
+1. Loads `systematic-debugging` skill
+2. Analyzes error logs and stack traces
+3. Applies root cause analysis methodology
+4. Suggests fixes with code examples
+5. Verifies the fix works
+
+**Example usage:**
+
+```
+/debug why login fails
+/debug TypeError: Cannot read property 'name' of undefined
+/debug page loads slowly
+```
+
+**Expected output:**
+- Root cause analysis of the issue
+- Step-by-step explanation of what went wrong
+- Code fix with before/after examples
+- Test to verify the fix
+- Prevention tips to avoid similar issues
+
+### `/test` - Generate and Run Tests
+
+<Card title="Best For" icon="check-circle">
+  - Need test coverage for new features
+  - Before deploying to production
+  - After major code changes
+  - Continuous integration setup
+</Card>
+
+**How it works:**
+1. Loads `testing-patterns` + `webapp-testing` skills
+2. Detects test framework (Jest, Vitest, Playwright)
+3. Generates appropriate test cases
+4. Executes test suite
+5. Reports coverage and results
+
+**Example usage:**
+
+```
+/test authentication flow
+/test API endpoints
+/test user registration
+```
+
+**Expected output:**
+- Unit tests for functions and components
+- Integration tests for API endpoints
+- E2E tests for critical user flows
+- Test execution results
+- Coverage report
+
+<Warning>
+Always run `/test` before deploying to production. It catches issues that might not be obvious during development.
+</Warning>
+
+### `/deploy` - Deploy to Production
+
+<Card title="Best For" icon="rocket">
+  - Ready to ship to production
+  - After all tests pass
+  - Need production URL for stakeholders
+  - CI/CD pipeline setup
+</Card>
+
+**How it works:**
+1. Loads `deployment-procedures` skill
+2. Detects target platform (Vercel, AWS, Docker, etc.)
+3. Prepares build artifacts
+4. Executes deployment scripts
+5. Runs health checks
+6. Outputs deployment URL
+
+**Example usage:**
+
+```
+/deploy to Vercel
+/deploy using Docker
+/deploy to AWS
+```
+
+**Expected output:**
+- Build process completion
+- Deployment configuration files
+- Deployment status updates
+- Production URL
+- Post-deployment health check results
+
+### `/plan` - Create Task Breakdown
+
+<Card title="Best For" icon="list">
+  - Large projects requiring planning
+  - Need time estimates for stakeholders
+  - Team coordination and sprint planning
+  - Complex features with dependencies
+</Card>
+
+**How it works:**
+1. Loads `plan-writing` + `architecture` skills
+2. Analyzes requirements
+3. Breaks down into tasks with estimates
+4. Identifies dependencies between tasks
+5. Outputs structured plan with milestones
+
+**Example usage:**
+
+```
+/plan e-commerce checkout system
+/plan migration to microservices
+```
+
+**Expected output:**
+- Phased breakdown of work
+- Task list with time estimates
+- Dependency graph
+- Risk assessment
+- Suggested milestones
+- Resource requirements
+
+### `/enhance` - Improve Existing Code
+
+<Card title="Best For" icon="arrow-up">
+  - Code refactoring
+  - Performance optimization
+  - Adding features to existing code
+  - Modernizing legacy code
+</Card>
+
+**Example usage:**
+
+```
+/enhance add loading states to forms
+/enhance optimize database queries
+/enhance add error handling
+```
+
+**Expected output:**
+- Enhanced code with improvements
+- Explanation of changes made
+- Before/after comparison
+- Tests for new functionality
+
+### `/preview` - Preview Changes Locally
+
+<Card title="Best For" icon="eye">
+  - Reviewing changes before committing
+  - Testing features locally
+  - Demonstrating work to stakeholders
+</Card>
+
+**Example usage:**
+
+```
+/preview start development server
+/preview show recent changes
+```
+
+### `/status` - Check Project Status
+
+<Card title="Best For" icon="info">
+  - Understanding project health
+  - Identifying issues or blockers
+  - Getting overview of recent changes
+</Card>
+
+**Example usage:**
+
+```
+/status
+/status show test coverage
+/status check dependencies
+```
+
+**Expected output:**
+- Project health summary
+- Recent commits/changes
+- Test pass/fail status
+- Dependency status (outdated packages)
+- Known issues or warnings
+
+### `/ui-ux-pro-max` - Professional Design System
+
+<Card title="Best For" icon="palette">
+  - Creating polished, professional UIs
+  - Need design inspiration
+  - Want consistent design system
+  - Client-facing applications
+</Card>
+
+**How it works:**
+1. Loads `ui-ux-pro-max` skill (27 reference files)
+2. Provides access to 50 design styles
+3. Offers 21 color palettes
+4. Includes 50 font combinations
+5. Generates professional UI with selected aesthetic
+
+**Example usage:**
+
+```
+/ui-ux-pro-max create a landing page in minimalist style
+/ui-ux-pro-max dashboard with glassmorphism design
+```
+
+**Expected output:**
+- Professional UI with cohesive design
+- Carefully selected color palette
+- Typography system with font pairings
+- Responsive layout
+- Accessibility-compliant components
+- Design tokens/variables
+
+<Tip>
+Browse the 50 available styles in the ui-ux-pro-max skill folder to see examples before requesting a specific aesthetic.
+</Tip>
+
+## Chaining Commands
+
+You can chain commands for complex workflows:
+
+```
+1. /brainstorm authentication system
+2. /plan implement JWT authentication
+3. /orchestrate build authentication
+4. /test authentication flow
+5. /deploy to production
+```
+
+This workflow:
+1. Explores authentication options
+2. Creates implementation plan
+3. Builds the feature with multiple agents
+4. Tests the implementation
+5. Deploys to production
+
+## Command Selection Flowchart
+
+Use this guide to choose the right command:
+
+```
+Do you have clear requirements?
+├─ No → /brainstorm
+└─ Yes → Is it a new feature or existing code?
+    ├─ New feature → Is it full-stack or single domain?
+    │   ├─ Full-stack → /orchestrate
+    │   └─ Single domain → /create
+    ├─ Existing code → What do you want to do?
+    │   ├─ Fix a bug → /debug
+    │   ├─ Improve it → /enhance
+    │   ├─ Test it → /test
+    │   └─ Deploy it → /deploy
+    └─ Large project → /plan first, then /orchestrate or /create
+```
+
+## Pro Tips
+
+<Tip>
+**Start with `/brainstorm`** - Even if you think you know what you want, 5 minutes of brainstorming can save hours of rework.
+</Tip>
+
+<Tip>
+**Use `/plan` for estimates** - Before committing to stakeholders, run `/plan` to get realistic time estimates.
+</Tip>
+
+<Tip>
+**Always `/test` before `/deploy`** - Never skip testing, even for "small" changes. It's much easier to fix bugs locally.
+</Tip>
+
+<Tip>
+**Combine `/orchestrate` with `/ui-ux-pro-max`** - For professional full-stack apps, use orchestrate for structure and ui-ux-pro-max for design.
+</Tip>
+
+## Next Steps
+
+- Read [Best Practices](/guide/best-practices) to get optimal results
+- See [Using Agents](/guide/using-agents) to understand agent selection
+- Try the [Web App Example](/guide/examples/brainstorm) for a complete walkthrough

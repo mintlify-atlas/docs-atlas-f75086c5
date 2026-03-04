@@ -1,0 +1,172 @@
+---
+title: Architecture
+description: Architectural decision-making framework with requirements analysis and trade-off evaluation
+---
+
+## Overview
+
+The architecture skill provides a framework for making architectural decisions through requirements analysis, trade-off evaluation, and Architecture Decision Records (ADRs). It emphasizes simplicity and evidence-based decision-making.
+
+## What This Skill Provides
+
+- **Context discovery**: Questions to classify projects and understand requirements
+- **Trade-off analysis**: Structured framework for evaluating options
+- **Pattern selection**: Decision trees and anti-pattern identification
+- **ADR documentation**: Templates for recording architectural decisions
+- **Reference examples**: MVP, SaaS, and enterprise architectures
+- **Pattern reference**: Quick lookup for common patterns
+
+## Core Principle
+
+**"Simplicity is the ultimate sophistication."**
+
+- Start simple
+- Add complexity ONLY when proven necessary
+- You can always add patterns later
+- Removing complexity is MUCH harder than adding it
+
+## Skill Components
+
+### 1. Context Discovery (`context-discovery.md`)
+
+**When to read**: Starting architecture design
+
+Provides:
+- Questions to ask stakeholders
+- Project classification frameworks
+- Requirement gathering techniques
+- Constraint identification methods
+
+### 2. Trade-off Analysis (`trade-off-analysis.md`)
+
+**When to read**: Documenting decisions
+
+Provides:
+- ADR templates
+- Trade-off evaluation framework
+- Cost-benefit analysis structures
+- Decision impact assessment
+
+### 3. Pattern Selection (`pattern-selection.md`)
+
+**When to read**: Choosing patterns
+
+Provides:
+- Decision trees for pattern selection
+- Common anti-patterns to avoid
+- When to use specific patterns
+- Pattern combination guidelines
+
+### 4. Examples (`examples.md`)
+
+**When to read**: Reference implementations
+
+Provides:
+- MVP architecture examples
+- SaaS application patterns
+- Enterprise system designs
+- Real-world case studies
+
+### 5. Patterns Reference (`patterns-reference.md`)
+
+**When to read**: Pattern comparison
+
+Provides:
+- Quick pattern lookup
+- Pattern comparison tables
+- Pros and cons of each pattern
+- Use case recommendations
+
+## Selective Reading Rule
+
+**Read ONLY files relevant to the request!**
+
+The skill emphasizes reading only what's needed for the specific task, avoiding unnecessary context loading.
+
+## Validation Checklist
+
+Before finalizing architecture:
+
+- [ ] Requirements clearly understood
+- [ ] Constraints identified
+- [ ] Each decision has trade-off analysis
+- [ ] Simpler alternatives considered
+- [ ] ADRs written for significant decisions
+- [ ] Team expertise matches chosen patterns
+
+## Use Cases
+
+- Designing new system architecture
+- Evaluating technology choices
+- Making infrastructure decisions
+- Documenting architectural decisions
+- Refactoring existing systems
+- Choosing between architectural patterns
+- Scaling system design
+
+## Architecture Decision Records (ADRs)
+
+ADR template structure:
+
+```markdown
+# ADR-001: [Title]
+
+## Status
+Accepted / Deprecated / Superseded
+
+## Context
+Why are we making this decision?
+
+## Decision
+What did we decide?
+
+## Consequences
+What are the trade-offs?
+```
+
+## Related Skills
+
+- [Database Design](/skills/database-design) - Database schema architecture
+- [API Patterns](/skills/api-patterns) - API design decisions
+- [Deployment Procedures](/skills/deployment-procedures) - Deployment architecture
+- [Brainstorming](/skills/brainstorming) - Requirement clarification
+- [Plan Writing](/skills/plan-writing) - Implementation planning
+
+## Which Agents Use This Skill
+
+- **orchestrator** - High-level system architecture decisions
+- **backend-specialist** - Backend architecture patterns
+- **frontend-specialist** - Frontend architecture patterns
+- **database-architect** - Database architecture (combined with database-design skill)
+- **security-auditor** - Security architecture review
+
+## Decision-Making Process
+
+1. **Understand requirements** - What problem are we solving?
+2. **Identify constraints** - Budget, timeline, team skills, scale
+3. **Generate options** - Multiple architectural approaches
+4. **Analyze trade-offs** - Pros, cons, costs, risks
+5. **Choose solution** - Based on evidence, not assumptions
+6. **Document decision** - Create ADR with rationale
+7. **Validate** - Run through validation checklist
+
+## Common Decision Areas
+
+- Monolith vs Microservices
+- SQL vs NoSQL databases
+- REST vs GraphQL vs tRPC
+- Server-side vs Client-side rendering
+- Authentication methods
+- Caching strategies
+- State management approaches
+- Deployment architectures
+
+## Anti-Patterns to Avoid
+
+- Over-engineering for imagined scale
+- Choosing technology based on hype
+- Not documenting decisions
+- Ignoring team expertise
+- Premature optimization
+- Architecture by committee without structure
+- Not considering simpler alternatives

@@ -1,0 +1,116 @@
+---
+title: "Introduction"
+description: "AI agent templates with skills, agents, and workflows for enhanced coding assistance"
+---
+
+# Introduction to Antigravity Kit
+
+Antigravity Kit is a comprehensive AI agent templates toolkit that extends the capabilities of AI-powered editors like **Cursor** and **Windsurf**. It provides a modular system of specialist agents, domain-specific skills, and automated workflows to enhance your development experience.
+
+## What's Inside
+
+Antigravity Kit consists of three core components:
+
+<CardGroup cols={3}>
+  <Card title="20 Specialist Agents" icon="robot">
+    Role-based AI personas for different domains (frontend, backend, security, PM, QA, etc.)
+  </Card>
+  
+  <Card title="37 Domain Skills" icon="book">
+    Modular knowledge modules covering everything from React best practices to security auditing
+  </Card>
+  
+  <Card title="11 Workflows" icon="diagram-project">
+    Slash command procedures for common tasks like planning, debugging, and deployment
+  </Card>
+</CardGroup>
+
+## How It Works
+
+### Automatic Agent Selection
+
+**No need to mention agents explicitly!** The system automatically detects and applies the right specialist based on your request:
+
+```
+You: "Add JWT authentication"
+AI: 🤖 Applying @security-auditor + @backend-specialist...
+
+You: "Fix the dark mode button"
+AI: 🤖 Using @frontend-specialist...
+
+You: "Login returns 500 error"
+AI: 🤖 Using @debugger for systematic analysis...
+```
+
+### Key Benefits
+
+<CardGroup cols={2}>
+  <Card title="Zero Learning Curve" icon="graduation-cap">
+    Just describe what you need - the system handles the rest
+  </Card>
+  
+  <Card title="Expert Responses" icon="award">
+    Always get specialist-level responses tailored to your domain
+  </Card>
+  
+  <Card title="Transparent" icon="eye">
+    Shows which agent and skills are being applied to your request
+  </Card>
+  
+  <Card title="Flexible" icon="sliders">
+    Can override automatic selection by mentioning agents explicitly
+  </Card>
+</CardGroup>
+
+## Integration with AI Editors
+
+Antigravity Kit is designed to work seamlessly with:
+
+- **Cursor** - The AI-first code editor
+- **Windsurf** - AI-powered development environment
+
+The `.agent` folder contains all templates and is automatically indexed by these editors, enabling intelligent agent selection and slash command suggestions.
+
+## What You Can Build
+
+With 37 skills covering ~90% of web and mobile development, you can:
+
+- Build full-stack web applications (React, Next.js, Node.js)
+- Design and optimize databases (Prisma, SQL)
+- Implement secure authentication and authorization
+- Create mobile apps (React Native, Flutter)
+- Develop games with game logic and mechanics
+- Set up CI/CD pipelines and deployment workflows
+- Write comprehensive tests (Jest, Playwright, Cypress)
+- Optimize performance and SEO
+- Generate professional documentation
+
+## Repository Structure
+
+Once installed, your project will contain:
+
+```plaintext
+.agent/
+├── agents/                  # 20 Specialist Agents
+├── skills/                  # 37 Skills
+├── workflows/               # 11 Slash Commands
+├── rules/                   # Global Rules
+├── scripts/                 # Validation Scripts
+└── ARCHITECTURE.md          # System Documentation
+```
+
+<Note>
+  Skills are loaded automatically based on task context. The AI reads skill descriptions and applies relevant knowledge without manual intervention.
+</Note>
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="Installation" icon="download" href="/installation">
+    Learn how to install Antigravity Kit in your project
+  </Card>
+  
+  <Card title="Quick Start" icon="rocket" href="/quickstart">
+    Get started with your first agent interaction
+  </Card>
+</CardGroup>

@@ -1,0 +1,252 @@
+---
+title: Web Design Guidelines
+description: Review UI code for Web Interface Guidelines compliance, accessibility, and best practices
+---
+
+<Note>
+This skill performs automated reviews of UI implementations against Web Interface Guidelines from Vercel. Use after implementation to audit for accessibility, performance, and best practices.
+</Note>
+
+## What This Skill Provides
+
+The Web Design Guidelines skill provides automated UI code review capabilities based on Vercel's Web Interface Guidelines. It fetches the latest rules and checks implementations for compliance.
+
+### Core Functionality
+
+<Card title="Automated Compliance Checking" icon="check-circle">
+Fetches fresh guidelines from Vercel's repository and applies all rules to specified files, outputting findings in `file:line` format for easy navigation.
+</Card>
+
+## When This Skill Is Loaded
+
+Agents load this skill when:
+
+- Asked to "review my UI"
+- Checking accessibility compliance
+- Auditing design implementations
+- Reviewing UX best practices
+- Checking site against web standards
+- Performing post-implementation quality checks
+
+<Tip>
+This skill is designed for **post-implementation review**. Use `frontend-design` before coding to learn principles, then use this skill after coding to audit the implementation.
+</Tip>
+
+## How It Works
+
+<Steps>
+<Step title="Fetch Latest Guidelines">
+Retrieves current Web Interface Guidelines from the Vercel Labs repository to ensure reviews use up-to-date rules.
+</Step>
+
+<Step title="Read Specified Files">
+Reads the UI files provided by the user (or prompts for file patterns if not specified).
+</Step>
+
+<Step title="Apply All Rules">
+Checks the implementation against all rules in the fetched guidelines.
+</Step>
+
+<Step title="Output Findings">
+Reports issues in terse `file:line` format for quick navigation and fixing.
+</Step>
+</Steps>
+
+## Use Cases
+
+### Post-Implementation Audit
+
+After building UI components or pages:
+1. Complete implementation
+2. Ask agent to review using this skill
+3. Receive findings with specific file/line references
+4. Fix identified issues
+5. Re-review to confirm fixes
+
+### Accessibility Verification
+
+Check implementations for:
+- ARIA labels and semantic HTML
+- Keyboard navigation support
+- Focus management and visible focus states
+- Screen reader compatibility
+- Color contrast ratios
+- Responsive touch targets
+
+### Performance Best Practices
+
+Verify optimizations:
+- Image loading strategies
+- Animation performance (GPU acceleration)
+- Layout shift prevention
+- Resource loading patterns
+
+### Design Consistency
+
+Ensure adherence to:
+- Focus state visibility
+- Interactive element feedback
+- Consistent spacing and sizing
+- Proper semantic markup
+
+## Related Skills
+
+<CardGroup cols={2}>
+<Card title="Frontend Design" href="/skills/frontend-design">
+Use BEFORE coding to learn design principles
+</Card>
+
+<Card title="Next.js React Expert" href="/skills/nextjs-react-expert">
+Performance optimization patterns
+</Card>
+
+<Card title="Tailwind Patterns" href="/skills/tailwind-patterns">
+Implementation patterns for styling
+</Card>
+</CardGroup>
+
+## Complete Design Workflow
+
+<Note>
+**Full Process:**
+
+1. **DESIGN** → Read `frontend-design` principles
+2. **CODE** → Implement the design
+3. **AUDIT** → Run `web-design-guidelines` review ← YOU ARE HERE
+4. **FIX** → Address findings from audit
+</Note>
+
+This skill completes the workflow by providing objective compliance checking after implementation.
+
+## Which Agents Use This Skill
+
+<Card title="Frontend Specialist" href="/agents/frontend-specialist" icon="browser">
+The Frontend Specialist loads this skill to perform UI audits and compliance reviews. It's part of the comprehensive frontend toolkit alongside design and implementation skills.
+</Card>
+
+<Tip>
+The Frontend Specialist uses this skill as part of quality control - after implementing designs based on `frontend-design` principles and `tailwind-patterns`.
+</Tip>
+
+## Guidelines Source
+
+The skill fetches rules from:
+
+```
+https://github.com/vercel-labs/web-interface-guidelines
+```
+
+<Card title="Always Fresh" icon="sync">
+By fetching guidelines on each review, the skill ensures it's checking against the most current web standards and best practices from Vercel.
+</Card>
+
+## Usage Pattern
+
+When a user requests a review:
+
+<Steps>
+<Step title="Provide Files or Pattern">
+User specifies which files to review (e.g., "review components/Button.tsx" or "review all tsx files")
+</Step>
+
+<Step title="Agent Fetches Guidelines">
+Agent retrieves latest rules from Vercel's repository
+</Step>
+
+<Step title="Files Are Read">
+Agent reads the specified implementation files
+</Step>
+
+<Step title="Rules Applied">
+All guidelines are checked against the implementation
+</Step>
+
+<Step title="Report Generated">
+Findings are output with file:line references
+</Step>
+</Steps>
+
+<Note>
+If no files are specified, the agent will ask the user which files or patterns to review.
+</Note>
+
+## Review Categories
+
+The guidelines typically cover:
+
+### Accessibility
+- Semantic HTML usage
+- ARIA attributes and roles
+- Keyboard navigation
+- Screen reader support
+- Focus management
+- Color contrast
+
+### Performance
+- Image optimization
+- Animation efficiency
+- Resource loading
+- Layout stability
+- Core Web Vitals considerations
+
+### User Experience
+- Interactive feedback
+- Loading states
+- Error handling
+- Touch target sizes
+- Responsive design
+
+### Best Practices
+- HTML validity
+- CSS organization
+- JavaScript patterns
+- Progressive enhancement
+- Cross-browser compatibility
+
+## Output Format
+
+Findings are reported in a terse, actionable format:
+
+```
+components/Button.tsx:42 - Missing aria-label for icon button
+components/Modal.tsx:156 - Focus not trapped within modal
+pages/index.tsx:89 - Image missing alt text
+```
+
+This format allows quick navigation to issues for fixing.
+
+## Complementary Approach
+
+<CardGroup cols={2}>
+<Card title="Before Implementation">
+**Frontend Design Skill**
+
+Teaches principles:
+- Color psychology
+- Typography rules
+- UX psychology
+- Layout principles
+</Card>
+
+<Card title="After Implementation">
+**Web Design Guidelines Skill**
+
+Audits compliance:
+- Accessibility checks
+- Performance verification
+- Best practices review
+- Standards compliance
+</Card>
+</CardGroup>
+
+<Tip>
+**Design Thinking → Implementation → Audit** is the complete workflow for high-quality UI development.
+</Tip>
+
+---
+
+<Note>
+**Author:** Vercel  
+**Version:** 1.0.0  
+**Source:** Web Interface Guidelines (fetched fresh on each review)
+</Note>

@@ -1,0 +1,273 @@
+---
+title: Behavioral Modes
+description: AI operational modes that adapt behavior based on task type (brainstorm, implement, debug, review, teach, ship)
+---
+
+## Overview
+
+The behavioral-modes skill defines distinct behavioral modes that optimize AI performance for specific tasks. Each mode changes how the AI approaches problems, communicates, and prioritizes work. The AI should automatically detect the appropriate mode based on user intent.
+
+## What This Skill Provides
+
+- **6 core modes**: Brainstorm, Implement, Debug, Review, Teach, Ship
+- **2 advanced modes**: Explore, Plan-Execute-Critic (PEC)
+- **Automatic mode detection**: Trigger patterns for each mode
+- **Mode-specific behaviors**: Tailored approaches for each task type
+- **Output style guidelines**: How to communicate in each mode
+- **Manual mode switching**: User-requested mode changes
+
+## Available Modes
+
+### 1. 🧠 BRAINSTORM Mode
+
+**When to use**: Early project planning, feature ideation, architecture decisions
+
+**Behavior**:
+- Ask clarifying questions before assumptions
+- Offer multiple alternatives (at least 3)
+- Think divergently - explore unconventional solutions
+- No code yet - focus on ideas and options
+- Use visual diagrams (mermaid) to explain concepts
+
+**Output style**: Present options with pros/cons tables, ask for user preference
+
+**Triggers**: "what if", "ideas", "options", "how should", "what's the best way"
+
+### 2. ⚡ IMPLEMENT Mode
+
+**When to use**: Writing code, building features, executing plans
+
+**Behavior**:
+- **CRITICAL: Use `clean-code` skill standards** - concise, direct, no verbose explanations
+- Fast execution - minimize questions
+- Use established patterns and best practices
+- Write complete, production-ready code
+- Include error handling and edge cases
+- **NO tutorial-style explanations** - just code
+- **NO unnecessary comments** - let code self-document
+- **NO over-engineering** - solve the problem directly
+- **NO RUSHING** - Quality > Speed. Read ALL references before coding.
+
+**Output style**: Code block + brief 1-2 sentence summary
+
+**Triggers**: "build", "create", "add", "implement", "make"
+
+### 3. 🔍 DEBUG Mode
+
+**When to use**: Fixing bugs, troubleshooting errors, investigating issues
+
+**Behavior**:
+- Ask for error messages and reproduction steps
+- Think systematically - check logs, trace data flow
+- Form hypothesis → test → verify
+- Explain the root cause, not just the fix
+- Prevent future occurrences
+
+**Output style**:
+```
+🔍 Symptom: [what's happening]
+🎯 Root cause: [why it's happening]
+✅ Fix: [the solution]
+🛡️ Prevention: [how to avoid in future]
+```
+
+**Triggers**: "not working", "error", "bug", "crash", "broken", "investigate", "fix"
+
+### 4. 📋 REVIEW Mode
+
+**When to use**: Code review, architecture review, security audit
+
+**Behavior**:
+- Be thorough but constructive
+- Categorize by severity (Critical/High/Medium/Low)
+- Explain the "why" behind suggestions
+- Offer improved code examples
+- Acknowledge what's done well
+
+**Output style**:
+```markdown
+## Code Review: [file/feature]
+
+### 🔴 Critical
+- [issue with explanation]
+
+### 🟠 Improvements
+- [suggestion with example]
+
+### 🟢 Good
+- [positive observation]
+```
+
+**Triggers**: "review", "check", "audit", "analyze", "assess"
+
+### 5. 📚 TEACH Mode
+
+**When to use**: Explaining concepts, documentation, onboarding
+
+**Behavior**:
+- Explain from fundamentals
+- Use analogies and examples
+- Progress from simple to complex
+- Include practical exercises
+- Check understanding
+
+**Output style**:
+```markdown
+## Understanding [Concept]
+
+### What is it?
+[Simple explanation with analogy]
+
+### How it works
+[Technical explanation with diagram]
+
+### Example
+[Code example with comments]
+
+### Try it yourself
+[Exercise or task]
+```
+
+**Triggers**: "explain", "how does", "learn", "understand", "what is", "teach me"
+
+### 6. 🚀 SHIP Mode
+
+**When to use**: Production deployment, final polish, release preparation
+
+**Behavior**:
+- Focus on stability over features
+- Check for missing error handling
+- Verify environment configs
+- Run all tests
+- Create deployment checklist
+
+**Output style**:
+```markdown
+## Pre-Ship Checklist
+
+### ✅ Code Quality
+- [ ] No TypeScript errors
+- [ ] ESLint passing
+- [ ] All tests passing
+
+### ✅ Security
+- [ ] No exposed secrets
+- [ ] Input validation complete
+
+### ✅ Performance
+- [ ] Bundle size acceptable
+- [ ] No console.logs
+
+### 🚀 Ready to deploy
+```
+
+**Triggers**: "deploy", "release", "production", "ship", "publish"
+
+## Advanced Modes (2025)
+
+### 🔭 EXPLORE Mode
+
+**Role**: Discovery and Analysis (Explorer Agent)
+
+**Behavior**: 
+- Socratic questioning
+- Deep-dive code reading
+- Dependency mapping
+- Architectural visualization
+
+**Output**: `discovery-report.json`, architectural diagrams
+
+### 🗺️ PLAN-EXECUTE-CRITIC (PEC)
+
+Cyclic mode transitions for high-complexity tasks:
+
+1. **Planner**: Decomposes task into atomic steps (`task.md`)
+2. **Executor**: Performs actual coding (IMPLEMENT mode)
+3. **Critic**: Reviews code, security, performance (REVIEW mode)
+
+Cycle repeats until task complete.
+
+## Mode Detection
+
+The AI automatically detects the appropriate mode:
+
+| Trigger Pattern | Mode |
+|----------------|------|
+| "what if", "ideas", "options" | BRAINSTORM |
+| "build", "create", "add" | IMPLEMENT |
+| "not working", "error", "bug" | DEBUG |
+| "review", "check", "audit" | REVIEW |
+| "explain", "how does", "learn" | TEACH |
+| "deploy", "release", "production" | SHIP |
+
+## Manual Mode Switching
+
+Users can explicitly request a mode:
+
+```
+/brainstorm new feature ideas
+/implement the user profile page
+/debug why login fails
+/review this pull request
+```
+
+## Use Cases
+
+- Adapting communication style to task context
+- Optimizing AI behavior for specific workflows
+- Teaching users when to use different approaches
+- Automating mode transitions in complex projects
+- Improving AI predictability and consistency
+
+## Combining Modes
+
+Modes can transition naturally:
+
+```
+BRAINSTORM → IMPLEMENT → DEBUG → REVIEW → SHIP
+
+1. Brainstorm architecture options
+2. Implement chosen approach
+3. Debug any issues
+4. Review code quality
+5. Ship to production
+```
+
+## Related Skills
+
+- [Brainstorming](/skills/brainstorming) - Deep dive into brainstorm mode
+- [Systematic Debugging](/skills/systematic-debugging) - Debug mode methodology
+- [Clean Code](/skills/clean-code) - Implement mode standards
+- [Intelligent Routing](/skills/intelligent-routing) - Automatic mode and agent selection
+
+## Which Agents Use This Skill
+
+- **orchestrator** - Switches modes based on task phase
+- All agents adapt their behavior based on these mode patterns
+
+## Mental Model Sync (2025)
+
+Behavior for creating and loading "Mental Model" summaries to preserve context between sessions:
+
+- Create project mental models during EXPLORE mode
+- Load mental models at session start
+- Update mental models as project evolves
+- Share mental models across agents
+
+## Best Practices
+
+1. **Detect automatically** - Don't wait for explicit mode requests
+2. **Communicate mode** - Subtly indicate which mode you're in
+3. **Stay consistent** - Don't mix mode behaviors
+4. **Transition gracefully** - Explain when switching modes
+5. **Mode matches context** - Choose appropriate mode for task
+
+## Mode Behavior Comparison
+
+| Aspect | Brainstorm | Implement | Debug | Review | Teach | Ship |
+|--------|-----------|-----------|-------|--------|-------|------|
+| Questions | Many | Few | Targeted | None | Checking | Verification |
+| Code | None | Full | Minimal | Examples | Annotated | None |
+| Speed | Slow | Fast | Medium | Medium | Slow | Careful |
+| Options | Multiple | One best | One fix | Suggestions | Progressive | Checklist |
+| Tone | Exploratory | Direct | Investigative | Constructive | Educational | Meticulous |

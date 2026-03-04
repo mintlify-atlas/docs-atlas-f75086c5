@@ -1,0 +1,361 @@
+---
+title: Test Engineer
+description: Expert in testing, TDD, and test automation
+---
+
+<Note>
+The Test Engineer finds what the developer forgot by testing behavior, not implementation.
+</Note>
+
+## Overview
+
+The Test Engineer is an expert in test automation, TDD, and comprehensive testing strategies. The focus is on discovering untested paths and ensuring quality through systematic testing.
+
+**Use Test Engineer when:**
+- Writing unit tests
+- Implementing TDD workflow
+- Creating E2E tests
+- Improving test coverage
+- Debugging test failures
+- Setting up test infrastructure
+
+## Core Philosophy
+
+> "Find what the developer forgot. Test behavior, not implementation."
+
+## Key Capabilities
+
+<CardGroup cols={2}>
+  <Card title="Testing Pyramid" icon="layer-group">
+    Strategic balance of unit, integration, and E2E tests
+  </Card>
+  <Card title="TDD Workflow" icon="rotate">
+    Red-Green-Refactor cycle for test-driven development
+  </Card>
+  <Card title="Deep Audit" icon="magnifying-glass">
+    Systematic discovery of untested paths and edge cases
+  </Card>
+  <Card title="AAA Pattern" icon="list-check">
+    Arrange-Act-Assert structure for clear, maintainable tests
+  </Card>
+</CardGroup>
+
+## Skills Used
+
+- [Clean Code](/skills/clean-code) - Code quality standards
+- [Testing Patterns](/skills/testing-patterns) - Test design patterns
+- [TDD Workflow](/skills/tdd-workflow) - Test-driven development
+- [WebApp Testing](/skills/webapp-testing) - Web application testing
+- [Code Review Checklist](/skills/code-review-checklist) - Quality assurance
+- [Lint and Validate](/skills/lint-and-validate) - Code validation
+
+## Mindset
+
+- **Proactive**: Discover untested paths before they become bugs
+- **Systematic**: Follow testing pyramid principles
+- **Behavior-focused**: Test what matters to users
+- **Quality-driven**: Coverage is a guide, not a goal
+
+## Testing Pyramid
+
+```
+        /\          E2E (Few)
+       /  \         Critical user flows
+      /----\
+     /      \       Integration (Some)
+    /--------\      API, DB, services
+   /          \
+  /------------\    Unit (Many)
+                    Functions, logic
+```
+
+<Tip>
+Most tests should be unit tests (fast, focused). Use integration and E2E tests sparingly for critical paths.
+</Tip>
+
+## Framework Selection
+
+| Language | Unit | Integration | E2E |
+|----------|------|-------------|-----|
+| TypeScript | Vitest, Jest | Supertest | Playwright |
+| Python | Pytest | Pytest | Playwright |
+| React | Testing Library | MSW | Playwright |
+
+## TDD Workflow
+
+### Red-Green-Refactor Cycle
+
+```
+🔴 RED    → Write failing test
+🟢 GREEN  → Minimal code to pass
+🔵 REFACTOR → Improve code quality
+```
+
+**Example:**
+
+```typescript
+// 1. 🔴 RED: Write failing test
+test('calculateDiscount applies 10% discount', () => {
+  expect(calculateDiscount(100, 10)).toBe(90);
+});
+// Error: calculateDiscount is not defined
+
+// 2. 🟢 GREEN: Minimal code to pass
+function calculateDiscount(price: number, percent: number) {
+  return price - (price * percent / 100);
+}
+// Test passes!
+
+// 3. 🔵 REFACTOR: Improve code
+function calculateDiscount(price: number, percent: number): number {
+  if (price < 0 || percent < 0 || percent > 100) {
+    throw new Error('Invalid input');
+  }
+  return Number((price * (1 - percent / 100)).toFixed(2));
+}
+```
+
+## Test Type Selection
+
+| Scenario | Test Type |
+|----------|----------|
+| Business logic | Unit |
+| API endpoints | Integration |
+| User flows | E2E |
+| Components | Component/Unit |
+
+## AAA Pattern
+
+### Structure
+
+| Step | Purpose |
+|------|----------|
+| **Arrange** | Set up test data and preconditions |
+| **Act** | Execute the code under test |
+| **Assert** | Verify the expected outcome |
+
+### Example
+
+```typescript
+test('user can add item to cart', () => {
+  // Arrange
+  const cart = new ShoppingCart();
+  const item = { id: '1', name: 'Widget', price: 10 };
+  
+  // Act
+  cart.addItem(item);
+  
+  // Assert
+  expect(cart.items).toHaveLength(1);
+  expect(cart.total).toBe(10);
+});
+```
+
+## Coverage Strategy
+
+| Area | Target |
+|------|--------|
+| Critical paths | 100% |
+| Business logic | 80%+ |
+| Utilities | 70%+ |
+| UI layout | As needed |
+
+<Warning>
+Coverage is a metric, not a goal. 100% coverage doesn't mean bug-free code.
+</Warning>
+
+## Example Use Cases
+
+### Use Case 1: TDD for Authentication
+
+```
+Requirement: Implement user login
+
+[Test Engineer - TDD Approach]
+
+// 1. 🔴 RED: Test for successful login
+test('login with valid credentials returns token', async () => {
+  const result = await login('user@example.com', 'password123');
+  expect(result.token).toBeDefined();
+  expect(result.user.email).toBe('user@example.com');
+});
+// FAIL: login is not defined
+
+// 2. 🟢 GREEN: Implement minimal login
+async function login(email: string, password: string) {
+  // Stub implementation
+  return { token: 'abc123', user: { email } };
+}
+// PASS
+
+// 3. 🔵 REFACTOR: Real implementation
+async function login(email: string, password: string) {
+  const user = await db.user.findUnique({ where: { email } });
+  if (!user) throw new Error('User not found');
+  
+  const valid = await bcrypt.compare(password, user.passwordHash);
+  if (!valid) throw new Error('Invalid password');
+  
+  const token = jwt.sign({ userId: user.id }, SECRET);
+  return { token, user: { email: user.email } };
+}
+
+// 4. Add edge case tests
+test('login with invalid email throws error', async () => {
+  await expect(login('invalid@example.com', 'password'))
+    .rejects.toThrow('User not found');
+});
+
+test('login with wrong password throws error', async () => {
+  await expect(login('user@example.com', 'wrongpass'))
+    .rejects.toThrow('Invalid password');
+});
+```
+
+### Use Case 2: Deep Audit of API
+
+```
+Task: Audit API test coverage
+
+[Test Engineer - Systematic Discovery]
+
+1. Map all endpoints:
+   - GET /api/users
+   - POST /api/users
+   - GET /api/users/:id
+   - PUT /api/users/:id
+   - DELETE /api/users/:id
+
+2. Check existing tests:
+   - GET /users: ✅ Tested
+   - POST /users: ✅ Tested (happy path only)
+   - GET /users/:id: ❌ Not tested
+   - PUT /users/:id: ❌ Not tested
+   - DELETE /users/:id: ❌ Not tested
+
+3. Identify missing coverage:
+   - Edge cases for POST (duplicate email, invalid data)
+   - All CRUD operations for single user
+   - Authorization checks
+   - Error responses
+
+4. Write comprehensive tests:
+
+```typescript
+describe('POST /api/users', () => {
+  test('creates user with valid data', async () => {
+    const res = await request(app)
+      .post('/api/users')
+      .send({ email: 'new@example.com', password: 'pass123' });
+    expect(res.status).toBe(201);
+    expect(res.body.email).toBe('new@example.com');
+  });
+  
+  test('rejects duplicate email', async () => {
+    await createUser({ email: 'exist@example.com' });
+    const res = await request(app)
+      .post('/api/users')
+      .send({ email: 'exist@example.com', password: 'pass' });
+    expect(res.status).toBe(409);
+  });
+  
+  test('validates email format', async () => {
+    const res = await request(app)
+      .post('/api/users')
+      .send({ email: 'invalid', password: 'pass123' });
+    expect(res.status).toBe(400);
+  });
+  
+  test('requires password', async () => {
+    const res = await request(app)
+      .post('/api/users')
+      .send({ email: 'new@example.com' });
+    expect(res.status).toBe(400);
+  });
+});
+```
+
+Result: Coverage 45% → 85%
+```
+
+## Mocking Principles
+
+| Mock | Don't Mock |
+|------|------------|
+| External APIs | Code under test |
+| Database (unit tests) | Simple dependencies |
+| Network | Pure functions |
+
+**Example:**
+
+```typescript
+// Mock external API
+vi.mock('stripe', () => ({
+  charges: {
+    create: vi.fn().mockResolvedValue({ id: 'ch_123' })
+  }
+}));
+
+test('processPayment creates Stripe charge', async () => {
+  const result = await processPayment(100);
+  expect(result.chargeId).toBe('ch_123');
+});
+```
+
+## Review Checklist
+
+- [ ] Coverage 80%+ on critical paths
+- [ ] AAA pattern followed
+- [ ] Tests are isolated (no shared state)
+- [ ] Descriptive naming
+- [ ] Edge cases covered
+- [ ] External deps mocked
+- [ ] Cleanup after tests (afterEach)
+- [ ] Fast unit tests (under 100ms each)
+
+## Anti-Patterns
+
+| ❌ Don't | ✅ Do |
+|----------|-------|
+| Test implementation | Test behavior |
+| Multiple asserts | One concept per test |
+| Dependent tests | Independent tests |
+| Ignore flaky tests | Fix root cause |
+| Skip cleanup | Always reset state |
+| Test private methods | Test public interface |
+
+## Best Practices
+
+<CardGroup cols={2}>
+  <Card title="Test Behavior" icon="eye">
+    Focus on what the code does, not how it does it
+  </Card>
+  <Card title="Isolate Tests" icon="box">
+    Each test should run independently with no shared state
+  </Card>
+  <Card title="Fast Feedback" icon="bolt">
+    Unit tests should run in milliseconds
+  </Card>
+  <Card title="Descriptive Names" icon="file-signature">
+    Test names should explain what is being tested
+  </Card>
+</CardGroup>
+
+## Automatic Selection Triggers
+
+Test Engineer is automatically selected when:
+- User mentions "test", "spec", "coverage", "jest", "pytest"
+- Testing work is clearly needed
+- User asks about "unit test", "e2e", "playwright"
+- TDD is requested
+
+## Related Agents
+
+<CardGroup cols={2}>
+  <Card title="QA Automation Engineer" icon="robot" href="/agents/qa-automation-engineer">
+    Specializes in E2E and CI/CD testing
+  </Card>
+  <Card title="Debugger" icon="bug" href="/agents/debugger">
+    Helps fix failing tests
+  </Card>
+</CardGroup>

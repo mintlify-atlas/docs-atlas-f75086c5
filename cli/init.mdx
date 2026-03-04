@@ -1,0 +1,176 @@
+---
+title: "ag-kit init"
+description: "Install the .agent folder containing all templates into your project"
+---
+
+## Overview
+
+The `ag-kit init` command installs the `.agent` folder containing all Antigravity Kit templates (agents, skills, and workflows) into your project directory.
+
+<CodeGroup>
+
+```bash npm
+npx @vudovn/ag-kit init
+```
+
+```bash Global
+ag-kit init
+```
+
+</CodeGroup>
+
+## Options
+
+<ParamField path="--force" type="flag">
+  Overwrite existing `.agent` folder if it already exists. Use this to force reinstallation.
+</ParamField>
+
+<ParamField path="--path" type="string">
+  Install in a specific directory instead of the current working directory.
+  
+  Example: `--path ./myapp`
+</ParamField>
+
+<ParamField path="--branch" type="string">
+  Use a specific branch from the repository instead of the default branch.
+  
+  Example: `--branch dev`
+</ParamField>
+
+<ParamField path="--quiet" type="flag">
+  Suppress output messages. Useful for CI/CD pipelines and automated scripts.
+</ParamField>
+
+<ParamField path="--dry-run" type="flag">
+  Preview the actions that would be performed without actually executing them.
+</ParamField>
+
+## Usage Examples
+
+### Basic Installation
+
+Install Antigravity Kit in the current directory:
+
+```bash
+ag-kit init
+```
+
+**Output:**
+```
+Installing Antigravity Kit...
+✓ Created .agent/ directory
+✓ Installed 20 agents
+✓ Installed 37 skills
+✓ Installed 11 workflows
+Successfully installed Antigravity Kit!
+```
+
+### Force Reinstallation
+
+Overwrite an existing installation:
+
+```bash
+ag-kit init --force
+```
+
+**Output:**
+```
+Warning: Existing .agent/ folder will be overwritten
+Installing Antigravity Kit...
+✓ Removed old installation
+✓ Created .agent/ directory
+✓ Installed 20 agents
+✓ Installed 37 skills
+✓ Installed 11 workflows
+Successfully installed Antigravity Kit!
+```
+
+### Custom Installation Path
+
+Install in a specific project directory:
+
+```bash
+ag-kit init --path ./myapp
+```
+
+**Output:**
+```
+Installing Antigravity Kit in ./myapp...
+✓ Created .agent/ directory
+✓ Installed 20 agents
+✓ Installed 37 skills
+✓ Installed 11 workflows
+Successfully installed Antigravity Kit!
+```
+
+### Development Branch
+
+Install from a specific branch:
+
+```bash
+ag-kit init --branch dev
+```
+
+### Silent Installation for CI/CD
+
+Run without output for automated pipelines:
+
+```bash
+ag-kit init --quiet
+```
+
+### Preview Installation
+
+See what would be installed without making changes:
+
+```bash
+ag-kit init --dry-run
+```
+
+**Output:**
+```
+[DRY RUN] Would create .agent/ directory
+[DRY RUN] Would install 20 agents
+[DRY RUN] Would install 37 skills
+[DRY RUN] Would install 11 workflows
+```
+
+### Combining Options
+
+You can combine multiple options:
+
+```bash
+ag-kit init --path ./myapp --force --branch dev
+```
+
+## What Gets Installed
+
+The `init` command installs the following components:
+
+| Component | Count | Description |
+| --- | --- | --- |
+| **Agents** | 20 | Specialist AI personas (frontend, backend, security, PM, QA, etc.) |
+| **Skills** | 37 | Domain-specific knowledge modules |
+| **Workflows** | 11 | Slash command procedures |
+
+## Important Notes
+
+<Tip>
+  If you are using AI-powered editors like **Cursor** or **Windsurf**, avoid adding the `.agent/` folder to your `.gitignore`. This may prevent the IDE from indexing the workflows, causing slash commands (like `/plan`, `/debug`) to not appear in the chat suggestion dropdown.
+</Tip>
+
+<Tip>
+  To keep the `.agent/` folder local (not tracked by Git) while maintaining AI functionality:
+  1. Ensure `.agent/` is **NOT** in your project's `.gitignore`
+  2. Instead, add it to your local exclude file: `.git/info/exclude`
+</Tip>
+
+## After Installation
+
+Once installation is complete, you can:
+
+- Use 20 specialist agents that are automatically detected and applied
+- Run 11 workflow slash commands (`/plan`, `/debug`, `/create`, etc.)
+- Leverage 37 skills that load automatically based on task context
+
+Run `ag-kit status` to verify your installation.

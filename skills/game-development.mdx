@@ -1,0 +1,170 @@
+---
+title: Game Development
+description: Game development orchestrator routing to platform-specific skills and core principles
+---
+
+## Overview
+
+The Game Development skill is an orchestrator that provides core game development principles and routes to specialized sub-skills based on platform, dimension, and specialty area. It teaches fundamental patterns applicable across all game types.
+
+## What This Skill Provides
+
+- **Game loop fundamentals**: Input → Update → Render pattern with fixed timestep
+- **Pattern selection**: State machines, object pooling, ECS, behavior trees
+- **Input abstraction**: Platform-independent action mapping
+- **Performance budgeting**: 60 FPS frame budget allocation (16.67ms)
+- **AI selection**: FSM, behavior trees, GOAP, utility AI by complexity
+- **Collision strategies**: AABB, circle, spatial hash, quadtree
+- **Sub-skill routing**: Directs to web, mobile, PC, VR/AR, 2D, 3D, multiplayer, etc.
+- **Universal anti-patterns**: Common mistakes across all platforms
+
+## Sub-Skills
+
+The skill routes to specialized sub-skills:
+
+### By Platform
+- **web-games**: HTML5, WebGL browser games
+- **mobile-games**: iOS, Android mobile games
+- **pc-games**: Steam, desktop games
+- **vr-ar**: VR/AR headset games
+
+### By Dimension
+- **2d-games**: Sprites, tilemaps, 2D physics
+- **3d-games**: Meshes, shaders, 3D rendering
+
+### By Specialty
+- **game-design**: GDD, balancing, player psychology
+- **multiplayer**: Networking, client-server architecture
+- **game-art**: Visual style, asset pipeline, animation
+- **game-audio**: Sound design, music, adaptive audio
+
+## Use Cases
+
+- Building web-based browser games
+- Creating mobile games for iOS and Android
+- Developing PC games for Steam or desktop
+- Implementing VR/AR experiences
+- Designing game mechanics and balance
+- Adding multiplayer networking
+- Optimizing game performance for 60 FPS
+
+## Related Skills
+
+- [Mobile Design](/skills/mobile-design) - Mobile game UX
+- [Performance Profiling](/skills/performance-profiling) - Game optimization
+- [Architecture](/skills/architecture) - Game architecture patterns
+
+## Which Agents Use This Skill
+
+This skill is commonly used by:
+
+- **Game developers** across all platforms
+- **Technical game designers** implementing mechanics
+- **Graphics programmers** optimizing rendering
+- **Gameplay programmers** building game systems
+
+## Key Principles
+
+### The Game Loop
+
+Every game, regardless of platform, follows this pattern:
+
+```
+INPUT  → Read player actions
+UPDATE → Process game logic (fixed timestep)
+RENDER → Draw the frame (interpolated)
+```
+
+**Fixed Timestep Rule:**
+- Physics/logic: Fixed rate (e.g., 50Hz)
+- Rendering: As fast as possible
+- Interpolate between states for smooth visuals
+
+### Pattern Selection Matrix
+
+| Pattern | Use When | Example |
+|---------|----------|----------|
+| **State Machine** | 3-5 discrete states | Player: Idle→Walk→Jump |
+| **Object Pooling** | Frequent spawn/destroy | Bullets, particles |
+| **Observer/Events** | Cross-system communication | Health→UI updates |
+| **ECS** | Thousands of similar entities | RTS units, particles |
+| **Command** | Undo, replay, networking | Input recording |
+| **Behavior Tree** | Complex AI decisions | Enemy AI |
+
+### Performance Budget (60 FPS = 16.67ms)
+
+| System | Budget |
+|--------|--------|
+| Input | 1ms |
+| Physics | 3ms |
+| AI | 2ms |
+| Game Logic | 4ms |
+| Rendering | 5ms |
+| Buffer | 1.67ms |
+
+### Optimization Priority
+
+1. Algorithm (O(n²) → O(n log n))
+2. Batching (reduce draw calls)
+3. Pooling (avoid GC spikes)
+4. LOD (detail by distance)
+5. Culling (skip invisible)
+
+## Input Abstraction
+
+Abstract input into ACTIONS, not raw keys:
+
+```
+"jump"  → Space, Gamepad A, Touch tap
+"move"  → WASD, Left stick, Virtual joystick
+```
+
+Enables multi-platform, rebindable controls.
+
+## AI Selection by Complexity
+
+| AI Type | Complexity | Use When |
+|---------|------------|----------|
+| **FSM** | Simple | 3-5 states, predictable behavior |
+| **Behavior Tree** | Medium | Modular, designer-friendly |
+| **GOAP** | High | Emergent, planning-based |
+| **Utility AI** | High | Scoring-based decisions |
+
+## Collision Strategy
+
+| Type | Best For |
+|------|----------|
+| **AABB** | Rectangles, fast checks |
+| **Circle** | Round objects, cheap |
+| **Spatial Hash** | Many similar-sized objects |
+| **Quadtree** | Large worlds, varying sizes |
+
+## Anti-Patterns
+
+| Don't | Do |
+|-------|----|
+| Update everything every frame | Use events, dirty flags |
+| Create objects in hot loops | Object pooling |
+| Cache nothing | Cache references |
+| Optimize without profiling | Profile first |
+| Mix input with logic | Abstract input layer |
+
+## Routing Examples
+
+### Browser-based 2D platformer
+1. Start with `game-development/web-games` for framework selection
+2. Then `game-development/2d-games` for sprite/tilemap patterns
+3. Reference `game-development/game-design` for level design
+
+### Mobile puzzle game
+1. Start with `game-development/mobile-games` for touch input and stores
+2. Use `game-development/game-design` for puzzle balancing
+
+### Multiplayer VR shooter
+1. `game-development/vr-ar` for comfort and immersion
+2. `game-development/3d-games` for rendering
+3. `game-development/multiplayer` for networking
+
+## Remember
+
+Great games come from iteration, not perfection. Prototype fast, then polish.

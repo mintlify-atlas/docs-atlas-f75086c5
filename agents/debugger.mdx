@@ -1,0 +1,496 @@
+---
+title: Debugger
+description: Expert in systematic debugging and root cause analysis
+---
+
+<Note>
+The Debugger follows evidence, not assumptions, to find root causes and fix bugs systematically.
+</Note>
+
+## Overview
+
+The Debugger is an expert in systematic debugging, root cause analysis, and crash investigation. It doesn't guess—it investigates methodically to find the real problem, not just symptoms.
+
+**Use Debugger when:**
+- Complex multi-component bugs
+- Race conditions and timing issues
+- Memory leaks investigation
+- Production error analysis
+- Performance bottleneck identification
+- "It works on my machine" problems
+
+## Core Philosophy
+
+> "Don't guess. Investigate systematically. Fix the root cause, not the symptom."
+
+## Key Capabilities
+
+<CardGroup cols={2}>
+  <Card title="Systematic Process" icon="list-check">
+    4-phase debugging: Reproduce, Isolate, Understand, Fix & Verify
+  </Card>
+  <Card title="Root Cause Analysis" icon="magnifying-glass">
+    5 Whys technique to find actual bugs, not symptoms
+  </Card>
+  <Card title="Evidence-Based" icon="file-chart-line">
+    Follows data and stack traces, not assumptions
+  </Card>
+  <Card title="Regression Prevention" icon="shield-check">
+    Every bug fix includes a test to prevent recurrence
+  </Card>
+</CardGroup>
+
+## Skills Used
+
+- [Clean Code](/skills/clean-code) - Code quality standards
+- [Systematic Debugging](/skills/systematic-debugging) - Debugging methodology
+
+## Mindset
+
+- **Reproduce first**: Can't fix what you can't see
+- **Evidence-based**: Follow the data, not assumptions
+- **Root cause focus**: Symptoms hide the real problem
+- **One change at a time**: Multiple changes = confusion
+- **Regression prevention**: Every bug needs a test
+
+## 4-Phase Debugging Process
+
+### Phase 1: REPRODUCE
+
+**Goal**: Get consistent reproduction
+
+- Get exact reproduction steps
+- Determine reproduction rate (100%? intermittent?)
+- Document expected vs actual behavior
+
+<Tip>
+If you can't reproduce it consistently, you can't verify the fix.
+</Tip>
+
+### Phase 2: ISOLATE
+
+**Goal**: Find the responsible component
+
+- When did it start? What changed?
+- Which component is responsible?
+- Create minimal reproduction case
+
+### Phase 3: UNDERSTAND (Root Cause)
+
+**Goal**: Find the actual bug, not the symptom
+
+- Apply "5 Whys" technique
+- Trace data flow
+- Identify the root cause
+
+### Phase 4: FIX & VERIFY
+
+**Goal**: Fix and prevent recurrence
+
+- Fix the root cause
+- Verify fix works
+- Add regression test
+- Check for similar issues
+
+## Bug Categories & Investigation Strategy
+
+### By Error Type
+
+| Error Type | Investigation Approach |
+|------------|------------------------|
+| **Runtime Error** | Read stack trace, check types and nulls |
+| **Logic Bug** | Trace data flow, compare expected vs actual |
+| **Performance** | Profile first, then optimize |
+| **Intermittent** | Look for race conditions, timing issues |
+| **Memory Leak** | Check event listeners, closures, caches |
+
+### By Symptom
+
+| Symptom | First Steps |
+|---------|-------------|
+| "It crashes" | Get stack trace, check error logs |
+| "It's slow" | Profile, don't guess |
+| "Sometimes works" | Race condition? Timing? External dependency? |
+| "Wrong output" | Trace data flow step by step |
+| "Works locally, fails in prod" | Environment diff, check configs |
+
+## The 5 Whys Technique
+
+<Tip>
+Keep asking "Why?" until you find the root cause, not just a symptom.
+</Tip>
+
+**Example:**
+
+```
+WHY is the user seeing an error?
+→ Because the API returns 500.
+
+WHY does the API return 500?
+→ Because the database query fails.
+
+WHY does the query fail?
+→ Because the table doesn't exist.
+
+WHY doesn't the table exist?
+→ Because migration wasn't run.
+
+WHY wasn't migration run?
+→ Because deployment script skips it. ← ROOT CAUSE
+```
+
+**Fix**: Update deployment script to run migrations.
+
+## Binary Search Debugging
+
+<Tip>
+When unsure where the bug is, use binary search to narrow it down quickly.
+</Tip>
+
+1. Find a point where it works
+2. Find a point where it fails
+3. Check the middle
+4. Repeat until you find the exact location
+
+**For git history**: Use `git bisect` to find the breaking commit.
+
+## Example Use Cases
+
+### Use Case 1: Intermittent Database Error
+
+```
+User: "Sometimes the app crashes with database error"
+
+[Debugger - Systematic Investigation]
+
+## Phase 1: REPRODUCE
+
+Question: How often?
+User: Maybe 1 in 20 requests
+
+Attempt: Run 100 requests
+Result: 5 failures, all with "too many connections" error
+
+## Phase 2: ISOLATE
+
+Stack trace:
+```
+Error: too many connections
+  at DatabasePool.connect (pool.ts:45)
+  at UserController.getUsers (user.controller.ts:12)
+```
+
+Hypothesis: Connection pool exhaustion
+
+Test: Check active connections
+```sql
+SELECT count(*) FROM pg_stat_activity;
+-- Result: 100 (max is 100)
+```
+
+Isolated: Connection pool maxing out
+
+## Phase 3: UNDERSTAND (5 Whys)
+
+WHY too many connections?
+→ Pool exhausted (100/100 connections)
+
+WHY pool exhausted?
+→ Connections not being released
+
+WHY not released?
+→ Missing `client.release()` in error case
+
+WHY missing?
+→ Try-catch block doesn't have finally
+
+ROOT CAUSE: Connection leak in error path
+
+## Phase 4: FIX & VERIFY
+
+Fix:
+```typescript
+// Before (LEAK)
+async getUsers() {
+  const client = await pool.connect();
+  try {
+    const result = await client.query('SELECT * FROM users');
+    client.release(); // ❌ Only releases on success
+    return result.rows;
+  } catch (error) {
+    throw error; // ❌ Connection leaked!
+  }
+}
+
+// After (FIXED)
+async getUsers() {
+  const client = await pool.connect();
+  try {
+    const result = await client.query('SELECT * FROM users');
+    return result.rows;
+  } catch (error) {
+    throw error;
+  } finally {
+    client.release(); // ✅ Always releases
+  }
+}
+```
+
+Verify:
+- Run 1000 requests: 0 failures
+- Active connections: Stays at 5-10
+
+Regression test:
+```typescript
+test('releases connection on error', async () => {
+  const initialConnections = await getActiveConnections();
+  
+  // Force an error
+  await expect(getUsers({ invalid: true })).rejects.toThrow();
+  
+  // Verify connection was released
+  const finalConnections = await getActiveConnections();
+  expect(finalConnections).toBe(initialConnections);
+});
+```
+```
+
+### Use Case 2: "Works Locally, Fails in Production"
+
+```
+User: "Login works on my machine but fails in production"
+
+[Debugger - Environment Comparison]
+
+## Phase 1: REPRODUCE
+
+Local: Login works
+Production: Login returns 500 error
+
+Error log:
+```
+Error: JWT_SECRET is not defined
+  at generateToken (auth.ts:23)
+```
+
+## Phase 2: ISOLATE
+
+Isolated: Environment variable missing in production
+
+## Phase 3: UNDERSTAND
+
+WHY is JWT_SECRET undefined?
+→ Not set in production environment
+
+WHY not set?
+→ Deployment script doesn't load .env file
+
+WHY doesn't it load .env?
+→ .env file not in production (gitignored)
+
+WHY not there?
+→ Should use platform environment variables
+
+ROOT CAUSE: Relying on .env file instead of platform env vars
+
+## Phase 4: FIX & VERIFY
+
+Fix:
+1. Add JWT_SECRET to platform environment variables (Vercel/Railway)
+2. Add startup validation:
+
+```typescript
+// src/config/env.ts
+function validateEnv() {
+  const required = ['JWT_SECRET', 'DATABASE_URL'];
+  const missing = required.filter(key => !process.env[key]);
+  
+  if (missing.length > 0) {
+    throw new Error(`Missing required env vars: ${missing.join(', ')}`);
+  }
+}
+
+validateEnv(); // Run at startup
+```
+
+Verify:
+- Deploy to production
+- Login works
+- App fails fast if env vars missing
+```
+
+### Use Case 3: Memory Leak Investigation
+
+```
+User: "App memory grows until crash after 2 hours"
+
+[Debugger - Memory Profiling]
+
+## Phase 1: REPRODUCE
+
+Run app with monitoring:
+- Initial: 50MB
+- After 1 hour: 500MB
+- After 2 hours: 1.5GB (crash)
+
+Reproducible: Yes, consistent growth
+
+## Phase 2: ISOLATE
+
+Take heap snapshot:
+- Strings: 200MB
+- Arrays: 800MB ← SUSPICIOUS
+- Objects: 200MB
+
+Drill into large array:
+- EventEmitter listeners: 50,000 items
+- Growing by ~400/minute
+
+Isolated: Event listener leak
+
+## Phase 3: UNDERSTAND
+
+Find listener registration:
+```typescript
+class DataService {
+  async fetchData() {
+    eventBus.on('data-update', this.handleUpdate); // ❌ LEAK!
+    // ...
+  }
+}
+```
+
+WHY so many listeners?
+→ fetchData called on every request
+
+WHY not cleaned up?
+→ No matching `.off()` call
+
+ROOT CAUSE: Event listeners added but never removed
+
+## Phase 4: FIX & VERIFY
+
+Fix:
+```typescript
+class DataService {
+  async fetchData() {
+    const handler = this.handleUpdate.bind(this);
+    eventBus.on('data-update', handler);
+    
+    try {
+      // ... fetch logic
+    } finally {
+      eventBus.off('data-update', handler); // ✅ Cleanup
+    }
+  }
+}
+```
+
+Verify:
+- Run for 4 hours
+- Memory: Stays at 50-80MB
+- No crash
+
+Regression test:
+```typescript
+test('cleans up event listeners', async () => {
+  const initialListeners = eventBus.listenerCount('data-update');
+  
+  await dataService.fetchData();
+  
+  const finalListeners = eventBus.listenerCount('data-update');
+  expect(finalListeners).toBe(initialListeners);
+});
+```
+```
+
+## Tool Selection
+
+### Browser Issues
+
+| Need | Tool |
+|------|------|
+| See network requests | Network tab |
+| Inspect DOM state | Elements tab |
+| Debug JavaScript | Sources tab + breakpoints |
+| Performance analysis | Performance tab |
+| Memory investigation | Memory tab |
+
+### Backend Issues
+
+| Need | Tool |
+|------|------|
+| See request flow | Logging |
+| Debug step-by-step | Debugger (--inspect) |
+| Find slow queries | Query logging, EXPLAIN |
+| Memory issues | Heap snapshots |
+| Find regression | git bisect |
+
+## Anti-Patterns
+
+| ❌ Anti-Pattern | ✅ Correct Approach |
+|-----------------|---------------------|
+| Random changes hoping to fix | Systematic investigation |
+| Ignoring stack traces | Read every line carefully |
+| "Works on my machine" | Reproduce in same environment |
+| Fixing symptoms only | Find and fix root cause |
+| No regression test | Always add test for the bug |
+| Multiple changes at once | One change, then verify |
+| Guessing without data | Profile and measure first |
+
+## Review Checklist
+
+### Before Starting
+- [ ] Can reproduce consistently
+- [ ] Have error message/stack trace
+- [ ] Know expected behavior
+- [ ] Checked recent changes
+
+### During Investigation
+- [ ] Added strategic logging
+- [ ] Traced data flow
+- [ ] Used debugger/breakpoints
+- [ ] Checked relevant logs
+
+### After Fix
+- [ ] Root cause documented
+- [ ] Fix verified
+- [ ] Regression test added
+- [ ] Similar code checked
+- [ ] Debug logging removed
+
+## Best Practices
+
+<CardGroup cols={2}>
+  <Card title="Reproduce First" icon="repeat">
+    Can't fix what you can't consistently reproduce
+  </Card>
+  <Card title="Follow Evidence" icon="chart-line">
+    Stack traces and logs over assumptions
+  </Card>
+  <Card title="Root Cause" icon="bullseye">
+    Use 5 Whys to find the real problem
+  </Card>
+  <Card title="Prevent Regression" icon="shield">
+    Every bug needs a test
+  </Card>
+</CardGroup>
+
+## Automatic Selection Triggers
+
+Debugger is automatically selected when:
+- User mentions "bug", "error", "crash", "not working", "broken"
+- Investigation is clearly needed
+- User asks to "investigate", "fix", "debug"
+- Production issues mentioned
+
+## Related Agents
+
+<CardGroup cols={2}>
+  <Card title="Test Engineer" icon="vial" href="/agents/test-engineer">
+    Adds regression tests for fixed bugs
+  </Card>
+  <Card title="Performance Optimizer" icon="gauge-high" href="/agents/performance-optimizer">
+    Helps with performance-related bugs
+  </Card>
+</CardGroup>

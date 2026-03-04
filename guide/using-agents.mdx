@@ -1,0 +1,242 @@
+---
+title: Using Agents
+description: Learn how to use specialist AI agents in Antigravity Kit
+---
+
+# Using Agents
+
+Antigravity Kit provides 20 specialist AI agents that automatically apply expert knowledge to your requests. You don't need to memorize agent names or explicitly mention them - the system intelligently detects the right specialist for your task.
+
+## Automatic Agent Selection
+
+The most powerful feature of Antigravity Kit is **automatic agent detection**. Simply describe what you need in natural language, and the system will:
+
+1. Analyze your request silently
+2. Detect the domain(s) automatically (frontend, backend, security, etc.)
+3. Select the best specialist(s)
+4. Inform you which expertise is being applied
+5. Deliver specialist-level responses
+
+<Note>
+You get expert responses without needing to know the system architecture!
+</Note>
+
+### Real-World Examples
+
+Here's how automatic agent selection works in practice:
+
+```
+You: "Add JWT authentication"
+AI: 🤖 Applying @security-auditor + @backend-specialist...
+```
+
+The system recognizes this requires both security expertise and backend development knowledge.
+
+```
+You: "Fix the dark mode button"
+AI: 🤖 Using @frontend-specialist...
+```
+
+UI issues automatically route to the frontend specialist.
+
+```
+You: "Login returns 500 error"
+AI: 🤖 Using @debugger for systematic analysis...
+```
+
+Error diagnosis triggers the debugging specialist.
+
+## Benefits of Automatic Selection
+
+<Card title="Zero Learning Curve" icon="graduation-cap">
+  Just describe what you need in plain language. No need to learn agent names or when to use them.
+</Card>
+
+<Card title="Always Expert Responses" icon="medal">
+  Every response comes from specialist-level knowledge, ensuring best practices and optimal solutions.
+</Card>
+
+<Card title="Transparent Process" icon="eye">
+  The system always shows which agent is being applied, so you understand the expertise being used.
+</Card>
+
+<Card title="Override Capability" icon="settings">
+  You can still explicitly mention agents if you want specific expertise applied.
+</Card>
+
+## Explicit Agent Mention
+
+While automatic selection works for most cases, you can explicitly mention an agent using the `@agent-name` syntax:
+
+```
+You: "@security-auditor review this authentication code"
+```
+
+This forces the use of the security auditor agent, even if the system would have chosen differently.
+
+### When to Use Explicit Mentions
+
+- **Second Opinion**: Get a specific agent's perspective on a solution
+- **Specialized Review**: Request a particular expertise for code review
+- **Override Behavior**: Force a specific agent when automatic selection isn't optimal
+
+<Tip>
+Explicit agent mentions are useful for code reviews or when you want a specific perspective on a problem.
+</Tip>
+
+## Agent Specializations
+
+Here's a quick reference of available agents and their focus areas:
+
+<Accordion title="Frontend & UI">
+  - **@frontend-specialist** - Web UI/UX, React, Next.js
+  - **@mobile-developer** - iOS, Android, React Native
+  - **@game-developer** - Game logic, mechanics
+</Accordion>
+
+<Accordion title="Backend & Data">
+  - **@backend-specialist** - API, business logic, Node.js
+  - **@database-architect** - Schema design, SQL, Prisma
+</Accordion>
+
+<Accordion title="Quality & Security">
+  - **@security-auditor** - Security compliance, OWASP
+  - **@penetration-tester** - Offensive security testing
+  - **@test-engineer** - Testing strategies, E2E tests
+  - **@qa-automation-engineer** - Automated testing, CI pipelines
+</Accordion>
+
+<Accordion title="DevOps & Infrastructure">
+  - **@devops-engineer** - CI/CD, Docker, deployment
+  - **@performance-optimizer** - Speed optimization, Web Vitals
+</Accordion>
+
+<Accordion title="Planning & Analysis">
+  - **@project-planner** - Discovery, task planning
+  - **@product-manager** - Requirements, user stories
+  - **@product-owner** - Strategy, backlog, MVP
+  - **@orchestrator** - Multi-agent coordination
+</Accordion>
+
+<Accordion title="Specialized Tasks">
+  - **@debugger** - Root cause analysis
+  - **@seo-specialist** - SEO, ranking, visibility
+  - **@documentation-writer** - Technical documentation
+  - **@code-archaeologist** - Legacy code refactoring
+  - **@explorer-agent** - Codebase analysis
+</Accordion>
+
+## Multi-Agent Orchestration
+
+For complex full-stack tasks, multiple agents work together seamlessly. The **@orchestrator** agent coordinates specialist agents to handle different aspects of your project.
+
+### Example: Building a Full-Stack E-Commerce App
+
+```
+You: "/orchestrate Build a full-stack e-commerce app"
+```
+
+The orchestrator breaks down the task and coordinates multiple specialists:
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                     ORCHESTRATOR AGENT                       │
+│  Decomposes task into sequential workstreams                │
+└─────────────────────────────────────────────────────────────┘
+                              │
+        ┌─────────────────────┼─────────────────────┐
+        │                     │                     │
+        ▼                     ▼                     ▼
+┌───────────────┐   ┌───────────────┐   ┌───────────────┐
+│ FRONTEND      │   │ BACKEND       │   │ DATABASE      │
+│ SPECIALIST    │   │ SPECIALIST    │   │ ARCHITECT     │
+│               │   │               │   │               │
+│ Builds:       │   │ Builds:       │   │ Builds:       │
+│ • UI/UX       │   │ • REST API    │   │ • Schema      │
+│ • Components  │   │ • Auth        │   │ • Migrations  │
+│ • Pages       │   │ • Business    │   │ • Indexes     │
+└───────┬───────┘   └───────┬───────┘   └───────┬───────┘
+        │                   │                   │
+        └─────────────────┬─┴───────────────────┘
+                          │
+                          ▼
+        ┌─────────────────────────────────────┐
+        │      CODE COHERENCE                 │
+        │  • Maintains consistency            │
+        │  • Sequential context switching     │
+        │  • Ensures API contracts match      │
+        └──────────────┬──────────────────────┘
+                       │
+                       ▼
+        ┌─────────────────────────────────────┐
+        │    VALIDATION (All Agents)          │
+        │  • test-engineer → Tests            │
+        │  • security-auditor → Security      │
+        │  • performance-optimizer → Perf     │
+        └──────────────┬──────────────────────┘
+                       │
+                       ▼
+        ┌─────────────────────────────────────┐
+        │    DEPLOYMENT                       │
+        │  • devops-engineer → Deploy         │
+        └─────────────────────────────────────┘
+```
+
+<Warning>
+The AI processes each domain sequentially, switching context between specialist "personas." This is simulated multi-agent behavior, not true parallel execution, but it maintains consistency across all code generated.
+</Warning>
+
+### How Code Coherence is Maintained
+
+When multiple agents work on a project, the system ensures:
+
+- **Consistent imports and paths** - All modules reference each other correctly
+- **Type safety** - TypeScript types match across frontend and backend
+- **API contracts** - Frontend calls match backend endpoints exactly
+- **Coding style** - Consistent patterns and conventions throughout
+
+### Validation After Multi-Agent Work
+
+After multiple agents complete their work, the system runs comprehensive validation:
+
+```bash
+# Quick validation during development
+python .agent/scripts/checklist.py .
+
+# Full verification before deployment
+python .agent/scripts/verify_all.py . --url http://localhost:3000
+```
+
+Validation includes:
+- Security scan (no vulnerabilities)
+- Code quality (ESLint, TypeScript)
+- Test suite passes
+- E2E tests pass
+- Accessibility compliance (WCAG AA)
+- Performance audit (Lighthouse > 90)
+
+## Request Routing Examples
+
+Here's how different types of requests are automatically routed to the right agents:
+
+| Your Request | Detected Domain | Agent(s) Applied |
+|--------------|-----------------|------------------|
+| "Add a contact form" | Frontend | @frontend-specialist |
+| "Create a REST API for users" | Backend | @backend-specialist |
+| "Design user database schema" | Database | @database-architect |
+| "Deploy to AWS" | DevOps | @devops-engineer |
+| "Fix security vulnerability" | Security | @security-auditor |
+| "Login returns 500 error" | Debugging | @debugger |
+| "Build authentication system" | Full-stack | @orchestrator → multiple agents |
+| "Optimize page load speed" | Performance | @performance-optimizer |
+| "Improve SEO" | Marketing | @seo-specialist |
+
+<Tip>
+For full-stack features or complex tasks involving multiple domains, the system automatically uses the orchestrator to coordinate multiple specialist agents.
+</Tip>
+
+## Next Steps
+
+- Learn about [Slash Commands](/guide/slash-commands) for structured workflows
+- Read [Best Practices](/guide/best-practices) for optimal results
+- See the [Web App Example](/guide/examples/brainstorm) for a complete walkthrough

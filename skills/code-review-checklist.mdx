@@ -1,0 +1,238 @@
+---
+title: Code Review Checklist
+description: Code review guidelines covering code quality, security, and best practices
+---
+
+## Overview
+
+The **code-review-checklist** skill provides comprehensive guidelines for conducting thorough code reviews. It covers correctness, security (including AI-specific concerns), performance, code quality, testing, and documentation.
+
+## What This Skill Provides
+
+- **Quick Review Checklist**: Essential items to verify in every review
+- **Security Review**: Including 2025 AI/LLM-specific concerns
+- **Performance Checks**: N+1 queries, caching, bundle size
+- **Code Quality Standards**: DRY, SOLID, clear naming
+- **Testing Requirements**: Coverage and quality expectations
+- **Anti-Pattern Detection**: Common mistakes to flag
+- **Review Comment Guidelines**: How to provide effective feedback
+
+## Quick Review Checklist
+
+### Correctness
+- [ ] Code does what it's supposed to do
+- [ ] Edge cases handled
+- [ ] Error handling in place
+- [ ] No obvious bugs
+
+### Security
+- [ ] Input validated and sanitized
+- [ ] No SQL/NoSQL injection vulnerabilities
+- [ ] No XSS or CSRF vulnerabilities
+- [ ] No hardcoded secrets or sensitive credentials
+- [ ] **AI-Specific:** Protection against Prompt Injection (if applicable)
+- [ ] **AI-Specific:** Outputs sanitized before use in critical sinks
+
+### Performance
+- [ ] No N+1 queries
+- [ ] No unnecessary loops
+- [ ] Appropriate caching
+- [ ] Bundle size impact considered
+
+### Code Quality
+- [ ] Clear naming
+- [ ] DRY - no duplicate code
+- [ ] SOLID principles followed
+- [ ] Appropriate abstraction level
+
+### Testing
+- [ ] Unit tests for new code
+- [ ] Edge cases tested
+- [ ] Tests readable and maintainable
+
+### Documentation
+- [ ] Complex logic commented
+- [ ] Public APIs documented
+- [ ] README updated if needed
+
+## AI & LLM Review Patterns (2025)
+
+### Logic & Hallucinations
+- [ ] **Chain of Thought:** Does the logic follow a verifiable path?
+- [ ] **Edge Cases:** Did the AI account for empty states, timeouts, and partial failures?
+- [ ] **External State:** Is the code making safe assumptions about file systems or networks?
+
+### Prompt Engineering Review
+
+**Bad Example:**
+```typescript
+// ❌ Vague prompt in code
+const response = await ai.generate(userInput);
+```
+
+**Good Example:**
+```typescript
+// ✅ Structured & Safe prompt
+const response = await ai.generate({
+  system: "You are a specialized parser...",
+  input: sanitize(userInput),
+  schema: ResponseSchema
+});
+```
+
+## Anti-Patterns to Flag
+
+### Magic Numbers
+```typescript
+// ❌ Magic numbers
+if (status === 3) { ... }
+
+// ✅ Named constants
+if (status === Status.ACTIVE) { ... }
+```
+
+### Deep Nesting
+```typescript
+// ❌ Deep nesting
+if (a) { if (b) { if (c) { ... } } }
+
+// ✅ Early returns
+if (!a) return;
+if (!b) return;
+if (!c) return;
+// do work
+```
+
+### Long Functions
+```typescript
+// ❌ Long functions (100+ lines)
+// ✅ Small, focused functions
+```
+
+### Any Type
+```typescript
+// ❌ any type
+const data: any = ...
+
+// ✅ Proper types
+const data: UserData = ...
+```
+
+## Review Comments Guide
+
+### Priority Markers
+
+```
+// Blocking issues use 🔴
+🔴 BLOCKING: SQL injection vulnerability here
+
+// Important suggestions use 🟡
+🟡 SUGGESTION: Consider using useMemo for performance
+
+// Minor nits use 🟢
+🟢 NIT: Prefer const over let for immutable variable
+
+// Questions use ❓
+❓ QUESTION: What happens if user is null here?
+```
+
+## Use Cases
+
+### When to Use This Skill
+
+- Reviewing pull requests
+- Conducting code quality audits
+- Providing feedback on code submissions
+- Teaching code quality standards
+- Setting up review guidelines for a team
+
+### Example Scenarios
+
+1. **PR Review**: "Review this authentication implementation"
+2. **Security Audit**: "Check this code for security vulnerabilities"
+3. **Quality Check**: "Does this code follow best practices?"
+4. **Learning**: "What should I look for in a code review?"
+
+## Security Checklist
+
+### Traditional Security
+- Input validation and sanitization
+- SQL/NoSQL injection prevention
+- XSS and CSRF protection
+- No hardcoded secrets
+- Proper authentication and authorization
+
+### AI-Specific Security (2025)
+- Prompt injection protection
+- Output sanitization before critical operations
+- Verifiable logic paths (Chain of Thought)
+- Safe handling of external state
+- Schema validation for AI responses
+
+## Performance Review
+
+### Database Queries
+- Check for N+1 queries
+- Verify appropriate indexes
+- Look for unnecessary data fetching
+
+### Frontend Performance
+- Bundle size impact
+- Unnecessary re-renders
+- Missing memoization
+- Large dependencies
+
+### Caching
+- Appropriate cache strategies
+- Cache invalidation logic
+- No over-caching of dynamic data
+
+## Code Quality Review
+
+### Naming
+- Variables reveal intent
+- Functions use verb + noun
+- Booleans in question form
+- Constants use SCREAMING_SNAKE_CASE
+
+### Structure
+- Functions are small (max 20 lines)
+- Single Responsibility Principle
+- DRY - no duplication
+- Appropriate abstraction levels
+
+### Error Handling
+- All error cases handled
+- User-friendly error messages
+- Proper logging
+- No silent failures
+
+## Related Skills
+
+- **clean-code**: Code quality principles
+- **testing-patterns**: Testing expectations
+- **vulnerability-scanner**: Security scanning
+- **refactoring-patterns**: Improving existing code
+
+## Which Agents Use This Skill
+
+- **test-engineer**: Reviews code for testability and quality
+- **code-archaeologist**: Uses during refactoring reviews
+
+## Review Process
+
+1. **First Pass**: Skim for overall structure and approach
+2. **Security Check**: Look for vulnerabilities
+3. **Logic Check**: Verify correctness and edge cases
+4. **Quality Check**: Review naming, structure, duplication
+5. **Performance Check**: Look for obvious inefficiencies
+6. **Testing Check**: Verify adequate test coverage
+
+## Tools Available
+
+- Read: For reviewing code files
+- Glob, Grep: For finding patterns across codebase
+
+---
+
+**Remember**: Code review is about improving code quality and sharing knowledge, not criticizing the developer. Be constructive and specific in feedback.

@@ -1,0 +1,216 @@
+---
+title: Orchestrator
+description: Multi-agent coordination and task orchestration
+---
+
+<Note>
+The Orchestrator is the master coordinator that manages multiple specialized agents to solve complex tasks through parallel analysis and synthesis.
+</Note>
+
+## Overview
+
+The Orchestrator agent coordinates multiple specialized agents using native Agent Tool capabilities to solve complex tasks that require expertise from different domains. It's designed for situations where a single agent cannot adequately address all aspects of a problem.
+
+**Use the Orchestrator when:**
+- A task requires multiple perspectives (security, backend, frontend, testing, DevOps)
+- Parallel analysis across different domains would be beneficial
+- Coordinated execution across multiple specialized areas is needed
+- Complex projects need systematic breakdown and delegation
+
+## Key Capabilities
+
+<CardGroup cols={2}>
+  <Card title="Task Decomposition" icon="sitemap">
+    Breaks down complex tasks into domain-specific subtasks and assigns them to appropriate specialists
+  </Card>
+  <Card title="Agent Selection" icon="users">
+    Intelligently selects and invokes the right agents based on task requirements
+  </Card>
+  <Card title="Result Synthesis" icon="layer-group">
+    Combines findings from multiple agents into cohesive, actionable output
+  </Card>
+  <Card title="Conflict Resolution" icon="scale-balanced">
+    Manages disagreements between agents and presents trade-offs clearly
+  </Card>
+</CardGroup>
+
+## Skills Used
+
+- [Clean Code](/skills/clean-code) - Code quality standards
+- [Parallel Agents](/skills/parallel-agents) - Multi-agent coordination
+- [Behavioral Modes](/skills/behavioral-modes) - Adaptive behavior patterns
+- [Plan Writing](/skills/plan-writing) - Structured planning
+- [Brainstorming](/skills/brainstorming) - Creative problem-solving
+- [Architecture](/skills/architecture) - System design principles
+- [Lint and Validate](/skills/lint-and-validate) - Code validation
+
+## Available Agents
+
+The Orchestrator can coordinate these specialized agents:
+
+| Agent | Domain | Use When |
+|-------|--------|----------|
+| `security-auditor` | Security & Auth | Authentication, vulnerabilities, OWASP |
+| `penetration-tester` | Security Testing | Active vulnerability testing, red team |
+| `backend-specialist` | Backend & API | Node.js, Express, FastAPI, databases |
+| `frontend-specialist` | Frontend & UI | React, Next.js, Tailwind, components |
+| `test-engineer` | Testing & QA | Unit tests, E2E, coverage, TDD |
+| `devops-engineer` | DevOps & Infra | Deployment, CI/CD, PM2, monitoring |
+| `database-architect` | Database & Schema | Prisma, migrations, optimization |
+| `mobile-developer` | Mobile Apps | React Native, Flutter, Expo |
+| `debugger` | Debugging | Root cause analysis, systematic debugging |
+| `explorer-agent` | Discovery | Codebase exploration, dependencies |
+
+## Orchestration Workflow
+
+### Step 0: Pre-Flight Checks (Mandatory)
+
+<Warning>
+Before invoking ANY specialist agents, the Orchestrator must verify that a plan exists and agent routing is correct.
+</Warning>
+
+```bash
+# 1. Check for PLAN.md
+Read docs/PLAN.md
+
+# 2. If missing → Use project-planner agent first
+# 3. Verify agent routing matches project type
+```
+
+### Step 1: Task Analysis
+
+Identify which domains the task touches:
+- Security
+- Backend
+- Frontend
+- Database
+- Testing
+- DevOps
+- Mobile
+
+### Step 2: Agent Selection
+
+Select 2-5 agents based on task requirements. Prioritize:
+1. **Always include** if modifying code: `test-engineer`
+2. **Always include** if touching auth: `security-auditor`
+3. **Include** based on affected layers
+
+### Step 3: Sequential Invocation
+
+Invoke agents in logical order:
+
+```
+1. explorer-agent → Map affected areas
+2. [domain-agents] → Analyze/implement
+3. test-engineer → Verify changes
+4. security-auditor → Final security check (if applicable)
+```
+
+### Step 4: Synthesis
+
+Combine findings into a structured report with key findings, recommendations, and next steps.
+
+## Agent Boundary Enforcement
+
+<Warning>
+Each agent MUST stay within their domain. Cross-domain work is a violation of the orchestration protocol.
+</Warning>
+
+### Strict Boundaries
+
+| Agent | CAN Do | CANNOT Do |
+|-------|--------|-----------|
+| `frontend-specialist` | Components, UI, styles, hooks | ❌ Test files, API routes, DB |
+| `backend-specialist` | API, server logic, DB queries | ❌ UI components, styles |
+| `test-engineer` | Test files, mocks, coverage | ❌ Production code |
+| `mobile-developer` | RN/Flutter components, mobile UX | ❌ Web components |
+| `database-architect` | Schema, migrations, queries | ❌ UI, API logic |
+
+### File Type Ownership
+
+| File Pattern | Owner Agent | Others BLOCKED |
+|--------------|-------------|----------------|
+| `**/*.test.{ts,tsx,js}` | `test-engineer` | ❌ All others |
+| `**/__tests__/**` | `test-engineer` | ❌ All others |
+| `**/components/**` | `frontend-specialist` | ❌ backend, test |
+| `**/api/**`, `**/server/**` | `backend-specialist` | ❌ frontend |
+
+## Example Use Cases
+
+### Use Case 1: Review and Improve Authentication System
+
+```
+🔴 STEP 0: Pre-flight Check
+→ Checking for PLAN.md...
+→ PLAN.md found. Project type: WEB. Agent assignments: Valid.
+→ Proceeding with orchestration.
+
+I'll coordinate multiple agents for a comprehensive review:
+
+1. First, using explorer-agent to map auth-related code...
+   [Returns: Auth spread across 3 files, using JWT]
+
+2. Now using security-auditor to review security posture...
+   [Returns: Missing rate limiting, weak token expiry]
+
+3. Having backend-specialist review implementation...
+   [Returns: Good separation of concerns, needs refresh tokens]
+
+4. Finally, test-engineer to check test coverage...
+   [Returns: 45% coverage, missing edge cases]
+
+## Synthesis Report
+
+### Key Findings
+- Security: Missing rate limiting on auth endpoints (HIGH)
+- Architecture: Good separation, needs refresh token implementation
+- Testing: Low coverage on auth flows (45%)
+
+### Recommendations
+1. Add rate limiting middleware (security-auditor)
+2. Implement refresh token rotation (backend-specialist)
+3. Increase test coverage to 80%+ (test-engineer)
+```
+
+### Use Case 2: Build New Feature
+
+```
+🔴 STEP 0: Pre-flight Check
+→ Checking for PLAN.md...
+→ PLAN.md NOT FOUND.
+→ STOPPING specialist agent invocation.
+
+→ Using project-planner agent first...
+→ After PLAN.md created → Resume orchestration
+```
+
+## Best Practices
+
+<Tip>
+**Start small**: Begin with 2-3 agents, add more if needed
+</Tip>
+
+1. **Context sharing** - Pass relevant findings to subsequent agents
+2. **Verify before commit** - Always include test-engineer for code changes
+3. **Security last** - Security audit as final check
+4. **Synthesize clearly** - Unified report, not separate outputs
+5. **Never skip pre-flight** - Always verify PLAN.md exists first
+
+## Automatic Selection Triggers
+
+The Orchestrator is automatically selected when:
+- User request explicitly mentions "orchestrate" or "coordinate"
+- Task clearly requires multiple domain expertise
+- User asks for comprehensive review or audit
+- Complex projects need systematic breakdown
+
+## Related Agents
+
+<CardGroup cols={2}>
+  <Card title="Project Planner" icon="list-check" href="/agents/project-planner">
+    Creates execution plans before orchestration
+  </Card>
+  <Card title="Explorer Agent" icon="compass" href="/agents/explorer-agent">
+    Maps codebase before agent assignment
+  </Card>
+</CardGroup>

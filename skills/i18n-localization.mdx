@@ -1,0 +1,175 @@
+---
+title: i18n & Localization
+description: Internationalization and localization patterns for multi-language applications
+---
+
+## Overview
+
+The i18n & Localization skill teaches internationalization (i18n) and localization (L10n) best practices. It covers making applications translatable, managing translations, locale files, RTL support, and detecting hardcoded strings.
+
+## What This Skill Provides
+
+- **Core concepts**: i18n vs L10n, locales, and RTL languages
+- **Implementation patterns**: React (react-i18next), Next.js (next-intl), Python (gettext)
+- **File structure**: Organizing translation files by language and feature
+- **Best practices**: Translation keys, namespacing, pluralization, date/number formatting
+- **RTL support**: CSS logical properties and right-to-left layout
+- **Common issues**: Missing translations, hardcoded strings, date/number formats
+- **Automated detection**: i18n checker script for hardcoded strings
+
+## Use Cases
+
+- Building multi-language web applications
+- Supporting international markets with proper localization
+- Implementing RTL language support (Arabic, Hebrew)
+- Managing translation files and workflows
+- Detecting and fixing hardcoded user-facing strings
+- Formatting dates, numbers, and currency per locale
+
+## Related Skills
+
+- [Frontend Design](/skills/frontend-design) - UI considerations for i18n
+- [API Patterns](/skills/api-patterns) - Locale-aware APIs
+- [Testing Patterns](/skills/testing-patterns) - Testing translations
+
+## Which Agents Use This Skill
+
+This skill is commonly used by:
+
+- **Frontend developers** building international applications
+- **Product managers** planning multi-market expansion
+- **UX designers** considering RTL and translation expansion
+- **QA engineers** testing localized versions
+
+## Key Principles
+
+### i18n vs L10n
+
+- **i18n (Internationalization)**: Making the app translatable (code changes)
+- **L10n (Localization)**: Actual translations (content changes)
+- **Locale**: Language + Region format (en-US, tr-TR, ar-SA)
+- **RTL**: Right-to-left languages requiring layout changes
+
+### When to Use i18n
+
+| Project Type | i18n Needed? |
+|--------------|---------------|
+| Public web app | ✅ Yes |
+| SaaS product | ✅ Yes |
+| Internal tool | ⚠️ Maybe |
+| Single-region app | ⚠️ Consider future |
+| Personal project | ❌ Optional |
+
+## Implementation Patterns
+
+### React (react-i18next)
+
+```tsx
+import { useTranslation } from 'react-i18next';
+
+function Welcome() {
+  const { t } = useTranslation();
+  return <h1>{t('welcome.title')}</h1>;
+}
+```
+
+### Next.js (next-intl)
+
+```tsx
+import { useTranslations } from 'next-intl';
+
+export default function Page() {
+  const t = useTranslations('Home');
+  return <h1>{t('title')}</h1>;
+}
+```
+
+### Python (gettext)
+
+```python
+from gettext import gettext as _
+
+print(_("Welcome to our app"))
+```
+
+## File Structure
+
+```
+locales/
+├── en/
+│   ├── common.json
+│   ├── auth.json
+│   └── errors.json
+├── tr/
+│   ├── common.json
+│   ├── auth.json
+│   └── errors.json
+└── ar/          # RTL
+    └── ...
+```
+
+## Best Practices
+
+### DO ✅
+
+- Use translation keys, not raw text
+- Namespace translations by feature
+- Support pluralization
+- Handle date/number formats per locale
+- Plan for RTL from the start
+- Use ICU message format for complex strings
+
+### DON'T ❌
+
+- Hardcode strings in components
+- Concatenate translated strings
+- Assume text length (German is 30% longer)
+- Forget about RTL layout
+- Mix languages in same file
+
+## RTL Support
+
+Use CSS logical properties for automatic RTL support:
+
+```css
+/* CSS Logical Properties */
+.container {
+  margin-inline-start: 1rem;  /* Not margin-left */
+  padding-inline-end: 1rem;   /* Not padding-right */
+}
+
+[dir="rtl"] .icon {
+  transform: scaleX(-1);
+}
+```
+
+## Common Issues
+
+| Issue | Solution |
+|-------|----------|
+| Missing translation | Fallback to default language |
+| Hardcoded strings | Use linter/checker script |
+| Date format | Use Intl.DateTimeFormat |
+| Number format | Use Intl.NumberFormat |
+| Pluralization | Use ICU message format |
+
+## Pre-Ship Checklist
+
+- [ ] All user-facing strings use translation keys
+- [ ] Locale files exist for all supported languages
+- [ ] Date/number formatting uses Intl API
+- [ ] RTL layout tested (if applicable)
+- [ ] Fallback language configured
+- [ ] No hardcoded strings in components
+
+## Tools
+
+The skill includes an `i18n_checker.py` script for detecting hardcoded strings:
+
+```bash
+python scripts/i18n_checker.py <project_path>
+```
+
+## Remember
+
+Plan for internationalization early. Retrofitting i18n is much harder than building it in from the start.

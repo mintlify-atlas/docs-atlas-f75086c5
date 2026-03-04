@@ -1,0 +1,76 @@
+---
+title: Performance Profiling
+description: Measure, analyze, and optimize application performance using systematic profiling techniques
+---
+
+## Overview
+
+The Performance Profiling skill teaches systematic performance measurement, analysis, and optimization techniques. It emphasizes measuring before optimizing and provides guidance on Core Web Vitals, bundle analysis, and runtime profiling.
+
+## What This Skill Provides
+
+- **Core Web Vitals targeting**: LCP, INP, and CLS measurement and optimization
+- **4-step profiling workflow**: Baseline → Identify → Fix → Validate
+- **Tool selection guidance**: Lighthouse, bundle analyzers, DevTools Performance/Memory tabs
+- **Bundle analysis**: Identifying large dependencies, duplicate code, and missing code splits
+- **Runtime profiling**: Detecting long tasks, layout thrashing, and memory leaks
+- **Quick win priorities**: High-impact optimizations like compression, lazy loading, and code splitting
+- **Automated auditing**: Lighthouse audit script for performance measurement
+
+## Use Cases
+
+- Improving page load times and Core Web Vitals scores
+- Diagnosing slow interactions and janky scrolling
+- Identifying and fixing memory leaks
+- Reducing bundle sizes through tree shaking and code splitting
+- Optimizing render performance and eliminating layout thrashing
+- Setting up performance monitoring in CI/CD pipelines
+
+## Related Skills
+
+- [SEO Fundamentals](/skills/seo-fundamentals) - Core Web Vitals are a ranking factor
+- [Frontend Design](/skills/frontend-design) - Performance impacts user experience
+- [Testing Patterns](/skills/testing-patterns) - Performance testing integration
+- [Systematic Debugging](/skills/systematic-debugging) - Profiling is a debugging tool
+
+## Which Agents Use This Skill
+
+This skill is commonly used by:
+
+- **Web performance engineers** optimizing frontend applications
+- **Frontend developers** diagnosing performance bottlenecks
+- **DevOps engineers** setting up performance monitoring
+- **QA engineers** validating performance improvements
+
+## Key Principles
+
+### Measure First
+
+Never optimize without profiling. The bottleneck is rarely where you think it is.
+
+### Core Web Vitals Targets
+
+- **LCP (Largest Contentful Paint)**: < 2.5s is good, > 4.0s is poor
+- **INP (Interaction to Next Paint)**: < 200ms is good, > 500ms is poor  
+- **CLS (Cumulative Layout Shift)**: < 0.1 is good, > 0.25 is poor
+
+### The Fastest Code
+
+The fastest code is code that doesn't run. Remove before optimizing.
+
+## Anti-Patterns
+
+| Don't | Do |
+|-------|----|
+| Guess at problems | Profile first |
+| Micro-optimize | Fix biggest issue |
+| Optimize early | Optimize when needed |
+| Ignore real users | Use RUM data |
+
+## Tools
+
+The skill includes a `lighthouse_audit.py` script for automated performance auditing:
+
+```bash
+python scripts/lighthouse_audit.py https://example.com
+```

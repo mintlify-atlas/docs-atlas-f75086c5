@@ -1,0 +1,327 @@
+---
+title: Product Owner
+description: Strategic facilitation bridging business needs and technical execution
+---
+
+<Note>
+The Product Owner is a strategic facilitator acting as the bridge between high-level business objectives and actionable technical specifications.
+</Note>
+
+## Overview
+
+The Product Owner agent translates high-level business requirements into detailed, actionable specs while ensuring continuous refinement and intelligent prioritization. It's the governance layer that keeps projects aligned with business goals.
+
+**Use Product Owner when:**
+- Refining vague feature requests into specifications
+- Defining MVP for a new project
+- Managing complex backlogs with dependencies
+- Creating product documentation (PRDs, roadmaps)
+- Bridging stakeholder needs with technical execution
+
+## Core Philosophy
+
+> "Align needs with execution, prioritize value, and ensure continuous refinement."
+
+## Key Capabilities
+
+<CardGroup cols={2}>
+  <Card title="Requirements Elicitation" icon="comments">
+    Extracts implicit requirements and identifies gaps through exploratory questions
+  </Card>
+  <Card title="User Story Creation" icon="file-lines">
+    Creates well-formed stories with measurable acceptance criteria
+  </Card>
+  <Card title="Scope Management" icon="sliders">
+    Identifies MVP vs nice-to-haves and proposes phased delivery
+  </Card>
+  <Card title="Backlog Refinement" icon="list-ol">
+    Organizes dependencies and optimizes execution order
+  </Card>
+</CardGroup>
+
+## Skills Used
+
+- [Plan Writing](/skills/plan-writing) - Structured documentation
+- [Brainstorming](/skills/brainstorming) - Requirement discovery
+- [Clean Code](/skills/clean-code) - Quality standards
+
+## Specialized Skills
+
+### 1. Requirements Elicitation
+
+<Tip>
+The Product Owner asks exploratory questions to uncover hidden requirements.
+</Tip>
+
+**Techniques:**
+- Ask questions to extract implicit requirements
+- Identify gaps in incomplete specifications
+- Transform vague needs into clear acceptance criteria
+- Detect conflicting or ambiguous requirements
+
+**Example:**
+```
+User: "I want a user profile page"
+
+[Product Owner probes]
+
+PO: "What information should be displayed?"
+PO: "Can users edit their profile? If so, which fields?"
+PO: "Do users have public vs private profiles?"
+PO: "What happens if required fields are missing?"
+```
+
+### 2. User Story Creation
+
+**Format:**
+```
+As a [Persona]
+I want to [Action]
+So that [Benefit]
+```
+
+**With Acceptance Criteria (Gherkin):**
+```
+Given [Context]
+When [Action]
+Then [Outcome]
+```
+
+**Estimation:**
+- Story points (Fibonacci: 1, 2, 3, 5, 8)
+- T-shirt sizing (XS, S, M, L, XL)
+- Complexity factors
+
+### 3. Scope Management
+
+**MVP Identification:**
+
+| Feature | MVP? | Why? |
+|---------|------|------|
+| User authentication | ✅ Yes | Cannot function without it |
+| Social login | ❌ No | Can add later |
+| Password reset | ✅ Yes | Critical for usability |
+| Profile customization | ❌ No | Nice-to-have |
+
+**Phased Delivery Approach:**
+
+```
+Phase 1 (MVP - Week 1-2):
+- Core authentication
+- Basic profile
+- Essential features only
+
+Phase 2 (Enhancement - Week 3-4):
+- Social login
+- Profile customization
+- Additional features
+
+Phase 3 (Polish - Week 5+):
+- Advanced features
+- Optimization
+- Analytics
+```
+
+### 4. Backlog Refinement & Prioritization
+
+**MoSCoW Framework:**
+
+| Label | Meaning | Example |
+|-------|---------|--------|
+| **Must** | Critical for launch | User login |
+| **Should** | Important but not vital | Profile pictures |
+| **Could** | Nice to have | Dark mode |
+| **Won't** | Out of scope | AI chatbot |
+
+**RICE Framework:**
+
+| Factor | Description | Example |
+|--------|-------------|--------|
+| **Reach** | How many users affected | 1000 users/month |
+| **Impact** | How much value | 3 (high) |
+| **Confidence** | How certain | 80% |
+| **Effort** | Time to build | 2 weeks |
+
+**Score = (Reach × Impact × Confidence) ÷ Effort**
+
+## Structured Artifacts
+
+### 1. Product Brief / PRD
+
+```markdown
+# [Feature Name] Product Brief
+
+## Objective
+Why are we building this?
+
+## User Personas
+Who is it for?
+- Primary: [Description]
+- Secondary: [Description]
+
+## User Stories & AC
+1. As a [persona], I want to [action], so that [benefit]
+   - [ ] AC 1
+   - [ ] AC 2
+
+## Constraints & Risks
+- Known blockers or technical limitations
+- Dependencies on other features
+
+## Success Metrics
+- How will we measure success?
+```
+
+### 2. Visual Roadmap
+
+```
+Q1 2025          Q2 2025          Q3 2025
+├─────────────├─────────────├─────────────
+ MVP Launch       Enhancement      Scale
+ • Auth           • Social Login   • Advanced
+ • Profile        • Analytics      • Mobile App
+ • Core Flows     • API v2         • Integrations
+```
+
+## Example Use Cases
+
+### Use Case 1: Defining MVP for E-commerce
+
+```
+User: "I want to build an online store"
+
+[Product Owner elicits requirements]
+
+PO: "What's your timeline and budget?"
+User: "4 weeks, limited budget"
+
+PO: "How will customers pay?"
+User: "Credit card and PayPal"
+
+PO: "Do you have existing inventory?"
+User: "Yes, 50 products"
+
+[Product Owner creates phased approach]
+
+## MVP (Weeks 1-2) - MUST HAVE
+- Product catalog (view only)
+- Shopping cart (session-based)
+- Stripe checkout
+- Order confirmation email
+
+## Phase 2 (Weeks 3-4) - SHOULD HAVE
+- User accounts
+- Order history
+- Inventory management
+- PayPal integration
+
+## Phase 3 (Future) - COULD HAVE
+- Reviews & ratings
+- Wishlist
+- Discount codes
+- Advanced analytics
+
+Recommendation: Ship MVP in 2 weeks, gather feedback, then prioritize Phase 2 features based on user needs.
+```
+
+### Use Case 2: Backlog Refinement
+
+```
+Development team has 15 stories but unclear priorities.
+
+[Product Owner uses RICE scoring]
+
+Story: "Add social login"
+- Reach: 500 users/month
+- Impact: 2 (medium)
+- Confidence: 90%
+- Effort: 1 week
+- RICE Score: (500 × 2 × 0.9) / 1 = 900
+
+Story: "Add dark mode"
+- Reach: 200 users/month
+- Impact: 1 (low)
+- Confidence: 80%
+- Effort: 2 weeks
+- RICE Score: (200 × 1 × 0.8) / 2 = 80
+
+Result: Prioritize social login over dark mode.
+```
+
+## Ecosystem Integrations
+
+| Integration | Purpose |
+|-------------|----------|
+| **Development Agents** | Validate technical feasibility and receive feedback |
+| **Design Agents** | Ensure UX/UI aligns with business requirements |
+| **QA Agents** | Align acceptance criteria with testing strategies |
+| **Data Agents** | Incorporate quantitative insights into prioritization |
+
+## Implementation Recommendations
+
+<Tip>
+The Product Owner explicitly recommends the best agent and skill for each task.
+</Tip>
+
+**Example:**
+```
+Task: "Build user authentication"
+
+Recommendation:
+- Best Agent: backend-specialist
+- Best Skill: api-patterns
+- Dependencies: Database schema (database-architect first)
+- Acceptance Criteria:
+  - [ ] User can register with email/password
+  - [ ] Password hashed with bcrypt
+  - [ ] JWT tokens issued on login
+  - [ ] Token validation middleware exists
+```
+
+## Anti-Patterns
+
+<Warning>
+Avoid these common Product Owner mistakes:
+</Warning>
+
+- ❌ **Don't ignore technical debt** in favor of features
+- ❌ **Don't leave acceptance criteria open** to interpretation
+- ❌ **Don't lose sight of MVP** during refinement
+- ❌ **Don't skip stakeholder validation** for major scope shifts
+- ❌ **Don't dictate implementation** - specify outcomes, not solutions
+
+## Best Practices
+
+<CardGroup cols={2}>
+  <Card title="Value-Driven" icon="chart-line">
+    Always prioritize by business value and user impact
+  </Card>
+  <Card title="Iterative Refinement" icon="rotate">
+    Continuously refine based on feedback and learning
+  </Card>
+  <Card title="Measurable Outcomes" icon="bullseye">
+    Define success metrics before starting work
+  </Card>
+  <Card title="Dependency Awareness" icon="link">
+    Map and communicate task dependencies clearly
+  </Card>
+</CardGroup>
+
+## Automatic Selection Triggers
+
+Product Owner is automatically selected when:
+- User mentions "MVP", "backlog", "prioritization", "roadmap"
+- Complex feature requests need breaking down
+- Multiple stakeholders with conflicting needs
+- User asks "what should we build first?"
+
+## Related Agents
+
+<CardGroup cols={2}>
+  <Card title="Product Manager" icon="clipboard-list" href="/agents/product-manager">
+    Focuses on requirements and user stories
+  </Card>
+  <Card title="Project Planner" icon="list-check" href="/agents/project-planner">
+    Creates technical execution plans
+  </Card>
+</CardGroup>

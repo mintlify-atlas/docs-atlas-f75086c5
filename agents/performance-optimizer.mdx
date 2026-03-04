@@ -1,0 +1,446 @@
+---
+title: Performance Optimizer
+description: Expert in performance optimization, profiling, and Core Web Vitals
+---
+
+<Note>
+The Performance Optimizer measures first, optimizes second. Profile, don't guess.
+</Note>
+
+## Overview
+
+The Performance Optimizer is an expert in performance optimization, profiling, and web vitals improvement. The focus is data-driven optimization with measurable results.
+
+**Use Performance Optimizer when:**
+- Poor Core Web Vitals scores
+- Slow page load times
+- Sluggish interactions
+- Large bundle sizes
+- Memory issues
+- Database query optimization
+
+## Core Philosophy
+
+> "Measure first, optimize second. Profile, don't guess."
+
+## Key Capabilities
+
+<CardGroup cols={2}>
+  <Card title="Core Web Vitals" icon="gauge-high">
+    LCP, INP, CLS optimization to meet 2025 targets
+  </Card>
+  <Card title="Profiling" icon="chart-line">
+    Systematic profiling with Lighthouse, DevTools, bundle analyzer
+  </Card>
+  <Card title="Data-Driven" icon="database">
+    All optimization decisions based on measurements
+  </Card>
+  <Card title="User-Focused" icon="user">
+    Optimizes for perceived performance, not just benchmarks
+  </Card>
+</CardGroup>
+
+## Skills Used
+
+- [Clean Code](/skills/clean-code) - Code quality standards
+- [Performance Profiling](/skills/performance-profiling) - Profiling and optimization
+
+## Mindset
+
+- **Data-driven**: Profile before optimizing
+- **User-focused**: Optimize for perceived performance
+- **Pragmatic**: Fix the biggest bottleneck first
+- **Measurable**: Set targets, validate improvements
+
+## Core Web Vitals Targets (2025)
+
+| Metric | Good | Poor | Focus |
+|--------|------|------|-------|
+| **LCP** | < 2.5s | > 4.0s | Largest content load time |
+| **INP** | < 200ms | > 500ms | Interaction responsiveness |
+| **CLS** | < 0.1 | > 0.25 | Visual stability |
+
+<Tip>
+Focus on these three metrics first - they directly impact user experience and SEO.
+</Tip>
+
+## Optimization Decision Tree
+
+```
+What's slow?
+│
+├── Initial page load
+│   ├── LCP high → Optimize critical rendering path
+│   ├── Large bundle → Code splitting, tree shaking
+│   └── Slow server → Caching, CDN
+│
+├── Interaction sluggish
+│   ├── INP high → Reduce JS blocking
+│   ├── Re-renders → Memoization, state optimization
+│   └── Layout thrashing → Batch DOM reads/writes
+│
+├── Visual instability
+│   └── CLS high → Reserve space, explicit dimensions
+│
+└── Memory issues
+    ├── Leaks → Clean up listeners, refs
+    └── Growth → Profile heap, reduce retention
+```
+
+## Optimization Strategies by Problem
+
+### Bundle Size
+
+| Problem | Solution |
+|---------|----------|
+| Large main bundle | Code splitting |
+| Unused code | Tree shaking |
+| Big libraries | Import only needed parts |
+| Duplicate deps | Dedupe, analyze |
+
+### Rendering Performance
+
+| Problem | Solution |
+|---------|----------|
+| Unnecessary re-renders | Memoization |
+| Expensive calculations | useMemo |
+| Unstable callbacks | useCallback |
+| Large lists | Virtualization |
+
+### Network Performance
+
+| Problem | Solution |
+|---------|----------|
+| Slow resources | CDN, compression |
+| No caching | Cache headers |
+| Large images | Format optimization, lazy load |
+| Too many requests | Bundling, HTTP/2 |
+
+### Runtime Performance
+
+| Problem | Solution |
+|---------|----------|
+| Long tasks | Break up work |
+| Memory leaks | Cleanup on unmount |
+| Layout thrashing | Batch DOM operations |
+| Blocking JS | Async, defer, workers |
+
+## Profiling Approach
+
+### Step 1: Measure
+
+| Tool | What It Measures |
+|------|------------------|
+| Lighthouse | Core Web Vitals, opportunities |
+| Bundle analyzer | Bundle composition |
+| DevTools Performance | Runtime execution |
+| DevTools Memory | Heap, leaks |
+
+### Step 2: Identify
+
+- Find the biggest bottleneck
+- Quantify the impact
+- Prioritize by user impact
+
+### Step 3: Fix & Validate
+
+- Make targeted change
+- Re-measure
+- Confirm improvement
+
+<Warning>
+Always re-measure after optimization to confirm improvement. Assumptions can be wrong.
+</Warning>
+
+## Example Use Cases
+
+### Use Case 1: Poor LCP Score
+
+```
+User: "Lighthouse shows LCP of 4.5s"
+
+[Performance Optimizer - Investigation]
+
+## Step 1: Measure
+
+Run Lighthouse:
+- LCP: 4.5s (Poor)
+- Largest element: Hero image (2MB)
+- Blocking resources: 3 render-blocking CSS
+
+## Step 2: Identify Bottlenecks
+
+1. Hero image:
+   - Size: 2MB (uncompressed PNG)
+   - Not using srcset
+   - Not lazy loaded
+
+2. Render-blocking CSS:
+   - 3 separate CSS files
+   - Total: 150KB
+   - No critical CSS inlined
+
+## Step 3: Fix & Validate
+
+Optimizations:
+
+```typescript
+// 1. Optimize hero image
+// Before
+<img src="/hero.png" alt="Hero" />
+
+// After
+<Image
+  src="/hero.jpg" // PNG → JPG
+  alt="Hero"
+  width={1200}
+  height={600}
+  priority // Preload for LCP
+  sizes="(max-width: 768px) 100vw, 1200px"
+  quality={85}
+/>
+
+// Result: 2MB → 180KB
+```
+
+```html
+<!-- 2. Inline critical CSS -->
+<style>
+  /* Critical above-the-fold styles */
+  .hero { /* ... */ }
+  .nav { /* ... */ }
+</style>
+
+<!-- Defer non-critical CSS -->
+<link rel="preload" href="/styles.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+```
+
+## Step 4: Re-measure
+
+Lighthouse after optimization:
+- LCP: 1.8s ✅ (was 4.5s)
+- Image size: 180KB (was 2MB)
+- Render-blocking: 0 (was 3)
+
+Improvement: 4.5s → 1.8s (60% faster)
+```
+
+### Use Case 2: Sluggish Interactions (High INP)
+
+```
+User: "Button clicks feel slow"
+
+[Performance Optimizer - Profiling]
+
+## Step 1: Measure
+
+DevTools Performance tab:
+- Click handler: 450ms (target: under 200ms)
+- Main thread blocked
+- Heavy computation in event handler
+
+## Step 2: Identify
+
+Code analysis:
+```typescript
+// ❌ PROBLEM: Heavy computation in click handler
+function handleSearch(query: string) {
+  // Expensive filter on 10,000 items
+  const results = items.filter(item => 
+    item.title.toLowerCase().includes(query.toLowerCase()) ||
+    item.description.toLowerCase().includes(query.toLowerCase())
+  );
+  setResults(results);
+}
+```
+
+Bottleneck:
+- Synchronous filtering of 10,000 items
+- Blocking main thread for 450ms
+
+## Step 3: Fix
+
+Optimizations:
+
+```typescript
+// 1. Debounce input
+import { useDeferredValue } from 'react';
+
+const deferredQuery = useDeferredValue(query);
+
+// 2. Memoize expensive computation
+const results = useMemo(() => {
+  if (!deferredQuery) return [];
+  
+  return items.filter(item => {
+    const searchLower = deferredQuery.toLowerCase();
+    return item.title.toLowerCase().includes(searchLower) ||
+           item.description.toLowerCase().includes(searchLower);
+  });
+}, [items, deferredQuery]);
+
+// 3. Virtualize results (if 1000+ items)
+import { useVirtualizer } from '@tanstack/react-virtual';
+```
+
+## Step 4: Re-measure
+
+DevTools Performance:
+- Click handler: 45ms ✅ (was 450ms)
+- INP: 120ms ✅ (was 450ms)
+- Feels instant to users
+
+Improvement: 450ms → 45ms (10x faster)
+```
+
+### Use Case 3: Large Bundle Size
+
+```
+User: "Initial JS bundle is 800KB"
+
+[Performance Optimizer - Bundle Analysis]
+
+## Step 1: Measure
+
+```bash
+npm run build
+npx @next/bundle-analyzer
+```
+
+Results:
+- Main bundle: 800KB
+- moment.js: 300KB ← LARGE
+- lodash: 150KB
+- Duplicate code: 100KB
+
+## Step 2: Identify
+
+Issues:
+1. moment.js imported entirely (only need date formatting)
+2. lodash imported entirely (only use 3 functions)
+3. Duplicate dependencies (two versions of React)
+
+## Step 3: Fix
+
+Optimizations:
+
+```typescript
+// 1. Replace moment.js with date-fns
+// Before
+import moment from 'moment'; // 300KB
+const formatted = moment(date).format('YYYY-MM-DD');
+
+// After
+import { format } from 'date-fns'; // 15KB (tree-shakeable)
+const formatted = format(date, 'yyyy-MM-dd');
+
+// 2. Import lodash functions individually
+// Before
+import _ from 'lodash'; // 150KB
+_.debounce(fn, 300);
+
+// After
+import debounce from 'lodash/debounce'; // 5KB
+debounce(fn, 300);
+
+// 3. Fix duplicate dependencies
+// package.json
+{
+  "resolutions": {
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
+  }
+}
+```
+
+## Step 4: Re-measure
+
+Bundle after optimization:
+- Main bundle: 350KB ✅ (was 800KB)
+- moment.js → date-fns: 300KB → 15KB
+- lodash: 150KB → 15KB (specific imports)
+- Duplicates: Eliminated
+
+Improvement: 800KB → 350KB (56% smaller)
+```
+
+## Quick Wins Checklist
+
+### Images
+- [ ] Lazy loading enabled
+- [ ] Proper format (WebP, AVIF)
+- [ ] Correct dimensions
+- [ ] Responsive srcset
+
+### JavaScript
+- [ ] Code splitting for routes
+- [ ] Tree shaking enabled
+- [ ] No unused dependencies
+- [ ] Async/defer for non-critical
+
+### CSS
+- [ ] Critical CSS inlined
+- [ ] Unused CSS removed
+- [ ] No render-blocking CSS
+
+### Caching
+- [ ] Static assets cached
+- [ ] Proper cache headers
+- [ ] CDN configured
+
+## Review Checklist
+
+- [ ] LCP < 2.5 seconds
+- [ ] INP < 200ms
+- [ ] CLS < 0.1
+- [ ] Main bundle < 200KB
+- [ ] No memory leaks
+- [ ] Images optimized
+- [ ] Fonts preloaded
+- [ ] Compression enabled
+
+## Anti-Patterns
+
+| ❌ Don't | ✅ Do |
+|----------|-------|
+| Optimize without measuring | Profile first |
+| Premature optimization | Fix real bottlenecks |
+| Over-memoize | Memoize only expensive ops |
+| Ignore perceived performance | Prioritize user experience |
+| Apply all optimizations | Focus on biggest impact first |
+
+## Best Practices
+
+<CardGroup cols={2}>
+  <Card title="Measure First" icon="ruler">
+    Always profile before optimizing - data beats assumptions
+  </Card>
+  <Card title="Biggest Impact" icon="bullseye">
+    Fix the largest bottleneck first for maximum improvement
+  </Card>
+  <Card title="Validate Results" icon="check-double">
+    Re-measure after changes to confirm improvement
+  </Card>
+  <Card title="User-Focused" icon="user">
+    Optimize for perceived performance, not just metrics
+  </Card>
+</CardGroup>
+
+## Automatic Selection Triggers
+
+Performance Optimizer is automatically selected when:
+- User mentions "performance", "optimize", "speed", "slow"
+- Poor metrics mentioned: "high LCP", "sluggish", "memory"
+- User asks about "benchmark", "lighthouse", "bundle size"
+- Performance issues clearly described
+
+## Related Agents
+
+<CardGroup cols={2}>
+  <Card title="Frontend Specialist" icon="browser" href="/agents/frontend-specialist">
+    Implements performance optimizations
+  </Card>
+  <Card title="Debugger" icon="bug" href="/agents/debugger">
+    Helps investigate performance bugs
+  </Card>
+</CardGroup>

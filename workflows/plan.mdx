@@ -1,0 +1,123 @@
+---
+title: "/plan"
+description: "Create structured project plans without writing code"
+---
+
+The `/plan` command creates a detailed project plan using the [project-planner agent](/agents/project-planner). This workflow generates only planning documents—no code is written.
+
+## Critical rules
+
+<Warning>
+  **NO CODE WRITING**: This command creates plan files only. Code implementation comes later.
+</Warning>
+
+<Note>
+  **Socratic Gate**: The planner will ask clarifying questions before creating the plan.
+</Note>
+
+<Note>
+  **Dynamic Naming**: Plan files are named based on your task (e.g., `PLAN-ecommerce-cart.md`).
+</Note>
+
+## When to use this
+
+<CardGroup cols={2}>
+  <Card title="Large projects" icon="diagram-project">
+    Complex projects that need upfront planning
+  </Card>
+  <Card title="Time estimates" icon="clock">
+    You need to understand effort and timeline
+  </Card>
+  <Card title="Team coordination" icon="users">
+    Multiple people need to understand the plan
+  </Card>
+  <Card title="Approval needed" icon="clipboard-check">
+    Stakeholders need to review before implementation
+  </Card>
+</CardGroup>
+
+## How it works
+
+<Steps>
+  <Step title="Context check">
+    The [project-planner agent](/agents/project-planner) analyzes:
+    - Your project context
+    - Existing codebase (if any)
+    - Tech stack and patterns
+  </Step>
+  
+  <Step title="Socratic questioning">
+    Clarifying questions to understand:
+    - Exact requirements
+    - Constraints and preferences
+    - Success criteria
+  </Step>
+  
+  <Step title="Plan generation">
+    Creates `docs/PLAN-{task-slug}.md` with:
+    - Task breakdown
+    - Agent assignments
+    - Verification checklist
+    - Time estimates
+  </Step>
+</Steps>
+
+## Output format
+
+You'll receive a plan file at `docs/PLAN-{task-slug}.md` containing:
+
+| Section | Content |
+|---------|--------|
+| **Overview** | High-level summary |
+| **Task Breakdown** | Numbered steps and subtasks |
+| **Agent Assignments** | Which agents handle what |
+| **Verification Checklist** | How to verify completion |
+| **Time Estimates** | Expected duration per phase |
+
+## Naming examples
+
+| Request | Plan File |
+|---------|----------|
+| `/plan e-commerce site with cart` | `docs/PLAN-ecommerce-cart.md` |
+| `/plan mobile app for fitness` | `docs/PLAN-fitness-app.md` |
+| `/plan add dark mode feature` | `docs/PLAN-dark-mode.md` |
+| `/plan fix authentication bug` | `docs/PLAN-auth-fix.md` |
+| `/plan SaaS dashboard` | `docs/PLAN-saas-dashboard.md` |
+
+## Usage examples
+
+```bash
+/plan e-commerce site with cart
+```
+
+Create detailed plan for e-commerce project
+
+```bash
+/plan mobile app for fitness tracking
+```
+
+Plan mobile app architecture and features
+
+```bash
+/plan SaaS dashboard with analytics
+```
+
+Structure a SaaS product plan
+
+## After planning
+
+Once your plan is created, you can:
+
+1. **Review the plan**: Read through and refine if needed
+2. **Run `/create`**: Start implementation based on the plan
+3. **Modify manually**: Edit the plan file directly if you want changes
+
+<Tip>
+  The plan file serves as a source of truth throughout implementation. Agents will reference it during `/create` or `/orchestrate`.
+</Tip>
+
+## Related workflows
+
+- [/brainstorm](/workflows/brainstorm) - Explore options before planning
+- [/create](/workflows/create) - Implement the plan
+- [/orchestrate](/workflows/orchestrate) - Use for complex multi-agent implementation

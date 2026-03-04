@@ -1,0 +1,261 @@
+---
+title: Server Management
+description: Server management principles and decision-making for production operations
+---
+
+## Overview
+
+The **server-management** skill teaches server management principles for production operations. It covers process management, monitoring strategy, log management, scaling decisions, and troubleshooting procedures.
+
+## What This Skill Provides
+
+- **Process Management**: PM2, systemd, Docker, Kubernetes selection
+- **Monitoring Principles**: What to monitor and alert strategies
+- **Log Management**: Logging strategy and rotation
+- **Scaling Decisions**: When and how to scale
+- **Health Checks**: Implementing service health endpoints
+- **Security Principles**: Server security best practices
+- **Troubleshooting**: Systematic problem diagnosis
+
+## Philosophy
+
+**Learn to THINK, not memorize commands.** Server management is about understanding principles and making informed decisions based on your specific context.
+
+## Process Management Principles
+
+### Tool Selection
+
+| Scenario | Tool |
+|----------|------|
+| **Node.js app** | PM2 (clustering, reload) |
+| **Any app** | systemd (Linux native) |
+| **Containers** | Docker/Podman |
+| **Orchestration** | Kubernetes, Docker Swarm |
+
+### Process Management Goals
+
+| Goal | What It Means |
+|------|----------------|
+| **Restart on crash** | Auto-recovery |
+| **Zero-downtime reload** | No service interruption |
+| **Clustering** | Use all CPU cores |
+| **Persistence** | Survive server reboot |
+
+## Monitoring Principles
+
+### What to Monitor
+
+| Category | Key Metrics |
+|----------|-------------|
+| **Availability** | Uptime, health checks |
+| **Performance** | Response time, throughput |
+| **Errors** | Error rate, types |
+| **Resources** | CPU, memory, disk |
+
+### Alert Severity Strategy
+
+| Level | Response |
+|-------|----------|
+| **Critical** | Immediate action |
+| **Warning** | Investigate soon |
+| **Info** | Review daily |
+
+### Monitoring Tool Selection
+
+| Need | Options |
+|------|----------|
+| Simple/Free | PM2 metrics, htop |
+| Full observability | Grafana, Datadog |
+| Error tracking | Sentry |
+| Uptime | UptimeRobot, Pingdom |
+
+## Use Cases
+
+### When to Use This Skill
+
+- Setting up server infrastructure
+- Implementing monitoring and alerting
+- Troubleshooting server issues
+- Planning scaling strategies
+- Securing server environments
+- Managing logs and processes
+
+### Example Scenarios
+
+1. **Setup**: "Configure PM2 for a Node.js application"
+2. **Monitoring**: "Set up monitoring for this production server"
+3. **Scaling**: "Server CPU is at 90%, should I scale?"
+4. **Troubleshooting**: "Service keeps crashing, help diagnose"
+
+## Log Management Principles
+
+### Log Strategy
+
+| Log Type | Purpose |
+|----------|----------|
+| **Application logs** | Debug, audit |
+| **Access logs** | Traffic analysis |
+| **Error logs** | Issue detection |
+
+### Log Principles
+
+1. **Rotate logs** to prevent disk fill
+2. **Structured logging** (JSON) for parsing
+3. **Appropriate levels** (error/warn/info/debug)
+4. **No sensitive data** in logs
+
+## Scaling Decisions
+
+### When to Scale
+
+| Symptom | Solution |
+|---------|----------|
+| High CPU | Add instances (horizontal) |
+| High memory | Increase RAM or fix leak |
+| Slow response | Profile first, then scale |
+| Traffic spikes | Auto-scaling |
+
+### Scaling Strategy
+
+| Type | When to Use |
+|------|-------------|
+| **Vertical** | Quick fix, single instance |
+| **Horizontal** | Sustainable, distributed |
+| **Auto** | Variable traffic |
+
+## Health Check Principles
+
+### What Constitutes Healthy
+
+| Check | Meaning |
+|-------|----------|
+| **HTTP 200** | Service responding |
+| **Database connected** | Data accessible |
+| **Dependencies OK** | External services reachable |
+| **Resources OK** | CPU/memory not exhausted |
+
+### Health Check Implementation
+
+- **Simple**: Just return 200
+- **Deep**: Check all dependencies
+- Choose based on load balancer needs
+
+## Security Principles
+
+| Area | Principle |
+|------|------------|
+| **Access** | SSH keys only, no passwords |
+| **Firewall** | Only needed ports open |
+| **Updates** | Regular security patches |
+| **Secrets** | Environment vars, not files |
+| **Audit** | Log access and changes |
+
+## Troubleshooting Priority
+
+When something's wrong:
+
+1. **Check if running** (process status)
+2. **Check logs** (error messages)
+3. **Check resources** (disk, memory, CPU)
+4. **Check network** (ports, DNS)
+5. **Check dependencies** (database, APIs)
+
+## Anti-Patterns to Avoid
+
+| ❌ Don't | ✅ Do |
+|----------|-------|
+| Run as root | Use non-root user |
+| Ignore logs | Set up log rotation |
+| Skip monitoring | Monitor from day one |
+| Manual restarts | Auto-restart config |
+| No backups | Regular backup schedule |
+
+## Process Management Examples
+
+### PM2 (Node.js)
+```bash
+# Start with clustering
+pm2 start app.js -i max
+
+# Zero-downtime reload
+pm2 reload app
+
+# Monitor
+pm2 monit
+```
+
+### systemd (Linux)
+```bash
+# Start service
+systemctl start myapp
+
+# Enable on boot
+systemctl enable myapp
+
+# Check status
+systemctl status myapp
+```
+
+### Docker
+```bash
+# Run with restart policy
+docker run -d --restart=always myapp
+
+# View logs
+docker logs -f myapp
+```
+
+## Monitoring Setup
+
+### Basic Health Endpoint
+```javascript
+app.get('/health', async (req, res) => {
+  try {
+    await db.ping();
+    res.status(200).json({ status: 'ok' });
+  } catch (error) {
+    res.status(503).json({ status: 'error' });
+  }
+});
+```
+
+## Related Skills
+
+- **deployment-procedures**: Deployment workflows
+- **bash-linux**: Linux server commands
+- **powershell-windows**: Windows server management
+- **clean-code**: Service code quality
+
+## Which Agents Use This Skill
+
+- **devops-engineer**: Primary user for all server operations
+
+## Best Practices
+
+1. **Automate** everything possible
+2. **Monitor** from day one
+3. **Secure** by default
+4. **Document** your setup
+5. **Test** failure scenarios
+6. **Backup** regularly
+
+## Resource Monitoring
+
+### Key Metrics
+
+| Metric | Threshold | Action |
+|--------|-----------|--------|
+| CPU | >80% sustained | Investigate/scale |
+| Memory | >90% | Check for leaks |
+| Disk | >85% | Clean/expand |
+| Network | Saturated | Check traffic |
+
+## Tools Available
+
+- Read, Write, Edit: For config files
+- Glob, Grep: For searching logs
+- Bash: For server commands
+
+---
+
+**Remember**: A well-managed server is boring. That's the goal.

@@ -1,0 +1,218 @@
+---
+title: "ag-kit update"
+description: "Update Antigravity Kit to the latest version"
+---
+
+## Overview
+
+The `ag-kit update` command updates your existing Antigravity Kit installation to the latest version, ensuring you have access to the newest agents, skills, and workflows.
+
+<CodeGroup>
+
+```bash npm
+npx @vudovn/ag-kit update
+```
+
+```bash Global
+ag-kit update
+```
+
+</CodeGroup>
+
+## Options
+
+<ParamField path="--force" type="flag">
+  Force update even if already on the latest version. Useful for repairing corrupted installations.
+</ParamField>
+
+<ParamField path="--path" type="string">
+  Update the installation in a specific directory instead of the current working directory.
+  
+  Example: `--path ./myapp`
+</ParamField>
+
+<ParamField path="--branch" type="string">
+  Update to a specific branch instead of the default branch.
+  
+  Example: `--branch dev`
+</ParamField>
+
+<ParamField path="--quiet" type="flag">
+  Suppress output messages. Useful for CI/CD pipelines and automated scripts.
+</ParamField>
+
+<ParamField path="--dry-run" type="flag">
+  Preview what would be updated without actually making changes.
+</ParamField>
+
+## Usage Examples
+
+### Basic Update
+
+Update to the latest version:
+
+```bash
+ag-kit update
+```
+
+**Output:**
+```
+Checking for updates...
+Current version: 1.5.0
+Latest version: 2.0.0
+Updating Antigravity Kit...
+✓ Updated agents (20)
+✓ Updated skills (37)
+✓ Updated workflows (11)
+Successfully updated to version 2.0.0!
+```
+
+### Already Up to Date
+
+When no update is available:
+
+```bash
+ag-kit update
+```
+
+**Output:**
+```
+Checking for updates...
+You are already on the latest version (2.0.0)
+No update needed.
+```
+
+### Force Update
+
+Force update even if on the latest version:
+
+```bash
+ag-kit update --force
+```
+
+**Output:**
+```
+Force updating Antigravity Kit...
+✓ Reinstalled agents (20)
+✓ Reinstalled skills (37)
+✓ Reinstalled workflows (11)
+Successfully updated to version 2.0.0!
+```
+
+### Update Specific Installation
+
+Update a specific project:
+
+```bash
+ag-kit update --path ./myapp
+```
+
+**Output:**
+```
+Updating installation in ./myapp...
+✓ Updated agents (20)
+✓ Updated skills (37)
+✓ Updated workflows (11)
+Successfully updated!
+```
+
+### Update to Development Branch
+
+Update to a specific branch:
+
+```bash
+ag-kit update --branch dev
+```
+
+**Output:**
+```
+Updating to branch: dev
+✓ Updated agents (20)
+✓ Updated skills (37)
+✓ Updated workflows (11)
+Successfully updated to dev branch!
+```
+
+### Silent Update
+
+Run without output for automated scripts:
+
+```bash
+ag-kit update --quiet
+```
+
+### Preview Update
+
+See what would be updated:
+
+```bash
+ag-kit update --dry-run
+```
+
+**Output:**
+```
+[DRY RUN] Would update from version 1.5.0 to 2.0.0
+[DRY RUN] Would update 20 agents
+[DRY RUN] Would update 37 skills
+[DRY RUN] Would update 11 workflows
+```
+
+### Combining Options
+
+Combine multiple options:
+
+```bash
+ag-kit update --path ./myapp --force
+```
+
+## What Gets Updated
+
+The `update` command updates all components in your `.agent` folder:
+
+| Component | Count | Description |
+| --- | --- | --- |
+| **Agents** | 20 | Specialist AI personas (frontend, backend, security, PM, QA, etc.) |
+| **Skills** | 37 | Domain-specific knowledge modules |
+| **Workflows** | 11 | Slash command procedures |
+
+## Update Behavior
+
+<Tip>
+  The update command preserves your local customizations by default. If you want a completely fresh installation, use `ag-kit init --force` instead.
+</Tip>
+
+<Tip>
+  If you encounter issues after updating, you can force a clean reinstall:
+  ```bash
+  ag-kit update --force
+  ```
+</Tip>
+
+## When to Update
+
+You should update Antigravity Kit when:
+
+- New agents, skills, or workflows are released
+- Bug fixes are available
+- You want to access new features
+- Your IDE is not recognizing new slash commands
+
+## After Update
+
+After updating:
+
+1. Restart your AI-powered editor (Cursor, Windsurf, etc.) to reload the updated templates
+2. Run `ag-kit status` to verify the update
+3. Check the [changelog](https://github.com/vudovn/antigravity-kit/releases) for new features
+
+## Troubleshooting
+
+If the update fails:
+
+```bash
+# Try force update
+ag-kit update --force
+
+# Or do a fresh install
+ag-kit init --force
+```

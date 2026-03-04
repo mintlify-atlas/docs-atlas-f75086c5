@@ -1,0 +1,144 @@
+---
+title: "/preview"
+description: "Local development server management and status checks"
+---
+
+The `/preview` command manages your local development server. Use it to start, stop, restart, or check the status of your preview environment.
+
+## Sub-commands
+
+```bash
+/preview           # Show current status
+/preview start     # Start server
+/preview stop      # Stop server
+/preview restart   # Restart server
+/preview check     # Health check
+```
+
+## When to use this
+
+<CardGroup cols={2}>
+  <Card title="Local testing" icon="flask">
+    Test changes in browser before committing
+  </Card>
+  <Card title="Iterative development" icon="rotate">
+    Restart after major changes
+  </Card>
+  <Card title="Port conflicts" icon="network-wired">
+    Resolve port issues
+  </Card>
+  <Card title="Status checks" icon="circle-check">
+    Verify server is running
+  </Card>
+</CardGroup>
+
+## Usage examples
+
+### Start server
+
+```bash
+/preview start
+```
+
+**Response:**
+```
+🚀 Starting preview...
+   Port: 3000
+   Type: Next.js
+
+✅ Preview ready!
+   URL: http://localhost:3000
+```
+
+### Status check
+
+```bash
+/preview
+```
+
+**Response:**
+```
+=== Preview Status ===
+
+🌐 URL: http://localhost:3000
+📁 Project: C:/projects/my-app
+🏷️ Type: nextjs
+💚 Health: OK
+```
+
+### Port conflict
+
+If the default port is already in use:
+
+```bash
+/preview start
+```
+
+**Response:**
+```
+⚠️ Port 3000 is in use.
+
+Options:
+1. Start on port 3001
+2. Close app on 3000
+3. Specify different port
+
+Which one? (default: 1)
+```
+
+## How it works
+
+The preview system uses the `auto_preview.py` script to:
+
+- **Detect framework**: Automatically identifies Next.js, React, Vue, etc.
+- **Start dev server**: Runs the appropriate command (`npm run dev`, etc.)
+- **Monitor health**: Checks if server is responding
+- **Handle conflicts**: Resolves port conflicts automatically
+
+## Technical details
+
+Under the hood, the preview system runs:
+
+```bash
+# Start preview on default or specific port
+python .agent/scripts/auto_preview.py start [port]
+
+# Stop running preview
+python .agent/scripts/auto_preview.py stop
+
+# Check status
+python .agent/scripts/auto_preview.py status
+```
+
+## Common scenarios
+
+### After making changes
+
+Most changes hot-reload automatically. For major changes (like configuration), restart:
+
+```bash
+/preview restart
+```
+
+### Multiple projects
+
+Each project can run on a different port. Specify the port:
+
+```bash
+/preview start --port 3001
+```
+
+### Stopping preview
+
+Stop the server when you're done:
+
+```bash
+/preview stop
+```
+
+## Related workflows
+
+- [/create](/workflows/create) - Creates app and starts preview automatically
+- [/enhance](/workflows/enhance) - Updates preview after changes
+- [/deploy](/workflows/deploy) - Deploy after testing locally
+- [/status](/workflows/status) - Check overall project status

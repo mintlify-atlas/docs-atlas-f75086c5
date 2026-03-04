@@ -1,0 +1,292 @@
+---
+title: "ag-kit status"
+description: "Check Antigravity Kit installation status and version information"
+---
+
+## Overview
+
+The `ag-kit status` command checks your Antigravity Kit installation status, displays version information, and verifies that all components are properly installed.
+
+<CodeGroup>
+
+```bash npm
+npx @vudovn/ag-kit status
+```
+
+```bash Global
+ag-kit status
+```
+
+</CodeGroup>
+
+## Options
+
+<ParamField path="--path" type="string">
+  Check the installation status in a specific directory instead of the current working directory.
+  
+  Example: `--path ./myapp`
+</ParamField>
+
+<ParamField path="--quiet" type="flag">
+  Suppress detailed output and only return exit code. Useful for CI/CD pipelines.
+</ParamField>
+
+<ParamField path="--dry-run" type="flag">
+  Simulate the status check without accessing the file system (for testing).
+</ParamField>
+
+## Usage Examples
+
+### Basic Status Check
+
+Check installation status in the current directory:
+
+```bash
+ag-kit status
+```
+
+**Output:**
+```
+Antigravity Kit Status
+━━━━━━━━━━━━━━━━━━━━━━
+Installed: ✓ Yes
+Version: 2.0.0
+Location: /path/to/project/.agent
+
+Components:
+  Agents:    ✓ 20 installed
+  Skills:    ✓ 37 installed
+  Workflows: ✓ 11 installed
+
+All components are properly installed.
+```
+
+### Not Installed
+
+When Antigravity Kit is not installed:
+
+```bash
+ag-kit status
+```
+
+**Output:**
+```
+Antigravity Kit Status
+━━━━━━━━━━━━━━━━━━━━━━
+Installed: ✗ No
+
+Antigravity Kit is not installed in this directory.
+Run 'ag-kit init' to install.
+```
+
+### Partial Installation
+
+When some components are missing:
+
+```bash
+ag-kit status
+```
+
+**Output:**
+```
+Antigravity Kit Status
+━━━━━━━━━━━━━━━━━━━━━━
+Installed: ⚠ Partial
+Version: 2.0.0
+Location: /path/to/project/.agent
+
+Components:
+  Agents:    ✓ 20 installed
+  Skills:    ✗ 0 installed (expected 37)
+  Workflows: ✓ 11 installed
+
+Warning: Some components are missing or corrupted.
+Run 'ag-kit update --force' to repair the installation.
+```
+
+### Check Specific Project
+
+Check status in a specific directory:
+
+```bash
+ag-kit status --path ./myapp
+```
+
+**Output:**
+```
+Antigravity Kit Status
+━━━━━━━━━━━━━━━━━━━━━━
+Location: /path/to/myapp/.agent
+Installed: ✓ Yes
+Version: 2.0.0
+
+Components:
+  Agents:    ✓ 20 installed
+  Skills:    ✓ 37 installed
+  Workflows: ✓ 11 installed
+
+All components are properly installed.
+```
+
+### Silent Status Check
+
+Use in scripts with quiet mode:
+
+```bash
+ag-kit status --quiet
+echo $?
+```
+
+**Output:**
+```
+0
+```
+
+Exit codes:
+- `0` - Fully installed and working
+- `1` - Not installed
+- `2` - Partially installed or corrupted
+
+### Status Check Simulation
+
+Simulate status check for testing:
+
+```bash
+ag-kit status --dry-run
+```
+
+**Output:**
+```
+[DRY RUN] Would check installation at: ./.agent
+[DRY RUN] Would verify agents directory
+[DRY RUN] Would verify skills directory
+[DRY RUN] Would verify workflows directory
+[DRY RUN] Would read version information
+```
+
+## Status Information
+
+The `status` command provides the following information:
+
+### Installation Status
+
+- **Installed** - Whether the `.agent` folder exists
+- **Version** - Current version of Antigravity Kit
+- **Location** - Full path to the installation directory
+
+### Component Counts
+
+| Component | Expected Count | Description |
+| --- | --- | --- |
+| **Agents** | 20 | Specialist AI personas |
+| **Skills** | 37 | Domain-specific knowledge modules |
+| **Workflows** | 11 | Slash command procedures |
+
+## Use Cases
+
+### Verify Installation
+
+After running `ag-kit init`, verify everything installed correctly:
+
+```bash
+ag-kit init
+ag-kit status
+```
+
+### Check Before Update
+
+Before updating, check your current version:
+
+```bash
+ag-kit status
+ag-kit update
+```
+
+### Troubleshooting
+
+If slash commands are not working, check installation status:
+
+```bash
+ag-kit status
+```
+
+If components are missing, repair the installation:
+
+```bash
+ag-kit update --force
+```
+
+### CI/CD Integration
+
+Use in automated scripts:
+
+```bash
+#!/bin/bash
+ag-kit status --quiet
+if [ $? -ne 0 ]; then
+  echo "Installing Antigravity Kit..."
+  ag-kit init --quiet
+fi
+```
+
+### Multiple Projects
+
+Check status across multiple projects:
+
+```bash
+ag-kit status --path ./project1
+ag-kit status --path ./project2
+ag-kit status --path ./project3
+```
+
+## Tips
+
+<Tip>
+  Run `ag-kit status` after installation or updates to verify all components are properly installed.
+</Tip>
+
+<Tip>
+  If your IDE is not showing slash commands, run `ag-kit status` to check if the workflows are installed correctly. You may need to restart your editor after verifying the installation.
+</Tip>
+
+<Tip>
+  Use `ag-kit status --quiet` in scripts and CI/CD pipelines to check installation without verbose output. The exit code will indicate the installation status.
+</Tip>
+
+## Common Status Messages
+
+### All Components Installed
+
+```
+✓ Agents:    20 installed
+✓ Skills:    37 installed  
+✓ Workflows: 11 installed
+```
+
+Everything is working correctly.
+
+### Missing Components
+
+```
+✗ Skills: 0 installed (expected 37)
+```
+
+Some components are missing. Run `ag-kit update --force` to repair.
+
+### Version Mismatch
+
+```
+Version: 1.5.0
+Latest: 2.0.0
+```
+
+An update is available. Run `ag-kit update` to upgrade.
+
+## Next Steps
+
+Based on the status output:
+
+- **Not installed** → Run `ag-kit init`
+- **Partial installation** → Run `ag-kit update --force`
+- **Outdated version** → Run `ag-kit update`
+- **Fully installed** → Start using agents, skills, and workflows!

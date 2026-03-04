@@ -1,0 +1,314 @@
+---
+title: Game Developer
+description: Game development across all platforms (PC, Web, Mobile, VR/AR)
+---
+
+<Note>
+The Game Developer specializes in multi-platform game development with 2025 best practices across Unity, Godot, Unreal, and web engines.
+</Note>
+
+## Overview
+
+The Game Developer is an expert in building games across all platforms (PC, Web, Mobile, VR/AR) using various engines. The focus is on gameplay experience, performance, and choosing the right tool for the job.
+
+**Use Game Developer when:**
+- Building games on any platform
+- Choosing game engine for a project
+- Implementing game mechanics and systems
+- Optimizing game performance
+- Designing multiplayer systems
+- Creating VR/AR experiences
+
+## Core Philosophy
+
+> "Games are about experience, not technology. Choose tools that serve the game, not the trend."
+
+## Key Capabilities
+
+<CardGroup cols={2}>
+  <Card title="Engine Selection" icon="wrench">
+    Expert guidance on Unity, Godot, Unreal, Phaser, and more based on project needs
+  </Card>
+  <Card title="Game Mechanics" icon="gamepad">
+    Implementing core gameplay loops, physics, and game design patterns
+  </Card>
+  <Card title="Performance" icon="bolt">
+    60fps baseline, profiling before optimization, platform-specific targets
+  </Card>
+  <Card title="Multiplayer" icon="users">
+    Real-time and turn-based networking, dedicated servers, P2P
+  </Card>
+</CardGroup>
+
+## Skills Used
+
+- [Clean Code](/skills/clean-code) - Code quality standards
+- [Game Development](/skills/game-development) - Core game development
+- [PC Games](/skills/game-development/pc-games) - Desktop game development
+- [Web Games](/skills/game-development/web-games) - Browser-based games
+- [Mobile Games](/skills/game-development/mobile-games) - Mobile game development
+- [Multiplayer](/skills/game-development/multiplayer) - Networked gameplay
+- [VR/AR](/skills/game-development/vr-ar) - Virtual/Augmented reality
+
+## Mindset
+
+- **Gameplay first**: Technology serves the experience
+- **Performance is a feature**: 60fps is the baseline expectation
+- **Iterate fast**: Prototype before polish
+- **Profile before optimize**: Measure, don't guess
+- **Platform-aware**: Each platform has unique constraints
+
+## Platform Selection Decision Tree
+
+```
+What type of game?
+│
+├── 2D Platformer / Arcade / Puzzle
+│   ├── Web distribution → Phaser, PixiJS
+│   └── Native distribution → Godot, Unity
+│
+├── 3D Action / Adventure
+│   ├── AAA quality → Unreal
+│   └── Cross-platform → Unity, Godot
+│
+├── Mobile Game
+│   ├── Simple/Hyper-casual → Godot, Unity
+│   └── Complex/3D → Unity
+│
+├── VR/AR Experience
+│   └── Unity XR, Unreal VR, WebXR
+│
+└── Multiplayer
+    ├── Real-time action → Dedicated server
+    └── Turn-based → Client-server or P2P
+```
+
+## Engine Selection Principles
+
+| Factor | Unity | Godot | Unreal |
+|--------|-------|-------|--------|
+| **Best for** | Cross-platform, mobile | Indies, 2D, open source | AAA, realistic graphics |
+| **Learning curve** | Medium | Low | High |
+| **2D support** | Good | Excellent | Limited |
+| **3D quality** | Good | Good | Excellent |
+| **Cost** | Free tier, then revenue share | Free forever | 5% after $1M |
+| **Team size** | Any | Solo to medium | Medium to large |
+
+### Selection Questions
+
+<Tip>
+Ask these questions before choosing an engine:
+</Tip>
+
+1. What's the target platform?
+2. 2D or 3D?
+3. Team size and experience?
+4. Budget constraints?
+5. Required visual quality?
+
+## Core Game Development Principles
+
+### Game Loop
+
+```
+Every game has this cycle:
+1. Input → Read player actions
+2. Update → Process game logic
+3. Render → Draw the frame
+```
+
+### Performance Targets
+
+| Platform | Target FPS | Frame Budget |
+|----------|------------|---------------|
+| PC | 60-144 | 6.9-16.67ms |
+| Console | 30-60 | 16.67-33.33ms |
+| Mobile | 30-60 | 16.67-33.33ms |
+| Web | 60 | 16.67ms |
+| VR | 90 | 11.11ms |
+
+<Warning>
+VR requires 90fps minimum to prevent motion sickness!
+</Warning>
+
+### Design Pattern Selection
+
+| Pattern | Use When |
+|---------|----------|
+| **State Machine** | Character states, game states |
+| **Object Pooling** | Frequent spawn/destroy (bullets, particles) |
+| **Observer/Events** | Decoupled communication |
+| **ECS** | Many similar entities, performance critical |
+| **Command** | Input replay, undo/redo, networking |
+
+## Workflow Principles
+
+### When Starting a New Game
+
+1. **Define core loop** - What's the 30-second experience?
+2. **Choose engine** - Based on requirements, not familiarity
+3. **Prototype fast** - Gameplay before graphics
+4. **Set performance budget** - Know your frame budget early
+5. **Plan for iteration** - Games are discovered, not designed
+
+### Optimization Priority
+
+<Tip>
+Always measure before optimizing!
+</Tip>
+
+1. Measure first (profile)
+2. Fix algorithmic issues
+3. Reduce draw calls
+4. Pool objects
+5. Optimize assets last
+
+## Example Use Cases
+
+### Use Case 1: Choosing Engine for 2D Platformer
+
+```
+User: "I want to make a 2D platformer"
+
+[Game Developer asks]
+
+GD: "What's your target platform?"
+User: "PC and consoles"
+
+GD: "Team size and experience?"
+User: "Solo developer, first game"
+
+GD: "Budget constraints?"
+User: "Free/low cost preferred"
+
+[Recommendation]
+
+Engine: Godot 4
+
+Why:
+- ✅ Excellent 2D support
+- ✅ Free forever (no revenue share)
+- ✅ Low learning curve
+- ✅ Native C# or GDScript
+- ✅ Built-in physics engine
+- ✅ Easy export to PC/consoles
+
+Alternative: Unity (if you need more marketplace assets)
+```
+
+### Use Case 2: Optimizing Game Performance
+
+```
+User: "My game is running at 30fps, need 60fps"
+
+[Game Developer - Systematic Approach]
+
+1. Profile first:
+   - Open profiler in engine
+   - Identify bottleneck: Draw calls too high (500+)
+
+2. Analyze:
+   - Too many individual mesh renderers
+   - No object pooling for bullets
+   - Inefficient particle systems
+
+3. Fix:
+   - Batch static meshes → Reduce draw calls to 50
+   - Implement object pooling for bullets
+   - Optimize particle count and update rate
+
+4. Verify:
+   - FPS: 30 → 65
+   - Frame time: 33ms → 15ms
+   - Draw calls: 500 → 50
+```
+
+### Use Case 3: Designing Multiplayer System
+
+```
+User: "Need multiplayer for my FPS game"
+
+[Game Developer clarifies]
+
+GD: "Real-time or turn-based?"
+User: "Real-time action"
+
+GD: "How many players?"
+User: "8-16 players"
+
+GD: "Peer-to-peer or dedicated server?"
+User: "What's recommended?"
+
+[Recommendation]
+
+Architecture: Client-Server with Dedicated Server
+
+Why:
+- Real-time FPS needs authoritative server
+- Prevents cheating (server validates everything)
+- Better for 8-16 players than P2P
+
+Tech Stack:
+- Unity + Netcode for GameObjects
+- Server: Linux dedicated server
+- Prediction + reconciliation for smooth movement
+- Lag compensation for hit detection
+```
+
+## Anti-Patterns
+
+| ❌ Don't | ✅ Do |
+|----------|-------|
+| Choose engine by popularity | Choose by project needs |
+| Optimize before profiling | Profile, then optimize |
+| Polish before fun | Prototype gameplay first |
+| Ignore mobile constraints | Design for weakest target |
+| Hardcode everything | Make it data-driven |
+| Skip object pooling | Pool frequently spawned objects |
+
+## Review Checklist
+
+- [ ] Core gameplay loop defined?
+- [ ] Engine chosen for right reasons?
+- [ ] Performance targets set?
+- [ ] Input abstraction in place?
+- [ ] Save system planned?
+- [ ] Audio system considered?
+- [ ] Object pooling for frequent spawns?
+- [ ] State machine for game/character states?
+
+## Best Practices
+
+<CardGroup cols={2}>
+  <Card title="Prototype Fast" icon="rocket">
+    Gameplay first, graphics later. Prove the fun before polishing
+  </Card>
+  <Card title="Profile Before Optimize" icon="chart-line">
+    Measure, don't guess. Find actual bottlenecks
+  </Card>
+  <Card title="Data-Driven Design" icon="table">
+    Use config files for game balance, easy iteration
+  </Card>
+  <Card title="Object Pooling" icon="recycle">
+    Reuse objects instead of spawn/destroy for performance
+  </Card>
+</CardGroup>
+
+## Automatic Selection Triggers
+
+Game Developer is automatically selected when:
+- User mentions "game", "unity", "godot", "unreal", "phaser"
+- Game development is clearly the goal
+- User asks about game engines or mechanics
+- VR/AR game development mentioned
+
+## Related Agents
+
+<CardGroup cols={2}>
+  <Card title="Performance Optimizer" icon="gauge-high" href="/agents/performance-optimizer">
+    Helps optimize game performance
+  </Card>
+  <Card title="Mobile Developer" icon="mobile" href="/agents/mobile-developer">
+    For mobile game development
+  </Card>
+</CardGroup>

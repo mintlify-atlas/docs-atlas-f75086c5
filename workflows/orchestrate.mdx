@@ -1,0 +1,174 @@
+---
+title: "/orchestrate"
+description: "Multi-agent coordination for complex full-stack tasks"
+---
+
+The `/orchestrate` command coordinates multiple specialist agents to solve complex problems requiring different domain expertise. This is the most powerful workflow for full-stack features.
+
+## When to use this
+
+<CardGroup cols={2}>
+  <Card title="Full-stack features" icon="layer-group">
+    Tasks spanning frontend, backend, and database
+  </Card>
+  <Card title="Complex tasks" icon="diagram-project">
+    Multi-step tasks requiring coordination
+  </Card>
+  <Card title="Multiple domains" icon="puzzle-piece">
+    Tasks needing different specialist perspectives
+  </Card>
+  <Card title="Comprehensive reviews" icon="clipboard-check">
+    Security, performance, and quality analysis
+  </Card>
+</CardGroup>
+
+## Critical requirement
+
+<Warning>
+  **MINIMUM 3 AGENTS**: Orchestration requires at least 3 different specialist agents. Fewer agents = simple delegation, not orchestration.
+</Warning>
+
+## Two-phase orchestration
+
+### Phase 1: Planning
+
+<Steps>
+  <Step title="Project planning">
+    The [project-planner agent](/agents/project-planner) creates `docs/PLAN.md` with:
+    - Task breakdown
+    - Agent assignments
+    - Timeline estimates
+  </Step>
+  
+  <Step title="Checkpoint: User approval">
+    **You must approve the plan before implementation starts.**
+    
+    The system asks:
+    ```
+    ✅ Plan created: docs/PLAN.md
+    
+    Do you approve? (Y/N)
+    - Y: Start implementation
+    - N: I'll revise the plan
+    ```
+  </Step>
+</Steps>
+
+### Phase 2: Implementation (After Approval)
+
+Multiple agents work in parallel:
+
+| Parallel Group | Agents |
+|----------------|--------|
+| **Foundation** | database-architect, security-auditor |
+| **Core** | backend-specialist, frontend-specialist |
+| **Polish** | test-engineer, devops-engineer |
+
+## Agent selection matrix
+
+| Task Type | Required Agents (minimum 3) |
+|-----------|---------------------------|
+| **Web App** | frontend-specialist, backend-specialist, test-engineer |
+| **API** | backend-specialist, security-auditor, test-engineer |
+| **UI/Design** | frontend-specialist, seo-specialist, performance-optimizer |
+| **Database** | database-architect, backend-specialist, security-auditor |
+| **Full Stack** | project-planner, frontend-specialist, backend-specialist, devops-engineer |
+| **Debug** | debugger, explorer-agent, test-engineer |
+| **Security** | security-auditor, penetration-tester, devops-engineer |
+
+## Available agents (17 total)
+
+| Agent | Domain | Use When |
+|-------|--------|----------|
+| [project-planner](/agents/project-planner) | Planning | Task breakdown, PLAN.md |
+| [explorer-agent](/agents/explorer-agent) | Discovery | Codebase mapping |
+| [frontend-specialist](/agents/frontend-specialist) | UI/UX | React, Vue, CSS, HTML |
+| [backend-specialist](/agents/backend-specialist) | Server | API, Node.js, Python |
+| [database-architect](/agents/database-architect) | Data | SQL, NoSQL, Schema |
+| [security-auditor](/agents/security-auditor) | Security | Vulnerabilities, Auth |
+| [penetration-tester](/agents/penetration-tester) | Security | Active testing |
+| [test-engineer](/agents/test-engineer) | Testing | Unit, E2E, Coverage |
+| [devops-engineer](/agents/devops-engineer) | Ops | CI/CD, Docker, Deploy |
+| [mobile-developer](/agents/mobile-developer) | Mobile | React Native, Flutter |
+| [performance-optimizer](/agents/performance-optimizer) | Speed | Lighthouse, Profiling |
+| [seo-specialist](/agents/seo-specialist) | SEO | Meta, Schema, Rankings |
+| [documentation-writer](/agents/documentation-writer) | Docs | README, API docs |
+| [debugger](/agents/debugger) | Debug | Error analysis |
+| [game-developer](/agents/game-developer) | Games | Unity, Godot |
+
+## Output format
+
+You'll receive an orchestration report:
+
+```markdown
+## 🎼 Orchestration Report
+
+### Task
+[Original task summary]
+
+### Agents Invoked (MINIMUM 3)
+| # | Agent | Focus Area | Status |
+|---|-------|------------|--------|
+| 1 | project-planner | Task breakdown | ✅ |
+| 2 | frontend-specialist | UI implementation | ✅ |
+| 3 | test-engineer | Verification scripts | ✅ |
+
+### Verification Scripts Executed
+- [x] security_scan.py → Pass
+- [x] lint_runner.py → Pass
+
+### Key Findings
+1. **project-planner**: Created 5-phase implementation plan
+2. **frontend-specialist**: Built responsive UI with dark mode
+3. **test-engineer**: 95% test coverage achieved
+
+### Deliverables
+- [x] PLAN.md created
+- [x] Code implemented
+- [x] Tests passing
+- [x] Scripts verified
+
+### Summary
+[One paragraph synthesis of all agent work]
+```
+
+## Usage examples
+
+```bash
+/orchestrate build e-commerce platform
+```
+
+Coordinate frontend, backend, database, and testing agents
+
+```bash
+/orchestrate security audit and fixes
+```
+
+Run security-auditor, penetration-tester, and devops-engineer
+
+```bash
+/orchestrate optimize performance
+```
+
+Use performance-optimizer, frontend-specialist, and backend-specialist
+
+## Key principles
+
+<Note>
+  **Context passing**: Each agent receives full context including user decisions and previous agent work.
+</Note>
+
+<Note>
+  **Verification required**: The last agent must run validation scripts (security_scan.py, lint_runner.py).
+</Note>
+
+<Note>
+  **User approval**: Implementation Phase 2 only starts after you approve Phase 1 plan.
+</Note>
+
+## Related workflows
+
+- [/plan](/workflows/plan) - Planning-only mode (no implementation)
+- [/create](/workflows/create) - Simpler single-domain creation
+- [/test](/workflows/test) - Verify orchestrated work
+- [/deploy](/workflows/deploy) - Deploy after orchestration

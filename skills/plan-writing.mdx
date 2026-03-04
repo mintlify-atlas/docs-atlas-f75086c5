@@ -1,0 +1,156 @@
+---
+title: Plan Writing
+description: Structured task planning with clear breakdowns, dependencies, and verification criteria
+---
+
+## Overview
+
+The plan-writing skill provides a principle-based framework for breaking down work into clear, actionable tasks with verification criteria. It emphasizes simplicity, specificity, and dynamic planning over rigid templates.
+
+## What This Skill Provides
+
+- **Task breakdown principles**: Small, focused, independently verifiable tasks
+- **Clear verification criteria**: How to know when each task is complete
+- **Logical ordering**: Dependencies and critical paths identified
+- **Dynamic naming**: Plans saved as `{task-slug}.md` in project root
+- **Project-specific guidance**: Different approaches for new projects, features, and bug fixes
+
+## Core Principles
+
+### 1. Keep It SHORT
+
+- 5-10 clear tasks maximum
+- One-line per task
+- No verbose descriptions
+- If longer than 1 page, it's too long
+
+### 2. Be SPECIFIC, Not Generic
+
+**Wrong**: "Set up project"  
+**Right**: "Run `npx create-next-app`"
+
+**Wrong**: "Add authentication"  
+**Right**: "Install next-auth, create `/api/auth/[...nextauth].ts`"
+
+### 3. Dynamic Content Based on Project Type
+
+**For NEW PROJECT:**
+- Decide tech stack first
+- Define MVP features
+- Plan file structure
+
+**For FEATURE ADDITION:**
+- Identify affected files
+- List required dependencies
+- Define verification steps
+
+**For BUG FIX:**
+- Identify root cause
+- Specify file/line to change
+- Define test procedure
+
+### 4. Scripts Are Project-Specific
+
+Only include relevant verification scripts:
+- Frontend/React: UX audit, accessibility checker
+- Backend/API: API validator, security scan
+- Mobile: Mobile audit
+- Database: Schema validator
+
+### 5. Verification is Simple
+
+**Wrong**: "Verify the component works correctly"  
+**Right**: "Run `npm run dev`, click button, see toast"
+
+## Task Breakdown Principles
+
+### Small, Focused Tasks
+- 2-5 minutes per task
+- One clear outcome
+- Independently verifiable
+
+### Clear Verification
+- How do you know it's done?
+- What can you check/test?
+- What's the expected output?
+
+### Logical Ordering
+- Dependencies identified
+- Parallel work where possible
+- Critical path highlighted
+- **Phase X: Verification is always LAST**
+
+## Plan Structure
+
+```markdown
+# [Task Name]
+
+## Goal
+One sentence: What are we building/fixing?
+
+## Tasks
+- [ ] Task 1: [Specific action] → Verify: [How to check]
+- [ ] Task 2: [Specific action] → Verify: [How to check]
+- [ ] Task 3: [Specific action] → Verify: [How to check]
+
+## Done When
+- [ ] [Main success criteria]
+
+## Notes
+[Any important considerations]
+```
+
+## Use Cases
+
+- Planning new projects from scratch
+- Breaking down feature additions
+- Structuring complex bug fixes
+- Organizing refactoring work across multiple files
+- Creating deployment checklists
+
+## Best Practices
+
+1. **Start with goal** - What are we building/fixing?
+2. **Max 10 tasks** - If more, break into multiple plans
+3. **Each task verifiable** - Clear "done" criteria
+4. **Project-specific** - No copy-paste templates
+5. **Update as you go** - Mark `[x]` when complete
+
+## Related Skills
+
+- [Brainstorming](/skills/brainstorming) - Clarifies requirements before planning
+- [App Builder](/skills/app-builder) - Uses plan-writing for project structure
+- [Architecture](/skills/architecture) - Architectural decisions inform planning
+- [Systematic Debugging](/skills/systematic-debugging) - Structured debugging plans
+
+## Which Agents Use This Skill
+
+- **project-planner** - Primary user for task breakdown
+- **orchestrator** - Coordinates multi-agent plans
+- **product-owner** - Product roadmap planning
+- **app-builder** (via project-planner) - Initial project setup
+
+## Anti-Patterns to Avoid
+
+- Creating 50+ tasks with sub-sub-tasks
+- Using generic descriptions like "Set up project"
+- Adding all verification scripts to every plan
+- Writing verbose multi-page plans
+- Not updating plan as work progresses
+
+## Dynamic Naming Convention
+
+Plans are saved in the project root with descriptive names:
+- "add auth" → `auth-feature.md`
+- "fix login bug" → `login-fix.md`
+- "refactor API" → `api-refactor.md`
+
+**Never** save inside `.claude/`, `docs/`, or temp folders.
+
+## Verification Phase
+
+Always include a final verification phase:
+- Run the application
+- Test the main functionality
+- Execute relevant audit scripts
+- Verify no regressions introduced

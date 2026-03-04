@@ -1,0 +1,94 @@
+---
+title: Database Design
+description: Database design principles and decision-making for schema design, indexing, and ORM selection
+---
+
+## Overview
+
+The **database-design** skill provides comprehensive guidance on database architecture, helping you make informed decisions about database selection, schema design, indexing strategies, and ORM choices. This skill emphasizes understanding principles over copying patterns.
+
+## What This Skill Provides
+
+- **Database Selection Guidance**: Choose between PostgreSQL, Neon, Turso, SQLite based on context
+- **Schema Design Principles**: Normalization, primary keys, relationships, and data modeling
+- **Indexing Strategy**: Index types, composite indexes, and performance optimization
+- **ORM Selection**: Compare Drizzle, Prisma, and Kysely for your use case
+- **Query Optimization**: Address N+1 queries, use EXPLAIN ANALYZE effectively
+- **Migration Management**: Safe schema changes for serverless and traditional databases
+
+## Key Components
+
+### Reference Files
+
+| File | Purpose |
+|------|----------|
+| `database-selection.md` | PostgreSQL vs Neon vs Turso vs SQLite comparison |
+| `orm-selection.md` | Drizzle vs Prisma vs Kysely decision guide |
+| `schema-design.md` | Normalization, PKs, relationships |
+| `indexing.md` | Index types, composite indexes |
+| `optimization.md` | N+1 queries, EXPLAIN ANALYZE |
+| `migrations.md` | Safe migrations for serverless databases |
+
+### Core Principles
+
+- **Context-Driven Decisions**: Always ask about database preferences when unclear
+- **No Default Assumptions**: Don't default to PostgreSQL for every project
+- **Environment Awareness**: Consider deployment environment in decision-making
+- **Performance First**: Plan index strategy from the start
+
+## Use Cases
+
+### When to Use This Skill
+
+- Designing a new database schema for an application
+- Choosing between different database systems
+- Optimizing slow queries and addressing N+1 problems
+- Selecting an ORM or query builder
+- Planning migration strategies
+- Implementing indexing for performance
+
+### Example Scenarios
+
+1. **Schema Design**: "Design a multi-tenant SaaS database schema"
+2. **Database Selection**: "Should I use PostgreSQL or SQLite for this project?"
+3. **Performance**: "My API is slow - help optimize the database queries"
+4. **Migrations**: "How do I safely migrate this schema in production?"
+
+## Anti-Patterns to Avoid
+
+- ❌ Defaulting to PostgreSQL for simple apps (SQLite may suffice)
+- ❌ Skipping indexing strategy during initial design
+- ❌ Using `SELECT *` in production queries
+- ❌ Storing JSON when structured data is more appropriate
+- ❌ Ignoring N+1 query problems
+
+## Related Skills
+
+- **api-patterns**: Database integration with API design
+- **nodejs-best-practices**: Node.js database connection patterns
+- **python-patterns**: Python database best practices
+- **performance-profiling**: Database performance analysis
+
+## Which Agents Use This Skill
+
+- **database-architect**: Primary user of this skill
+- **backend-specialist**: Uses for API and database integration
+
+## Decision Checklist
+
+Before designing a schema:
+
+- [ ] Asked user about database preference?
+- [ ] Chosen database appropriate for the context?
+- [ ] Considered deployment environment?
+- [ ] Planned index strategy?
+- [ ] Defined relationship types?
+
+## Tools Available
+
+- Read, Write, Edit: For working with schema files
+- Glob, Grep: For searching existing database code
+
+---
+
+**Philosophy**: Learn to THINK about database design, not copy SQL patterns. Every decision should be driven by the specific requirements and constraints of your application.

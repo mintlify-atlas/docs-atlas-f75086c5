@@ -1,0 +1,177 @@
+---
+title: Next.js & React Performance Expert
+description: Master React and Next.js performance optimization with 57 rules from Vercel Engineering
+---
+
+<Note>
+This skill provides React and Next.js performance optimization knowledge from Vercel Engineering, covering 57 optimization rules across 8 critical categories.
+</Note>
+
+## What This Skill Provides
+
+The Next.js & React Performance Expert skill equips agents with comprehensive performance optimization strategies for React and Next.js applications. It follows a philosophy of **eliminating waterfalls first, optimizing bundles second, then micro-optimizing**.
+
+### Core Knowledge Areas
+
+<Card title="Critical Optimizations" icon="bolt">
+- **Eliminating Waterfalls** - Parallel data fetching, Promise.all(), Suspense boundaries
+- **Bundle Size Optimization** - Dynamic imports, tree-shaking, avoiding barrel imports
+- **Server-Side Performance** - Parallel server fetching, streaming, API route optimization
+</Card>
+
+<Card title="Medium Priority Optimizations" icon="gauge">
+- **Client-Side Data Fetching** - SWR deduplication, localStorage caching
+- **Re-render Optimization** - React.memo, useMemo, useCallback patterns
+- **Rendering Performance** - Virtualization, image optimization, layout thrashing prevention
+</Card>
+
+<Card title="Advanced Patterns" icon="sparkles">
+- **JavaScript Performance** - Loop optimization, caching, RegExp hoisting
+- **Advanced React Patterns** - useLatest hook, init-once patterns, event handler refs
+</Card>
+
+## When This Skill Is Loaded
+
+Agents automatically load this skill when:
+
+- Building React components or Next.js applications
+- Optimizing application performance
+- Eliminating data fetching waterfalls
+- Reducing bundle size or improving Time to Interactive
+- Reviewing code for performance issues
+- Implementing server-side or client-side optimizations
+
+<Tip>
+The skill uses a selective reading approach - agents only load sections relevant to the specific performance issue at hand, rather than reading all 57 rules upfront.
+</Tip>
+
+## Use Cases
+
+### Performance Audits
+When conducting performance reviews, agents start with CRITICAL sections (waterfalls and bundle size), then move to HIGH/MEDIUM priority optimizations based on profiling results.
+
+### New Feature Development
+- Check waterfalls and bundle size while building (prevent issues)
+- Use server components by default
+- Apply memoization for expensive operations
+
+### Debugging Slow Performance
+1. Identify the symptom (slow load, UI lag, etc.)
+2. Use the skill's decision tree to find relevant section
+3. Apply fixes in priority order
+
+### Code Reviews
+Review implementations against the performance checklist:
+- No sequential data fetching
+- Bundle size under 200KB
+- No barrel imports in app code
+- Dynamic imports for large components
+- Parallel data fetching where possible
+
+## Key Principles
+
+<Note>
+**Golden Rules from Vercel Engineering:**
+
+1. **Measure first** - Use React DevTools Profiler and Chrome DevTools
+2. **Biggest impact first** - Waterfalls → Bundle → Server → Micro
+3. **Don't over-optimize** - Focus on real bottlenecks
+4. **Use platform features** - Next.js has optimizations built-in
+5. **Think about users** - Real-world conditions matter
+</Note>
+
+### Performance Mindset
+
+- Every `await` in sequence = potential waterfall
+- Every `import` = potential bundle bloat
+- Every re-render = wasted computation (if unnecessary)
+- Server components = less JavaScript to ship
+- Measure, don't guess
+
+## Related Skills
+
+<CardGroup cols={2}>
+<Card title="API Patterns" href="/skills/api-patterns">
+API design patterns for optimizing data fetching
+</Card>
+
+<Card title="Frontend Design" href="/skills/frontend-design">
+UI/UX design principles for React components
+</Card>
+
+<Card title="Tailwind Patterns" href="/skills/tailwind-patterns">
+Modern CSS-first styling with Tailwind v4
+</Card>
+
+<Card title="Web Design Guidelines" href="/skills/web-design-guidelines">
+Accessibility and best practices auditing
+</Card>
+</CardGroup>
+
+## Which Agents Use This Skill
+
+<Card title="Frontend Specialist" href="/agents/frontend-specialist" icon="browser">
+The primary agent using this skill. The Frontend Specialist loads this skill for all React and Next.js development work, performance optimization, and code reviews.
+</Card>
+
+<Tip>
+The Frontend Specialist combines this skill with `frontend-design`, `tailwind-patterns`, and `web-design-guidelines` for comprehensive frontend development.
+</Tip>
+
+## Impact Priority Guide
+
+The skill organizes optimizations by impact:
+
+**1️⃣ CRITICAL (Biggest Gains - Do First)**
+- Eliminating Waterfalls - Each waterfall adds 100-500ms+ latency
+- Bundle Size Optimization - Affects Time to Interactive and Largest Contentful Paint
+
+**2️⃣ HIGH (Significant Impact - Do Second)**
+- Server-Side Performance - Faster response times, better SEO
+
+**3️⃣ MEDIUM (Moderate Gains - Do Third)**
+- Client-Side Data Fetching, Re-render Optimization, Rendering Performance
+
+**4️⃣ LOW (Polish - Do Last)**
+- JavaScript Performance micro-optimizations, Advanced Patterns
+
+## Anti-Patterns to Avoid
+
+<Warning>
+**Don't:**
+- Use sequential `await` for independent operations
+- Import entire libraries when you need one function
+- Use barrel exports (`index.ts` re-exports) in app code
+- Skip dynamic imports for large components/libraries
+- Fetch data in useEffect without deduplication
+- Forget to memoize expensive computations
+- Use client components when server components work
+
+**Do:**
+- Fetch data in parallel with `Promise.all()`
+- Use dynamic imports: `const Comp = dynamic(() => import('./Heavy'))`
+- Import directly: `import { specific } from 'library/specific'`
+- Use Suspense boundaries for better UX
+- Leverage React Server Components
+- Measure performance before optimizing
+</Warning>
+
+## Content Organization
+
+The skill contains 8 detailed reference files covering 57 optimization rules:
+
+1. **Eliminating Waterfalls** (5 rules) - CRITICAL impact
+2. **Bundle Size Optimization** (5 rules) - CRITICAL impact  
+3. **Server-Side Performance** (7 rules) - HIGH impact
+4. **Client-Side Data Fetching** (4 rules) - MEDIUM-HIGH impact
+5. **Re-render Optimization** (12 rules) - MEDIUM impact
+6. **Rendering Performance** (9 rules) - MEDIUM impact
+7. **JavaScript Performance** (12 rules) - LOW-MEDIUM impact
+8. **Advanced Patterns** (3 rules) - VARIABLE impact
+
+---
+
+<Tip>
+**Source:** Vercel Engineering (January 2026)  
+**Total Rules:** 57 across 8 categories
+</Tip>

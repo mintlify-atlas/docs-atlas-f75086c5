@@ -1,0 +1,477 @@
+---
+title: 'Workflows'
+description: 'Slash command procedures for common development tasks'
+---
+
+## What are Workflows?
+
+Workflows are pre-defined slash command procedures that orchestrate agents and skills for common development tasks. Invoke them with `/command` syntax.
+
+```bash
+/brainstorm authentication system
+/create todo app
+/debug login not working
+/deploy to production
+```
+
+## Available Workflows (11)
+
+Antigravity Kit includes 11 workflows for different scenarios:
+
+### `/brainstorm`
+
+**Structured idea exploration**
+
+Explores multiple options before implementation.
+
+<Accordion title="Usage & Examples">
+  **Purpose**: Generate and compare different approaches to a problem.
+
+  **Behavior**:
+  1. Understand the goal and constraints
+  2. Generate at least 3 different approaches
+  3. Compare pros/cons of each option
+  4. Provide recommendation with reasoning
+
+  **Examples**:
+  ```bash
+  /brainstorm authentication system
+  /brainstorm state management for complex form
+  /brainstorm database schema for social app
+  /brainstorm caching strategy
+  ```
+
+  **Output Format**:
+  - Context summary
+  - Option A, B, C with pros/cons
+  - Effort estimation for each
+  - Final recommendation
+</Accordion>
+
+---
+
+### `/create`
+
+**Create new application**
+
+Starts interactive application creation process.
+
+<Accordion title="Usage & Examples">
+  **Purpose**: Build new applications from scratch with proper planning.
+
+  **Workflow**:
+  1. **Request Analysis**: Understand what you want
+  2. **Project Planning**: Use `project-planner` agent
+  3. **Application Building**: Orchestrate `app-builder` skill
+  4. **Preview**: Start with `auto_preview.py`
+
+  **Coordinates**:
+  - `database-architect` → Schema
+  - `backend-specialist` → API
+  - `frontend-specialist` → UI
+
+  **Examples**:
+  ```bash
+  /create blog site
+  /create e-commerce app with product listing
+  /create todo app
+  /create Instagram clone
+  /create crm system
+  ```
+
+  **Asks if unclear**:
+  - What type of application?
+  - What are the basic features?
+  - Who will use it?
+</Accordion>
+
+---
+
+### `/debug`
+
+**Systematic problem investigation**
+
+<Accordion title="Usage & Examples">
+  **Purpose**: Investigate issues, errors, or unexpected behavior systematically.
+
+  **Behavior**:
+  1. **Gather information**: Error message, reproduction steps, recent changes
+  2. **Form hypotheses**: List possible causes ordered by likelihood
+  3. **Investigate systematically**: Test each hypothesis
+  4. **Fix and prevent**: Apply fix, explain root cause, add prevention
+
+  **Uses**: `debugger` agent with `systematic-debugging` skill
+
+  **Examples**:
+  ```bash
+  /debug login not working
+  /debug API returns 500
+  /debug form doesn't submit
+  /debug data not saving
+  ```
+
+  **Output**:
+  - Symptom description
+  - Information gathered
+  - Hypotheses tested
+  - Root cause identified
+  - Fix applied
+  - Prevention measures
+</Accordion>
+
+---
+
+### `/deploy`
+
+**Deploy application**
+
+<Accordion title="Usage & Examples">
+  **Purpose**: Deploy application to production or staging.
+
+  **Uses**: `devops-engineer` agent with `deployment-procedures` skill
+
+  **Workflow**:
+  1. Detect platform (Vercel, AWS, Docker, etc.)
+  2. Prepare build artifacts
+  3. Execute deployment scripts
+  4. Verify health checks
+  5. Output deployment URL
+
+  **Examples**:
+  ```bash
+  /deploy to vercel
+  /deploy to aws
+  /deploy with docker
+  ```
+</Accordion>
+
+---
+
+### `/enhance`
+
+**Improve existing code**
+
+<Accordion title="Usage & Examples">
+  **Purpose**: Improve code quality, performance, or maintainability.
+
+  **Can invoke**:
+  - `performance-optimizer` for speed improvements
+  - `code-archaeologist` for refactoring
+  - `security-auditor` for security hardening
+
+  **Examples**:
+  ```bash
+  /enhance performance of API
+  /enhance accessibility of UI
+  /enhance security of auth system
+  ```
+</Accordion>
+
+---
+
+### `/orchestrate`
+
+**Multi-agent coordination**
+
+Coordinates multiple specialist agents for complex tasks.
+
+<Accordion title="Usage & Examples">
+  **Purpose**: Solve complex problems requiring multiple domain experts.
+
+  **Critical Rules**:
+  - ⚠️ Minimum 3 agents required
+  - Two phases: Planning → Implementation
+  - User approval required between phases
+
+  **Phase 1: Planning**
+  1. `project-planner` creates docs/PLAN.md
+  2. (optional) `explorer-agent` for codebase discovery
+  3. **STOP** and ask for user approval
+
+  **Phase 2: Implementation** (after approval)
+  - Invoke multiple agents in parallel
+  - Coordinate: `database-architect`, `backend-specialist`, `frontend-specialist`, etc.
+  - Run verification scripts
+
+  **Examples**:
+  ```bash
+  /orchestrate build full-stack e-commerce app
+  /orchestrate review and improve authentication system
+  /orchestrate migrate from REST to GraphQL
+  ```
+
+  **Agent Selection Matrix**:
+  | Task Type | Required Agents |
+  |-----------|----------------|
+  | Web App | frontend-specialist, backend-specialist, test-engineer |
+  | API | backend-specialist, security-auditor, test-engineer |
+  | Full Stack | project-planner, frontend, backend, devops-engineer |
+</Accordion>
+
+---
+
+### `/plan`
+
+**Task breakdown**
+
+<Accordion title="Usage & Examples">
+  **Purpose**: Break down large tasks into structured plans.
+
+  **Uses**: `project-planner` agent with `plan-writing` skill
+
+  **Workflow**:
+  1. Analyze requirements
+  2. Break down into tasks with estimates
+  3. Output structured plan with milestones
+  4. Create docs/PLAN.md
+
+  **Examples**:
+  ```bash
+  /plan migration to TypeScript
+  /plan refactor authentication system
+  /plan implement real-time features
+  ```
+
+  **Output**: Structured markdown file with:
+  - Project overview
+  - Task breakdown
+  - Milestones
+  - Effort estimates
+</Accordion>
+
+---
+
+### `/preview`
+
+**Preview changes**
+
+<Accordion title="Usage & Examples">
+  **Purpose**: Preview application in development server.
+
+  **Behavior**:
+  1. Detect framework (Next.js, Vite, etc.)
+  2. Start development server
+  3. Present URL to user
+
+  **Examples**:
+  ```bash
+  /preview
+  /preview on port 8080
+  ```
+</Accordion>
+
+---
+
+### `/status`
+
+**Check project status**
+
+<Accordion title="Usage & Examples">
+  **Purpose**: Get overview of project health and status.
+
+  **Checks**:
+  - Git status
+  - Dependency status
+  - Test status
+  - Build status
+  - Deployment status
+
+  **Examples**:
+  ```bash
+  /status
+  /status detailed
+  ```
+</Accordion>
+
+---
+
+### `/test`
+
+**Test generation & execution**
+
+<Accordion title="Usage & Examples">
+  **Purpose**: Generate tests, run existing tests, or check coverage.
+
+  **Uses**: `test-engineer` agent with `testing-patterns` and `webapp-testing` skills
+
+  **Sub-commands**:
+  ```bash
+  /test                # Run all tests
+  /test [file/feature] # Generate tests for target
+  /test coverage       # Show coverage report
+  /test watch          # Run in watch mode
+  ```
+
+  **Generate Tests Workflow**:
+  1. Analyze the code
+  2. Identify functions, edge cases, dependencies
+  3. Generate test cases (happy path, errors, edge cases)
+  4. Write tests using project's framework
+
+  **Examples**:
+  ```bash
+  /test src/services/auth.service.ts
+  /test user registration flow
+  /test coverage
+  /test fix failed tests
+  ```
+
+  **Test Pattern** (AAA):
+  - **Arrange**: Set up test data
+  - **Act**: Execute code
+  - **Assert**: Verify outcome
+</Accordion>
+
+---
+
+### `/ui-ux-pro-max`
+
+**Design with 50 styles**
+
+<Accordion title="Usage & Examples">
+  **Purpose**: Generate professional UI with extensive design system.
+
+  **Uses**: `ui-ux-pro-max` skill
+
+  **Workflow**:
+  1. Load ui-ux-pro-max skill
+  2. Access 50 design styles
+  3. Access 21 color palettes
+  4. Access 50 font combinations
+  5. Generate professional UI with selected style
+
+  **Examples**:
+  ```bash
+  /ui-ux-pro-max landing page
+  /ui-ux-pro-max dashboard with charts
+  ```
+</Accordion>
+
+## Workflow Best Practices
+
+### When to Use Each Workflow
+
+<CardGroup cols={2}>
+  <Card title="/brainstorm" icon="lightbulb">
+    ✓ Unclear requirements
+    
+    ✓ Need to explore options
+    
+    ✓ Complex problem needs breaking down
+  </Card>
+
+  <Card title="/create" icon="plus">
+    ✓ New feature in existing project
+    
+    ✓ Small-to-medium complexity
+    
+    ✓ Single domain (frontend OR backend)
+  </Card>
+
+  <Card title="/orchestrate" icon="sitemap">
+    ✓ Full-stack features
+    
+    ✓ Complex multi-step tasks
+    
+    ✓ Need multiple specialist agents
+  </Card>
+
+  <Card title="/debug" icon="bug">
+    ✓ Bug reports
+    
+    ✓ Unexpected behavior
+    
+    ✓ Performance issues
+  </Card>
+
+  <Card title="/test" icon="flask">
+    ✓ Need test coverage
+    
+    ✓ Before deployment
+    
+    ✓ After major changes
+  </Card>
+
+  <Card title="/deploy" icon="rocket">
+    ✓ Ready to ship
+    
+    ✓ After all tests pass
+    
+    ✓ Need production URL
+  </Card>
+
+  <Card title="/plan" icon="list-check">
+    ✓ Large projects
+    
+    ✓ Need time estimates
+    
+    ✓ Team coordination needed
+  </Card>
+</CardGroup>
+
+## Workflow Execution Flow
+
+Here's how a typical workflow executes:
+
+```plaintext
+┌─────────────────────────────────────────┐
+│  User: /create blog site                │
+└────────────────┬────────────────────────┘
+                 │
+                 ▼
+┌─────────────────────────────────────────┐
+│  WORKFLOW ACTIVATED: create             │
+│  1. Request Analysis                    │
+│     - Type: blog                        │
+│     - Features: posts, comments         │
+└────────────────┬────────────────────────┘
+                 │
+                 ▼
+┌─────────────────────────────────────────┐
+│  2. Project Planning                    │
+│     - Use: project-planner agent        │
+│     - Output: docs/PLAN.md              │
+└────────────────┬────────────────────────┘
+                 │
+                 ▼
+┌─────────────────────────────────────────┐
+│  3. User Approval                       │
+│     "Do you approve? (Y/N)"             │
+└────────────────┬────────────────────────┘
+                 │ [User: Y]
+                 ▼
+┌─────────────────────────────────────────┐
+│  4. Application Building                │
+│     - database-architect → Schema       │
+│     - backend-specialist → API          │
+│     - frontend-specialist → UI          │
+└────────────────┬────────────────────────┘
+                 │
+                 ▼
+┌─────────────────────────────────────────┐
+│  5. Validation                          │
+│     - Run: security_scan.py             │
+│     - Run: lint_runner.py               │
+└────────────────┬────────────────────────┘
+                 │
+                 ▼
+┌─────────────────────────────────────────┐
+│  6. Preview                             │
+│     - Start: auto_preview.py            │
+│     - URL: http://localhost:3000        │
+└─────────────────────────────────────────┘
+```
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="Agents" icon="users" href="/concepts/agents">
+    Learn about specialist agents
+  </Card>
+  <Card title="Skills" icon="puzzle-piece" href="/concepts/skills">
+    Discover modular skills
+  </Card>
+  <Card title="Architecture" icon="sitemap" href="/concepts/architecture">
+    Understand the system architecture
+  </Card>
+</CardGroup>

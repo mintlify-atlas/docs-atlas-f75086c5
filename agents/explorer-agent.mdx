@@ -1,0 +1,411 @@
+---
+title: Explorer Agent
+description: Advanced codebase discovery, deep architectural analysis, and proactive research
+---
+
+<Note>
+The Explorer Agent is the eyes and ears of the framework, mapping codebases and researching integration possibilities.
+</Note>
+
+## Overview
+
+The Explorer Agent is an expert at exploring complex codebases, mapping architectural patterns, and researching integration possibilities. It acts as the primary information source for other agents.
+
+**Use Explorer Agent when:**
+- Starting work on new or unfamiliar repository
+- Mapping out a plan for complex refactor
+- Researching feasibility of third-party integration
+- Deep-dive architectural audits
+- Initial codebase survey needed
+
+## Core Philosophy
+
+> "Understand before acting. Map before modifying."
+
+## Key Capabilities
+
+<CardGroup cols={2}>
+  <Card title="Autonomous Discovery" icon="compass">
+    Automatically maps entire project structure and critical paths
+  </Card>
+  <Card title="Architectural Reconnaissance" icon="sitemap">
+    Deep-dives into code to identify design patterns and technical debt
+  </Card>
+  <Card title="Dependency Intelligence" icon="diagram-project">
+    Analyzes not just what is used, but how it's coupled
+  </Card>
+  <Card title="Risk Analysis" icon="triangle-exclamation">
+    Proactively identifies potential conflicts or breaking changes
+  </Card>
+</CardGroup>
+
+## Skills Used
+
+- [Clean Code](/skills/clean-code) - Code quality standards
+- [Architecture](/skills/architecture) - System design principles
+- [Plan Writing](/skills/plan-writing) - Structured documentation
+- [Brainstorming](/skills/brainstorming) - Creative problem-solving
+- [Systematic Debugging](/skills/systematic-debugging) - Investigation techniques
+
+## Expertise
+
+1. **Autonomous Discovery**: Automatically maps the entire project structure
+2. **Architectural Reconnaissance**: Deep-dives into code to identify patterns
+3. **Dependency Intelligence**: Analyzes what is used and how it's coupled
+4. **Risk Analysis**: Identifies potential conflicts before they happen
+5. **Research & Feasibility**: Investigates external APIs, libraries, new features
+6. **Knowledge Synthesis**: Acts as primary information source for other agents
+
+## Advanced Exploration Modes
+
+### 🔍 Audit Mode
+
+**Purpose**: Comprehensive scan for vulnerabilities and anti-patterns
+
+**Output**: "Health Report" of the current repository
+
+**When to Use**:
+- New team member onboarding
+- Pre-refactor assessment
+- Technical debt evaluation
+
+### 🗺️ Mapping Mode
+
+**Purpose**: Create visual or structured maps of component dependencies
+
+**Output**: Dependency graph, data flow diagram
+
+**When to Use**:
+- Complex refactoring planning
+- Understanding system architecture
+- Identifying tightly coupled areas
+
+### 🧪 Feasibility Mode
+
+**Purpose**: Research if a requested feature is possible
+
+**Output**: Feasibility report with constraints and recommendations
+
+**When to Use**:
+- Evaluating new feature requests
+- Third-party integration assessment
+- Technology migration planning
+
+## Example Use Cases
+
+### Use Case 1: Initial Codebase Survey
+
+```
+Orchestrator: "Survey this codebase before planning"
+
+[Explorer Agent - Autonomous Discovery]
+
+## Phase 1: Project Structure Analysis
+
+```bash
+# Scan directory structure
+find . -type f -name "*.ts" -o -name "*.tsx" | head -20
+```
+
+Discovered:
+```
+.
+├── src/
+│   ├── app/          # Next.js App Router
+│   ├── components/   # React components
+│   ├── lib/          # Utilities
+│   └── types/        # TypeScript types
+├── prisma/        # Database schema
+├── public/        # Static assets
+└── tests/         # Test files
+```
+
+## Phase 2: Tech Stack Identification
+
+Analyzing package.json:
+
+**Frontend:**
+- Next.js 14 (App Router)
+- React 18
+- Tailwind CSS
+- TypeScript
+
+**Backend:**
+- Next.js API Routes
+- Prisma ORM
+- PostgreSQL
+
+**Testing:**
+- Vitest
+- Playwright
+
+**Deployment:**
+- Vercel (detected from vercel.json)
+
+## Phase 3: Entry Points & Critical Paths
+
+Main entry points:
+1. `src/app/page.tsx` - Homepage
+2. `src/app/api/` - API routes
+3. `prisma/schema.prisma` - Database schema
+
+Critical dependencies:
+- Authentication: Custom JWT implementation in `src/lib/auth.ts`
+- Database: Prisma client in `src/lib/db.ts`
+
+## Phase 4: Architectural Patterns
+
+Identified patterns:
+- **Server Components**: Default rendering strategy
+- **API Routes**: RESTful design
+- **Data Fetching**: Direct Prisma queries in Server Components
+- **State Management**: No global state (Server Components + URL state)
+
+## Phase 5: Code Health Metrics
+
+- Total Files: 87
+- TypeScript Coverage: 100%
+- Test Coverage: 45% (needs improvement)
+- Linting: ESLint configured
+- Formatting: Prettier configured
+
+## Phase 6: Potential Issues
+
+⚠️ **Issues Found:**
+
+1. **No error boundaries** (MEDIUM)
+   - Impact: Uncaught errors crash entire app
+   - Recommendation: Add error boundaries
+
+2. **Missing rate limiting** (HIGH)
+   - Impact: API vulnerable to abuse
+   - Files: All `/api/` routes
+   - Recommendation: Add rate limiting middleware
+
+3. **No input validation** (CRITICAL)
+   - Impact: Potential injection attacks
+   - Files: `src/app/api/users/route.ts`
+   - Recommendation: Add Zod validation
+
+4. **Large components** (MEDIUM)
+   - Files: `src/components/Dashboard.tsx` (450 lines)
+   - Recommendation: Split into smaller components
+
+## Phase 7: Recommendations
+
+For Orchestrator:
+1. Use `security-auditor` for API security review
+2. Use `test-engineer` to improve coverage (45% → 80%)
+3. Use `frontend-specialist` to refactor large components
+4. Use `backend-specialist` to add input validation
+
+## Summary
+
+**Project Type**: Full-stack Next.js web application
+**Maturity**: Early stage (MVP)
+**Tech Debt**: Medium
+**Security**: Needs attention (rate limiting, validation)
+**Test Coverage**: Low (45%)
+
+**Ready for**: Feature development after security fixes
+```
+
+### Use Case 2: Feasibility Research
+
+```
+User: "Can we add Stripe payments?"
+
+[Explorer Agent - Feasibility Mode]
+
+## Research: Stripe Integration Feasibility
+
+### 1. Current Payment Flow Analysis
+
+Existing code:
+- No payment system currently
+- Order model exists in `prisma/schema.prisma`
+- Checkout flow in `src/app/checkout/page.tsx`
+
+### 2. Stripe Integration Requirements
+
+Needed:
+1. **Backend**: API routes for creating payment intents
+2. **Frontend**: Stripe Elements for card input
+3. **Database**: Store payment status, Stripe customer IDs
+4. **Webhooks**: Handle payment events
+
+### 3. Compatibility Check
+
+✅ **Compatible:**
+- Next.js API routes: Perfect for Stripe webhooks
+- TypeScript: Official Stripe types available
+- React: Stripe React SDK available
+- PostgreSQL: Can store payment metadata
+
+❌ **Potential Issues:**
+- Need HTTPS for webhooks (production only)
+- Need webhook secret management
+- Need idempotency handling
+
+### 4. Effort Estimation
+
+**Tasks:**
+1. Install Stripe SDK (`npm install stripe @stripe/stripe-js`)
+2. Create API routes:
+   - POST /api/create-payment-intent
+   - POST /api/webhooks/stripe
+3. Update database schema:
+   - Add `stripeCustomerId` to User
+   - Add `paymentStatus` to Order
+4. Implement frontend:
+   - Stripe Elements component
+   - Payment form
+5. Test with Stripe test mode
+
+**Estimated Time**: 2-3 days
+
+### 5. Risks & Mitigations
+
+| Risk | Mitigation |
+|------|------------|
+| Webhook failures | Implement retry logic |
+| Double charging | Use idempotency keys |
+| Security | Verify webhook signatures |
+| PCI compliance | Use Stripe Elements (they handle it) |
+
+### 6. Recommendation
+
+✅ **FEASIBLE**
+
+Stripe integration is straightforward with current stack.
+Recommend using `backend-specialist` for API implementation
+and `frontend-specialist` for checkout UI.
+
+**Suggested Agent Assignment:**
+1. `backend-specialist`: Stripe API routes and webhooks
+2. `database-architect`: Schema changes
+3. `frontend-specialist`: Checkout UI with Stripe Elements
+4. `test-engineer`: Payment flow E2E tests
+5. `security-auditor`: Security review of payment flow
+```
+
+### Use Case 3: Dependency Analysis
+
+```
+User: "Why is the bundle so large?"
+
+[Explorer Agent - Dependency Intelligence]
+
+## Bundle Analysis
+
+### 1. Dependency Tree
+
+```bash
+npm list --depth=0
+```
+
+Direct dependencies: 45
+Total dependencies: 892
+
+### 2. Large Dependencies Identified
+
+| Package | Size | Usage |
+|---------|------|-------|
+| `moment` | 300KB | Date formatting (1 file) |
+| `lodash` | 150KB | Used in 5 files |
+| `axios` | 100KB | HTTP client |
+| `chart.js` | 200KB | Dashboard charts |
+
+### 3. Coupling Analysis
+
+**Tightly Coupled:**
+- `moment` imported in 15 components
+  - Risk: Hard to replace
+  - Recommendation: Use date-fns (tree-shakeable)
+
+**Loosely Coupled:**
+- `chart.js` only in Dashboard
+  - Risk: Low
+  - Recommendation: Code split
+
+### 4. Optimization Recommendations
+
+**High Impact (300KB savings):**
+1. Replace `moment` with `date-fns`
+   - Before: 300KB
+   - After: 15KB (only imported functions)
+   - Files affected: 15
+
+**Medium Impact (150KB savings):**
+2. Replace full `lodash` imports
+   - Before: `import _ from 'lodash'`
+   - After: `import debounce from 'lodash/debounce'`
+
+**Low Impact (200KB savings):**
+3. Code split `chart.js`
+   - Lazy load dashboard module
+
+**Total Potential Savings**: 650KB (81% reduction)
+
+### 5. Migration Plan
+
+For Project Planner:
+1. Create task: Replace moment with date-fns
+2. Create task: Optimize lodash imports
+3. Create task: Implement code splitting
+
+Estimated effort: 1-2 days
+```
+
+## Discovery Flow
+
+1. **Initial Survey**: List directories, find entry points
+2. **Dependency Tree**: Trace imports and exports for data flow
+3. **Pattern Identification**: Search for architectural signatures
+4. **Resource Mapping**: Identify assets, configs, environment variables
+5. **Risk Assessment**: Flag potential issues
+6. **Knowledge Synthesis**: Compile report for other agents
+
+## Review Checklist
+
+- [ ] Architectural pattern clearly identified?
+- [ ] All critical dependencies mapped?
+- [ ] Hidden side effects in core logic identified?
+- [ ] Tech stack consistent with modern best practices?
+- [ ] Unused or dead code sections flagged?
+
+## Best Practices
+
+<CardGroup cols={2}>
+  <Card title="Survey First" icon="map">
+    Always map before modifying - understand the landscape
+  </Card>
+  <Card title="Document Findings" icon="file-lines">
+    Create clear reports for other agents to use
+  </Card>
+  <Card title="Identify Risks" icon="triangle-exclamation">
+    Proactively flag potential issues before they become problems
+  </Card>
+  <Card title="Provide Context" icon="lightbulb">
+    Explain why things exist, not just what they are
+  </Card>
+</CardGroup>
+
+## Automatic Selection Triggers
+
+Explorer Agent is automatically selected when:
+- Orchestrator needs codebase mapping
+- User asks to "analyze", "explore", "survey" codebase
+- User requests "architecture review", "dependency analysis"
+- Feasibility research needed
+
+## Related Agents
+
+<CardGroup cols={2}>
+  <Card title="Orchestrator" icon="sitemap" href="/agents/orchestrator">
+    Uses Explorer findings to coordinate other agents
+  </Card>
+  <Card title="Project Planner" icon="list-check" href="/agents/project-planner">
+    Uses Explorer findings to create execution plans
+  </Card>
+</CardGroup>

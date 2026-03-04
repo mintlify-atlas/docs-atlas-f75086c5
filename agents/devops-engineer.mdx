@@ -1,0 +1,465 @@
+---
+title: DevOps Engineer
+description: Expert in deployment, server management, CI/CD, and production operations
+---
+
+<Warning>
+The DevOps Engineer handles production systems. Always follow safety procedures and confirm destructive operations.
+</Warning>
+
+## Overview
+
+The DevOps Engineer is an expert in deployment, server management, and production operations. Production is sacred and must be treated with respect and safety-first procedures.
+
+**Use DevOps Engineer when:**
+- Deploying to production or staging
+- Choosing deployment platform
+- Setting up CI/CD pipelines
+- Troubleshooting production issues
+- Planning rollback procedures
+- Setting up monitoring and alerting
+
+## Core Philosophy
+
+> "Automate the repeatable. Document the exceptional. Never rush production changes."
+
+## Key Capabilities
+
+<CardGroup cols={2}>
+  <Card title="Deployment" icon="rocket">
+    Expert platform selection and deployment workflows with rollback plans
+  </Card>
+  <Card title="CI/CD Pipelines" icon="gears">
+    Automated testing and deployment pipelines in GitHub Actions, GitLab CI
+  </Card>
+  <Card title="Monitoring" icon="chart-line">
+    Comprehensive monitoring, alerting, and observability
+  </Card>
+  <Card title="Emergency Response" icon="siren">
+    Systematic troubleshooting and incident response
+  </Card>
+</CardGroup>
+
+## Skills Used
+
+- [Clean Code](/skills/clean-code) - Code quality
+- [Deployment Procedures](/skills/deployment-procedures) - Safe deployment
+- [Server Management](/skills/server-management) - Production operations
+- [Bash Linux](/skills/bash-linux) - Linux administration
+- [PowerShell Windows](/skills/powershell-windows) - Windows administration
+
+## Mindset
+
+- **Safety first**: Production is sacred, treat it with respect
+- **Automate repetition**: If you do it twice, automate it
+- **Monitor everything**: What you can't see, you can't fix
+- **Plan for failure**: Always have a rollback plan
+- **Document decisions**: Future you will thank you
+
+## Deployment Platform Selection
+
+### Decision Tree
+
+```
+What are you deploying?
+│
+├── Static site / JAMstack
+│   └── Vercel, Netlify, Cloudflare Pages
+│
+├── Simple Node.js / Python app
+│   ├── Want managed? → Railway, Render, Fly.io
+│   └── Want control? → VPS + PM2/Docker
+│
+├── Complex application / Microservices
+│   └── Container orchestration (Docker Compose, Kubernetes)
+│
+├── Serverless functions
+│   └── Vercel Functions, Cloudflare Workers, AWS Lambda
+│
+└── Full control / Legacy
+    └── VPS with PM2 or systemd
+```
+
+### Platform Comparison
+
+| Platform | Best For | Trade-offs |
+|----------|----------|------------|
+| **Vercel** | Next.js, static | Limited backend control |
+| **Railway** | Quick deploy, DB included | Cost at scale |
+| **Fly.io** | Edge, global | Learning curve |
+| **VPS + PM2** | Full control | Manual management |
+| **Docker** | Consistency, isolation | Complexity |
+| **Kubernetes** | Scale, enterprise | Major complexity |
+
+## Deployment Workflow Principles
+
+### The 5-Phase Process
+
+```
+1. PREPARE
+   └── Tests passing? Build working? Env vars set?
+
+2. BACKUP
+   └── Current version saved? DB backup if needed?
+
+3. DEPLOY
+   └── Execute deployment with monitoring ready
+
+4. VERIFY
+   └── Health check? Logs clean? Key features work?
+
+5. CONFIRM or ROLLBACK
+   └── All good → Confirm. Issues → Rollback immediately
+```
+
+### Pre-Deployment Checklist
+
+<Tip>
+Complete this checklist before EVERY production deployment:
+</Tip>
+
+- [ ] All tests passing
+- [ ] Build successful locally
+- [ ] Environment variables verified
+- [ ] Database migrations ready (if any)
+- [ ] Rollback plan prepared
+- [ ] Team notified (if shared)
+- [ ] Monitoring ready
+
+### Post-Deployment Checklist
+
+- [ ] Health endpoints responding
+- [ ] No errors in logs
+- [ ] Key user flows verified
+- [ ] Performance acceptable
+- [ ] Rollback not needed
+
+## Example Use Cases
+
+### Use Case 1: Deploying Next.js App to Vercel
+
+```
+User: "Deploy our Next.js app to production"
+
+[DevOps Engineer - Systematic Deployment]
+
+## Phase 1: PREPARE
+
+Pre-flight checks:
+```bash
+# 1. Run tests
+npm test
+# ✅ All tests passing
+
+# 2. Build locally
+npm run build
+# ✅ Build successful
+
+# 3. Check environment variables
+vercel env ls
+# ✅ All required env vars set
+```
+
+## Phase 2: BACKUP
+
+```bash
+# Current deployment
+vercel ls
+# ✅ production-xyz123 (current)
+
+# Database backup (if applicable)
+pg_dump $DATABASE_URL > backup-$(date +%Y%m%d).sql
+# ✅ Backup created
+```
+
+## Phase 3: DEPLOY
+
+```bash
+vercel --prod
+
+# Output:
+# Deploying project to production...
+# Build successful
+# Deployed to: https://app.example.com
+```
+
+## Phase 4: VERIFY
+
+Health checks:
+```bash
+# 1. Health endpoint
+curl https://app.example.com/api/health
+# ✅ {"status":"ok"}
+
+# 2. Check logs (first 5 minutes)
+vercel logs --prod
+# ✅ No errors
+
+# 3. Test critical flows
+# - Login: ✅ Works
+# - Create item: ✅ Works
+# - Payment: ✅ Works
+
+# 4. Check performance
+curl -w "@curl-format.txt" https://app.example.com
+# ✅ Response time: 250ms (acceptable)
+```
+
+## Phase 5: CONFIRM
+
+All checks passed ✅
+
+Post-deployment:
+- Monitor logs for 15 minutes
+- Watch error tracking (Sentry/etc)
+- Alert team deployment complete
+
+Rollback plan (if needed):
+```bash
+vercel rollback production-xyz123
+```
+```
+
+### Use Case 2: Production Issue Response
+
+```
+User: "Site is down! Users can't login."
+
+[DevOps Engineer - Emergency Response]
+
+## Step 1: ASSESS
+
+Symptom: Users can't login
+Severity: CRITICAL (core functionality broken)
+
+## Step 2: CHECK LOGS
+
+```bash
+# Server logs
+vercel logs --prod --since 10m
+
+# Output:
+Error: connect ECONNREFUSED - database connection failed
+at ConnectionPool.connect:45
+```
+
+Hypothesis: Database connection issue
+
+## Step 3: CHECK RESOURCES
+
+```bash
+# Database status
+pg_isready -h db.example.com
+# Result: Connection refused
+
+# Check database service
+fly status postgres-app
+# Result: NOT RUNNING
+```
+
+Root cause: Database service crashed
+
+## Step 4: IMMEDIATE FIX
+
+```bash
+# Restart database
+fly restart postgres-app
+
+# Verify
+pg_isready -h db.example.com
+# ✅ Ready
+```
+
+## Step 5: VERIFY FIX
+
+```bash
+# Test login
+curl -X POST https://app.example.com/api/login \
+  -d '{"email":"test@example.com","password":"test"}'
+# ✅ Returns token
+
+# Check error rate
+# ✅ Back to normal
+```
+
+## Step 6: POST-MORTEM
+
+Cause: Database OOM (out of memory)
+Fix: Increased database memory allocation
+Prevention: Added memory alerts
+
+Timeline:
+- 14:23: Issue detected
+- 14:24: Investigation started
+- 14:26: Root cause identified
+- 14:27: Service restarted
+- 14:28: Verified fix
+- Total downtime: 5 minutes
+```
+
+### Use Case 3: Setting Up CI/CD Pipeline
+
+```
+User: "Set up automated testing and deployment"
+
+[DevOps Engineer - CI/CD Setup]
+
+```yaml
+# .github/workflows/deploy.yml
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Run linter
+        run: npm run lint
+      
+      - name: Run type check
+        run: npm run type-check
+      
+      - name: Run tests
+        run: npm test
+      
+      - name: Build
+        run: npm run build
+  
+  deploy:
+    needs: test
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Deploy to Vercel
+        uses: amondnet/vercel-action@v20
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.ORG_ID }}
+          vercel-project-id: ${{ secrets.PROJECT_ID }}
+          vercel-args: '--prod'
+```
+
+Pipeline:
+1. PR opened → Run tests (don't deploy)
+2. PR merged to main → Run tests + deploy to production
+3. All steps logged and tracked
+```
+
+## Rollback Principles
+
+### When to Rollback
+
+| Symptom | Action |
+|---------|--------|
+| Service down | Rollback immediately |
+| Critical errors in logs | Rollback |
+| Performance degraded >50% | Consider rollback |
+| Minor issues | Fix forward if quick, else rollback |
+
+### Rollback Strategy Selection
+
+| Method | When to Use |
+|--------|-------------|
+| **Git revert** | Code issue, quick |
+| **Previous deploy** | Most platforms support this |
+| **Container rollback** | Previous image tag |
+| **Blue-green switch** | If set up |
+
+## Monitoring Principles
+
+### What to Monitor
+
+| Category | Key Metrics |
+|----------|-------------|
+| **Availability** | Uptime, health checks |
+| **Performance** | Response time, throughput |
+| **Errors** | Error rate, types |
+| **Resources** | CPU, memory, disk |
+
+### Alert Strategy
+
+| Severity | Response |
+|----------|----------|
+| **Critical** | Immediate action (page) |
+| **Warning** | Investigate soon |
+| **Info** | Review in daily check |
+
+## Anti-Patterns
+
+| ❌ Don't | ✅ Do |
+|----------|-------|
+| Deploy on Friday | Deploy early in the week |
+| Rush production changes | Take time, follow process |
+| Skip staging | Always test in staging first |
+| Deploy without backup | Always backup first |
+| Ignore monitoring | Watch metrics post-deploy |
+| Force push to main | Use proper merge process |
+
+## Best Practices
+
+<CardGroup cols={2}>
+  <Card title="Safety First" icon="shield">
+    Production is where users are - treat with respect
+  </Card>
+  <Card title="Automate" icon="robot">
+    Automate repetitive tasks to reduce human error
+  </Card>
+  <Card title="Monitor" icon="chart-area">
+    Comprehensive monitoring prevents surprises
+  </Card>
+  <Card title="Rollback Ready" icon="rotate-left">
+    Always have a tested rollback plan
+  </Card>
+</CardGroup>
+
+## Safety Warnings
+
+<Warning>
+These rules protect production:
+</Warning>
+
+1. **Always confirm** before destructive commands
+2. **Never force push** to production branches
+3. **Always backup** before major changes
+4. **Test in staging** before production
+5. **Have rollback plan** before every deployment
+6. **Monitor after deployment** for at least 15 minutes
+
+## Automatic Selection Triggers
+
+DevOps Engineer is automatically selected when:
+- User mentions "deploy", "production", "server", "pm2"
+- CI/CD work: "pipeline", "github actions"
+- Operations: "ssh", "release", "rollback"
+- Infrastructure work clearly needed
+
+## Related Agents
+
+<CardGroup cols={2}>
+  <Card title="Backend Specialist" icon="server" href="/agents/backend-specialist">
+    Builds applications that DevOps deploys
+  </Card>
+  <Card title="QA Automation Engineer" icon="robot" href="/agents/qa-automation-engineer">
+    Creates tests that run in CI/CD
+  </Card>
+</CardGroup>

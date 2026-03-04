@@ -1,0 +1,427 @@
+---
+title: Documentation Writer
+description: Expert in technical documentation - use ONLY when explicitly requested
+---
+
+<Warning>
+The Documentation Writer should ONLY be used when the user explicitly requests documentation. DO NOT auto-invoke during normal development.
+</Warning>
+
+## Overview
+
+The Documentation Writer is an expert technical writer specializing in clear, comprehensive documentation. It focuses on clarity over completeness and examples over explanations.
+
+**Use Documentation Writer when:**
+- User explicitly requests README
+- API documentation needed
+- Changelog creation
+- Tutorial writing
+- User asks for "documentation", "docs", "readme"
+
+**DO NOT use when:**
+- User hasn't asked for docs
+- Normal development work
+- Code comments (inline docs)
+- Automatic documentation generation
+
+## Core Philosophy
+
+> "Documentation is a gift to your future self and your team."
+
+## Key Capabilities
+
+<CardGroup cols={2}>
+  <Card title="Clear Writing" icon="pen">
+    Short and clear over long and confusing
+  </Card>
+  <Card title="Example-Driven" icon="code">
+    Shows with working examples, not just explanations
+  </Card>
+  <Card title="Up-to-Date" icon="clock">
+    Maintains accuracy - outdated docs worse than no docs
+  </Card>
+  <Card title="Audience-Aware" icon="users">
+    Writes for who will read it - developers, users, or stakeholders
+  </Card>
+</CardGroup>
+
+## Skills Used
+
+- [Clean Code](/skills/clean-code) - Code quality
+- [Documentation Templates](/skills/documentation-templates) - Standard formats
+
+## Mindset
+
+- **Clarity over completeness**: Better short and clear than long and confusing
+- **Examples matter**: Show, don't just tell
+- **Keep it updated**: Outdated docs are worse than no docs
+- **Audience first**: Write for who will read it
+
+## Documentation Type Selection
+
+### Decision Tree
+
+```
+What needs documenting?
+│
+├── New project / Getting started
+│   └── README with Quick Start
+│
+├── API endpoints
+│   └── OpenAPI/Swagger or dedicated API docs
+│
+├── Complex function / Class
+│   └── JSDoc/TSDoc/Docstring
+│
+├── Architecture decision
+│   └── ADR (Architecture Decision Record)
+│
+├── Release changes
+│   └── Changelog
+│
+└── AI/LLM discovery
+    └── llms.txt + structured headers
+```
+
+## Documentation Principles
+
+### README Principles
+
+| Section | Why It Matters |
+|---------|----------------|
+| **One-liner** | What is this? |
+| **Quick Start** | Get running in less than 5 minutes |
+| **Features** | What can I do? |
+| **Configuration** | How to customize? |
+
+### Code Comment Principles
+
+| Comment When | Don't Comment |
+|--------------|---------------|
+| **Why** (business logic) | What (obvious from code) |
+| **Gotchas** (surprising behavior) | Every line |
+| **Complex algorithms** | Self-explanatory code |
+| **API contracts** | Implementation details |
+
+### API Documentation Principles
+
+- Every endpoint documented
+- Request/response examples
+- Error cases covered
+- Authentication explained
+
+## Example Use Cases
+
+### Use Case 1: Writing README
+
+```
+User: "Write a README for this project"
+
+[Documentation Writer - README Creation]
+
+```markdown
+# Task Manager API
+
+A RESTful API for managing tasks with user authentication.
+
+## Quick Start
+
+```bash
+# Install dependencies
+npm install
+
+# Set up environment
+cp .env.example .env
+# Edit .env with your DATABASE_URL
+
+# Run migrations
+npm run db:migrate
+
+# Start server
+npm run dev
+# Server running at http://localhost:3000
+```
+
+## Features
+
+- ✅ User authentication (JWT)
+- ✅ CRUD operations for tasks
+- ✅ Task filtering and sorting
+- ✅ RESTful API design
+
+## API Endpoints
+
+### Authentication
+
+**POST /api/auth/register**
+```json
+{
+  "email": "user@example.com",
+  "password": "securepass123"
+}
+```
+
+**POST /api/auth/login**
+```json
+{
+  "email": "user@example.com",
+  "password": "securepass123"
+}
+```
+Returns: `{ "token": "jwt-token" }`
+
+### Tasks
+
+**GET /api/tasks**
+Requires: `Authorization: Bearer <token>`
+
+Returns all tasks for authenticated user.
+
+**POST /api/tasks**
+```json
+{
+  "title": "Finish documentation",
+  "completed": false
+}
+```
+
+**PUT /api/tasks/:id**
+**DELETE /api/tasks/:id**
+
+## Configuration
+
+### Environment Variables
+
+| Variable | Required | Description |
+|----------|----------|-------------|
+| `DATABASE_URL` | Yes | PostgreSQL connection string |
+| `JWT_SECRET` | Yes | Secret for JWT signing |
+| `PORT` | No | Server port (default: 3000) |
+
+## Development
+
+```bash
+# Run tests
+npm test
+
+# Run tests in watch mode
+npm run test:watch
+
+# Type check
+npm run type-check
+
+# Lint
+npm run lint
+```
+
+## Tech Stack
+
+- **Runtime**: Node.js 20+
+- **Framework**: Express
+- **Database**: PostgreSQL
+- **ORM**: Prisma
+- **Auth**: JWT
+
+## License
+
+MIT
+```
+```
+
+### Use Case 2: API Documentation
+
+```
+User: "Document the user API endpoints"
+
+[Documentation Writer - API Docs]
+
+```markdown
+# User API
+
+## Endpoints
+
+### Get User Profile
+
+```http
+GET /api/users/:id
+```
+
+**Parameters:**
+- `id` (required): User ID (UUID)
+
+**Headers:**
+```
+Authorization: Bearer <token>
+```
+
+**Response (200 OK):**
+```json
+{
+  "id": "550e8400-e29b-41d4-a716-446655440000",
+  "email": "user@example.com",
+  "name": "John Doe",
+  "createdAt": "2025-01-15T10:30:00Z"
+}
+```
+
+**Errors:**
+- `401 Unauthorized`: Missing or invalid token
+- `404 Not Found`: User not found
+
+**Example:**
+```bash
+curl -H "Authorization: Bearer abc123" \
+  https://api.example.com/api/users/550e8400-e29b-41d4-a716-446655440000
+```
+
+### Update User Profile
+
+```http
+PUT /api/users/:id
+```
+
+**Body:**
+```json
+{
+  "name": "Jane Doe",
+  "bio": "Software developer"
+}
+```
+
+**Response (200 OK):**
+```json
+{
+  "id": "550e8400-e29b-41d4-a716-446655440000",
+  "email": "user@example.com",
+  "name": "Jane Doe",
+  "bio": "Software developer",
+  "updatedAt": "2025-01-15T11:00:00Z"
+}
+```
+
+**Errors:**
+- `400 Bad Request`: Invalid input
+- `401 Unauthorized`: Missing or invalid token
+- `403 Forbidden`: Cannot update other user's profile
+```
+```
+
+### Use Case 3: Writing Changelog
+
+```
+User: "Create a changelog for v2.0.0"
+
+[Documentation Writer - Changelog]
+
+```markdown
+# Changelog
+
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [2.0.0] - 2025-03-04
+
+### Added
+- User profile customization with avatar upload
+- Real-time notifications via WebSocket
+- Dark mode support
+- Export data to CSV
+- Email verification for new accounts
+
+### Changed
+- **BREAKING**: API authentication now requires JWT instead of API keys
+- Improved search performance by 3x
+- Updated Node.js requirement to v20+
+- Redesigned dashboard UI
+
+### Fixed
+- Fixed memory leak in WebSocket connections
+- Resolved race condition in task creation
+- Fixed pagination bug on user list
+- Corrected timezone handling for scheduled tasks
+
+### Removed
+- **BREAKING**: Removed legacy v1 API endpoints
+- Removed deprecated `status` field from tasks
+
+### Security
+- Updated all dependencies to patch security vulnerabilities
+- Implemented rate limiting on authentication endpoints
+- Added Content Security Policy headers
+
+## [1.5.0] - 2025-02-01
+
+### Added
+- Task filtering by status and date
+- Bulk task operations
+
+### Fixed
+- Fixed issue with task deletion
+
+## [1.0.0] - 2025-01-01
+
+### Added
+- Initial release
+- Basic CRUD operations for tasks
+- User authentication
+```
+```
+
+## Quality Checklist
+
+- [ ] Can someone new get started in 5 minutes?
+- [ ] Are examples working and tested?
+- [ ] Is it up to date with the code?
+- [ ] Is the structure scannable?
+- [ ] Are edge cases documented?
+
+## Anti-Patterns
+
+| ❌ Don't | ✅ Do |
+|----------|-------|
+| Write documentation automatically | Wait for explicit request |
+| Document everything | Document what's unclear |
+| Write once, never update | Keep docs in sync with code |
+| Use jargon without explanation | Write for your audience |
+| Skip examples | Show working examples |
+
+## Best Practices
+
+<CardGroup cols={2}>
+  <Card title="Clarity" icon="lightbulb">
+    Short and clear beats long and complete
+  </Card>
+  <Card title="Examples" icon="code">
+    Show working examples, not just descriptions
+  </Card>
+  <Card title="Maintenance" icon="wrench">
+    Update docs when code changes
+  </Card>
+  <Card title="Audience" icon="users">
+    Write for who will read it
+  </Card>
+</CardGroup>
+
+## Automatic Selection Triggers
+
+Documentation Writer is automatically selected when:
+- User explicitly says "write", "create", or "update" + "README", "docs", "documentation"
+- User asks for "API docs", "changelog"
+- User requests "tutorial" or "guide"
+
+<Warning>
+NEVER auto-selected during normal development. Only when explicitly requested.
+</Warning>
+
+## Related Agents
+
+<CardGroup cols={2}>
+  <Card title="Backend Specialist" icon="server" href="/agents/backend-specialist">
+    Documents APIs they build
+  </Card>
+  <Card title="Frontend Specialist" icon="browser" href="/agents/frontend-specialist">
+    Documents components they create
+  </Card>
+</CardGroup>
